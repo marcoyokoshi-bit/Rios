@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>RIOS — Escala de Equipe</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --dk:#050510;--dk2:#0a0a1e;--sf:#101028;
+  --bl:#2b8fff;--cy:#00d4ff;--or:#ff8c00;--rd:#ff4d6a;
+  --gn:#27d97e;--yl:#ffd93d;--tx:#e8eaf0;--sb:#7a8ca0;
+  --esc:#f59e0b;
+}
+html,body{height:100%;width:100%;background:var(--dk);color:var(--tx);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;overflow:hidden;}
+#bgCanvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
+
+/* TOPBAR */
+.topbar{
+  height:52px;background:var(--dk2);border-bottom:1px solid rgba(255,255,255,.06);
+  display:flex;align-items:center;padding:0 16px;gap:10px;flex-shrink:0;
+  position:relative;z-index:10;
+}
+.back-btn{
+  width:32px;height:32px;border-radius:8px;display:flex;align-items:center;
+  justify-content:center;cursor:pointer;color:rgba(255,255,255,.3);
+  border:1px solid transparent;transition:.2s;text-decoration:none;
+}
+.back-btn:hover{color:var(--esc);background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.2);}
+.back-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.topbar-logo{font-size:20px;font-weight:900;color:var(--bl);letter-spacing:-1px;}
+.topbar-sep{width:1px;height:22px;background:rgba(255,255,255,.08);}
+.topbar-page{font-size:13px;color:var(--sb);flex:1;}
+.topbar-badge{
+  font-size:9px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.5px;
+  background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.3);color:var(--esc);
+}
+
+/* LAYOUT */
+.layout{display:flex;height:calc(100vh - 52px);overflow:hidden;position:relative;z-index:5;}
+.sidebar{
+  width:260px;flex-shrink:0;background:var(--dk2);border-right:1px solid rgba(255,255,255,.06);
+  display:flex;flex-direction:column;overflow:hidden;
+}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+
+/* SIDEBAR */
+.sidebar-header{
+  padding:14px 14px 10px;border-bottom:1px solid rgba(255,255,255,.06);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.sidebar-title{font-size:11px;font-weight:700;color:var(--sb);letter-spacing:1px;text-transform:uppercase;}
+.btn-add-func{
+  width:26px;height:26px;border-radius:7px;background:rgba(245,158,11,.15);
+  border:1px solid rgba(245,158,11,.3);color:var(--esc);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:16px;transition:.2s;
+}
+.btn-add-func:hover{background:rgba(245,158,11,.25);}
+.func-list{flex:1;overflow-y:auto;padding:8px;}
+.func-list::-webkit-scrollbar{width:3px;}
+.func-list::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:3px;}
+.func-card{
+  padding:10px 12px;border-radius:10px;margin-bottom:6px;cursor:pointer;
+  background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);transition:.2s;
+}
+.func-card:hover{background:rgba(245,158,11,.05);border-color:rgba(245,158,11,.2);}
+.func-card.selected{background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.3);}
+.func-nome{font-size:13px;font-weight:600;margin-bottom:2px;}
+.func-cargo{font-size:10px;color:var(--sb);}
+.func-tags{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap;}
+.func-tag{
+  font-size:9px;padding:2px 6px;border-radius:4px;font-weight:600;
+  background:rgba(43,143,255,.15);color:var(--bl);
+}
+.func-tag.folga{background:rgba(255,77,106,.15);color:var(--rd);}
+.func-tag.part{background:rgba(39,217,126,.15);color:var(--gn);}
+
+.sidebar-section{
+  border-top:1px solid rgba(255,255,255,.06);padding:10px 14px;
+}
+.sidebar-section-title{font-size:10px;color:var(--sb);font-weight:600;letter-spacing:.5px;margin-bottom:8px;text-transform:uppercase;}
+.semana-nav{display:flex;align-items:center;justify-content:space-between;}
+.semana-btn{
+  width:28px;height:28px;border-radius:7px;background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);cursor:pointer;color:var(--sb);
+  display:flex;align-items:center;justify-content:center;font-size:14px;transition:.2s;
+}
+.semana-btn:hover{background:rgba(245,158,11,.1);color:var(--esc);}
+.semana-label{font-size:11px;color:var(--tx);font-weight:600;}
+
+.custo-box{
+  background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);
+  border-radius:10px;padding:10px 12px;margin-top:8px;
+}
+.custo-val{font-size:18px;font-weight:800;color:var(--esc);}
+.custo-lbl{font-size:9px;color:var(--sb);margin-top:1px;}
+
+.btn-gerar{
+  margin:10px 14px 14px;padding:11px;border-radius:10px;
+  background:linear-gradient(135deg,var(--esc),#d97706);border:none;
+  color:#000;font-size:12px;font-weight:800;cursor:pointer;transition:.2s;
+  letter-spacing:.3px;
+}
+.btn-gerar:hover{opacity:.88;transform:translateY(-1px);}
+.btn-gerar:active{transform:scale(.97);}
+
+/* MAIN — GRADE DE ESCALA */
+.grade-header{
+  padding:12px 16px 8px;border-bottom:1px solid rgba(255,255,255,.06);
+  display:flex;align-items:center;gap:10px;
+}
+.grade-title{font-size:14px;font-weight:700;}
+.grade-sub{font-size:11px;color:var(--sb);flex:1;}
+.btn-exportar{
+  padding:7px 14px;border-radius:8px;background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);color:var(--sb);font-size:11px;
+  cursor:pointer;transition:.2s;font-weight:600;
+}
+.btn-exportar:hover{background:rgba(39,217,126,.1);color:var(--gn);border-color:rgba(39,217,126,.2);}
+
+.grade-wrap{flex:1;overflow:auto;padding:12px 16px;}
+.grade-wrap::-webkit-scrollbar{width:4px;height:4px;}
+.grade-wrap::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:3px;}
+
+.grade-table{width:100%;border-collapse:collapse;min-width:700px;}
+.grade-table th{
+  padding:8px 10px;font-size:10px;font-weight:700;letter-spacing:.5px;
+  text-transform:uppercase;color:var(--sb);text-align:center;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  background:var(--dk2);
+}
+.grade-table th.th-nome{text-align:left;width:140px;}
+.grade-table td{
+  padding:6px 4px;border-bottom:1px solid rgba(255,255,255,.04);
+  vertical-align:middle;
+}
+.td-nome{
+  padding:6px 10px;font-size:12px;font-weight:600;color:var(--tx);
+}
+.td-sub{font-size:9px;color:var(--sb);}
+
+.turno-cell{
+  border-radius:6px;margin:2px;padding:5px 4px;cursor:pointer;
+  text-align:center;font-size:9px;font-weight:700;transition:.2s;
+  min-height:38px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;
+}
+.turno-cell:hover{filter:brightness(1.2);}
+.turno-manha  {background:rgba(255,212,61,.15); color:var(--yl);  border:1px solid rgba(255,212,61,.25);}
+.turno-tarde  {background:rgba(245,158,11,.15);color:var(--esc); border:1px solid rgba(245,158,11,.25);}
+.turno-noite  {background:rgba(43,143,255,.15); color:var(--bl);  border:1px solid rgba(43,143,255,.25);}
+.turno-folga  {background:rgba(255,255,255,.03);color:var(--sb);  border:1px solid rgba(255,255,255,.06);}
+.turno-ferias {background:rgba(39,217,126,.12); color:var(--gn);  border:1px solid rgba(39,217,126,.2);}
+.turno-label  {font-size:8px;font-weight:800;letter-spacing:.3px;}
+.turno-hora   {font-size:7px;opacity:.7;}
+
+/* PAINEL IA */
+.ia-panel{
+  border-top:1px solid rgba(255,255,255,.06);padding:12px 16px;
+  background:rgba(245,158,11,.03);
+}
+.ia-panel-header{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.ia-icon{font-size:16px;}
+.ia-title{font-size:12px;font-weight:700;color:var(--esc);}
+.ia-resultado{
+  font-size:11px;color:var(--sb);line-height:1.6;
+  max-height:80px;overflow-y:auto;
+}
+.ia-resultado::-webkit-scrollbar{width:2px;}
+.ia-resultado::-webkit-scrollbar-thumb{background:rgba(245,158,11,.3);}
+
+/* MODAL */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);
+  z-index:100;display:none;align-items:center;justify-content:center;
+}
+.modal-overlay.open{display:flex;}
+.modal{
+  background:var(--dk2);border:1px solid rgba(255,255,255,.1);border-radius:16px;
+  padding:20px;width:440px;max-width:97vw;max-height:92vh;overflow-y:auto;
+}
+.modal-title{font-size:15px;font-weight:800;margin-bottom:16px;}
+.form-group{margin-bottom:12px;}
+.form-label{font-size:10px;color:var(--sb);font-weight:600;letter-spacing:.3px;margin-bottom:4px;display:block;}
+.form-input{
+  width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+  border-radius:9px;padding:10px 12px;color:var(--tx);font-size:13px;outline:none;transition:.2s;
+}
+.form-input:focus{border-color:var(--esc);box-shadow:0 0 0 2px rgba(245,158,11,.15);}
+.form-select{
+  width:100%;background:var(--sf);border:1px solid rgba(255,255,255,.1);
+  border-radius:9px;padding:10px 12px;color:var(--tx);font-size:13px;outline:none;
+  appearance:none;
+}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.disponibilidade-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+.disp-btn{
+  padding:6px 2px;border-radius:6px;text-align:center;font-size:9px;font-weight:700;cursor:pointer;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:var(--sb);transition:.2s;
+}
+.disp-btn.ativo{background:rgba(39,217,126,.15);border-color:rgba(39,217,126,.3);color:var(--gn);}
+.disp-btn.dom-ativo{background:rgba(255,141,0,.15);border-color:rgba(255,141,0,.4);color:var(--or);}
+.modal-btns{display:flex;gap:8px;margin-top:16px;}
+/* Jornada */
+.jornada-box{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px;margin-bottom:12px;}
+.jornada-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;}
+.jornada-row:last-child{margin-bottom:0;}
+input[type="time"]{color-scheme:dark;}
+.horas-badge{display:inline-block;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);color:var(--esc);font-size:11px;font-weight:700;padding:5px 10px;border-radius:7px;margin-top:8px;}
+/* CLT Alertas */
+.clt-box{margin-top:10px;display:flex;flex-direction:column;gap:5px;}
+.clt-item{font-size:10px;padding:6px 9px;border-radius:7px;line-height:1.5;}
+.clt-err{background:rgba(255,77,106,.1);border:1px solid rgba(255,77,106,.25);color:var(--rd);}
+.clt-warn{background:rgba(255,141,0,.1);border:1px solid rgba(255,141,0,.25);color:var(--or);}
+.clt-info{background:rgba(43,143,255,.1);border:1px solid rgba(43,143,255,.2);color:var(--bl);}
+.clt-ok{background:rgba(39,217,126,.08);border:1px solid rgba(39,217,126,.2);color:var(--gn);}
+.btn-cancel{flex:1;padding:11px;border-radius:9px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:var(--sb);cursor:pointer;font-size:12px;transition:.2s;}
+.btn-cancel:hover{background:rgba(255,255,255,.08);}
+.btn-salvar{flex:2;padding:11px;border-radius:9px;background:var(--esc);border:none;color:#000;font-weight:800;font-size:12px;cursor:pointer;transition:.2s;}
+.btn-salvar:hover{opacity:.88;}
+
+/* TOAST */
+.toast-wrap{position:fixed;bottom:20px;right:20px;z-index:999;display:flex;flex-direction:column;gap:8px;}
+.toast{background:rgba(20,20,40,.95);border:1px solid rgba(255,255,255,.1);border-radius:10px;
+  padding:10px 16px;font-size:12px;opacity:1;transition:opacity .3s;max-width:280px;}
+.toast.ok{border-color:rgba(39,217,126,.3);color:var(--gn);}
+.toast.err{border-color:rgba(255,77,106,.3);color:var(--rd);}
+
+/* VAGAS EM ABERTO */
+.vagas-section{border-top:1px solid rgba(255,255,255,.06);padding:10px 14px 4px;}
+.vagas-header-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.vagas-title{font-size:11px;font-weight:700;color:var(--sb);letter-spacing:1px;text-transform:uppercase;}
+.btn-add-vaga{width:26px;height:26px;border-radius:7px;background:rgba(39,217,126,.15);border:1px solid rgba(39,217,126,.3);color:var(--gn);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:.2s;}
+.btn-add-vaga:hover{background:rgba(39,217,126,.25);}
+.vagas-list{max-height:150px;overflow-y:auto;padding-bottom:6px;}
+.vagas-list::-webkit-scrollbar{width:3px;}
+.vagas-list::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:3px;}
+.vaga-item{background:rgba(39,217,126,.05);border:1px solid rgba(39,217,126,.15);border-radius:9px;padding:8px 10px;margin-bottom:5px;cursor:pointer;transition:.2s;}
+.vaga-item:hover{background:rgba(39,217,126,.1);border-color:rgba(39,217,126,.3);}
+.vaga-item.urgente{border-color:rgba(255,77,106,.3);background:rgba(255,77,106,.05);}
+.vaga-row{display:flex;align-items:center;justify-content:space-between;gap:4px;}
+.vaga-setor{font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;background:rgba(39,217,126,.15);color:var(--gn);letter-spacing:.3px;}
+.vaga-setor.urgente{background:rgba(255,77,106,.15);color:var(--rd);}
+.vaga-func{font-size:11px;font-weight:600;margin-top:3px;}
+.vaga-hora{font-size:9px;color:var(--sb);margin-top:2px;}
+.vaga-del{font-size:11px;background:none;border:none;cursor:pointer;color:var(--rd);opacity:.35;padding:0 2px;transition:.2s;}
+.vaga-del:hover{opacity:1;}
+
+/* EMPTY */
+.empty-state{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  height:100%;gap:12px;color:var(--sb);
+}
+.empty-icon{font-size:40px;opacity:.4;}
+.empty-text{font-size:13px;}
+.empty-sub{font-size:11px;opacity:.6;}
+</style>
+</head>
+<body>
+
+<canvas id="bgCanvas"></canvas>
+
+<div class="topbar">
+  <a href="/" class="back-btn" title="Voltar ao Dashboard">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+  </a>
+  <div class="topbar-logo">RIOS</div>
+  <div class="topbar-sep"></div>
+  <div class="topbar-page">&#128101; Escala de Equipe</div>
+  <span class="topbar-badge">&#10022; RIOS Cortex</span>
+</div>
+
+<div class="layout">
+  <!-- SIDEBAR: EQUIPE -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <span class="sidebar-title">Equipe</span>
+      <button class="btn-add-func" onclick="abrirModalFunc()" title="Adicionar funcionário">+</button>
+    </div>
+    <div class="func-list" id="func-list">
+      <div class="empty-state" style="height:140px;gap:8px;">
+        <div class="empty-icon">&#128101;</div>
+        <div class="empty-text" style="font-size:12px;">Nenhum funcionário cadastrado</div>
+        <button onclick="abrirModalFunc()" style="
+          padding:8px 18px;border-radius:9px;background:rgba(245,158,11,.2);
+          border:1px solid rgba(245,158,11,.4);color:var(--esc);font-size:11px;
+          font-weight:700;cursor:pointer;margin-top:4px;transition:.2s;
+        " onmouseover="this.style.background='rgba(245,158,11,.35)'"
+           onmouseout="this.style.background='rgba(245,158,11,.2)'">
+          + Adicionar primeiro funcionário
+        </button>
+      </div>
+    </div>
+
+    <!-- VAGAS EM ABERTO -->
+    <div class="vagas-section">
+      <div class="vagas-header-row">
+        <span class="vagas-title">&#128994; Vagas em Aberto</span>
+        <button class="btn-add-vaga" onclick="abrirModalVaga()" title="Adicionar vaga">+</button>
+      </div>
+      <div class="vagas-list" id="vagas-list">
+        <div style="font-size:10px;color:var(--sb);text-align:center;padding:8px 0;opacity:.55;">Nenhuma vaga cadastrada</div>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Semana</div>
+      <div class="semana-nav">
+        <button class="semana-btn" onclick="navSemana(-1)">&#8249;</button>
+        <span class="semana-label" id="semana-label">—</span>
+        <button class="semana-btn" onclick="navSemana(1)">&#8250;</button>
+      </div>
+      <div class="custo-box" id="custo-box" style="display:none;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:8px;">
+          <div>
+            <div class="custo-val" id="custo-val">R$ 0,00</div>
+            <div class="custo-lbl">Esta semana</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:13px;font-weight:700;color:rgba(245,158,11,.7);" id="custo-mensal">R$ 0,00</div>
+            <div class="custo-lbl">Mês estimado</div>
+          </div>
+        </div>
+        <div style="margin-top:6px;padding-top:6px;border-top:1px solid rgba(245,158,11,.15);">
+          <div style="font-size:9px;color:var(--sb);" id="custo-detalhe">—</div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-gerar" onclick="gerarEscalaIA()">&#10022; Gerar Escala com IA</button>
+  </div>
+
+  <!-- MAIN: GRADE -->
+  <div class="main">
+    <div class="grade-header">
+      <div>
+        <div class="grade-title">Grade Semanal</div>
+        <div class="grade-sub">Clique em um turno para alternar &middot; IA gera sugestao automatica</div>
+      </div>
+      <button class="btn-exportar" onclick="exportarEscala()">&#128196; Exportar</button>
+    </div>
+
+    <div class="grade-wrap" id="grade-wrap">
+      <div class="empty-state" style="gap:12px;padding:40px 20px;">
+        <div class="empty-icon">&#128203;</div>
+        <div class="empty-text" style="font-size:15px;font-weight:700;">Monte a escala da sua equipe</div>
+        <div class="empty-sub" style="font-size:12px;max-width:320px;text-align:center;line-height:1.7;opacity:.7;">
+          1. Cadastre os funcionários pelo painel à esquerda<br>
+          2. A grade semanal aparece automaticamente<br>
+          3. Clique em qualquer célula para alternar o turno<br>
+          4. Use "Gerar Escala com IA" para sugestão automática
+        </div>
+        <button onclick="abrirModalFunc()" style="
+          margin-top:8px;padding:11px 28px;border-radius:10px;
+          background:linear-gradient(135deg,rgba(245,158,11,.3),rgba(245,158,11,.15));
+          border:1px solid rgba(245,158,11,.4);color:var(--esc);font-size:13px;
+          font-weight:800;cursor:pointer;transition:.2s;letter-spacing:.3px;
+        " onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">
+          &#128101; Cadastrar primeiro funcionário
+        </button>
+      </div>
+    </div>
+
+    <!-- PAINEL IA -->
+    <div class="ia-panel" id="ia-panel" style="display:none;">
+      <div class="ia-panel-header">
+        <span class="ia-icon">&#10022;</span>
+        <span class="ia-title">RIOS Cortex — Analise da Escala</span>
+      </div>
+      <div class="ia-resultado" id="ia-resultado">Aguardando geracao de escala...</div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: CADASTRO DE FUNCIONARIO -->
+<div class="modal-overlay" id="modal-func">
+  <div class="modal">
+    <div class="modal-title">&#128101; Funcionário</div>
+
+    <div class="form-group">
+      <label class="form-label">NOME COMPLETO</label>
+      <input class="form-input" id="f-nome" type="text" placeholder="Ex: Ana Lima">
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">CARGO / FUNÇÃO</label>
+        <select class="form-select" id="f-cargo">
+          <option value="Chef de Cozinha">Chef de Cozinha</option>
+          <option value="Cozinheiro">Cozinheiro</option>
+          <option value="Auxiliar de Cozinha">Auxiliar de Cozinha</option>
+          <option value="Churrasqueiro">Churrasqueiro</option>
+          <option value="Confeiteiro">Confeiteiro</option>
+          <option value="Garcom">Garçom</option>
+          <option value="Caixa">Caixa</option>
+          <option value="Atendente">Atendente</option>
+          <option value="Gerente">Gerente</option>
+          <option value="Limpeza">Limpeza</option>
+          <option value="Delivery">Delivery</option>
+          <option value="Repositor">Repositor</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">CONTRATO</label>
+        <select class="form-select" id="f-contrato">
+          <option value="CLT">CLT</option>
+          <option value="PJ">PJ</option>
+          <option value="Temporario">Temporário</option>
+          <option value="Part-time">Part-time</option>
+          <option value="Estagiario">Estagiário</option>
+          <option value="Aprendiz">Aprendiz</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">SALÁRIO / MÊS (R$)</label>
+      <input class="form-input" id="f-salario" type="number" placeholder="2320" min="0" step="50">
+    </div>
+
+    <!-- JORNADA -->
+    <label class="form-label">JORNADA DE TRABALHO</label>
+    <div class="jornada-box">
+      <div class="jornada-row">
+        <div class="form-group" style="margin:0">
+          <label class="form-label">🟢 ENTRADA</label>
+          <input class="form-input" id="f-entrada" type="time" value="08:00" oninput="calcHoras()">
+        </div>
+        <div class="form-group" style="margin:0">
+          <label class="form-label">☕ INÍCIO PAUSA</label>
+          <input class="form-input" id="f-pausa-ini" type="time" value="12:00" oninput="calcHoras()">
+        </div>
+      </div>
+      <div class="jornada-row">
+        <div class="form-group" style="margin:0">
+          <label class="form-label">🔄 FIM PAUSA</label>
+          <input class="form-input" id="f-pausa-fim" type="time" value="13:00" oninput="calcHoras()">
+        </div>
+        <div class="form-group" style="margin:0">
+          <label class="form-label">🔴 SAÍDA</label>
+          <input class="form-input" id="f-saida" type="time" value="17:00" oninput="calcHoras()">
+        </div>
+      </div>
+      <div id="f-horas-badge"></div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">DIAS DISPONÍVEIS <span style="color:var(--or);font-size:9px;margin-left:4px;">DOM = aviso CLT automático</span></label>
+      <div class="disponibilidade-grid" id="disp-grid">
+        <div class="disp-btn ativo" data-dia="0" onclick="toggleDisp(this);calcHoras()">Seg</div>
+        <div class="disp-btn ativo" data-dia="1" onclick="toggleDisp(this);calcHoras()">Ter</div>
+        <div class="disp-btn ativo" data-dia="2" onclick="toggleDisp(this);calcHoras()">Qua</div>
+        <div class="disp-btn ativo" data-dia="3" onclick="toggleDisp(this);calcHoras()">Qui</div>
+        <div class="disp-btn ativo" data-dia="4" onclick="toggleDisp(this);calcHoras()">Sex</div>
+        <div class="disp-btn" data-dia="5" onclick="toggleDisp(this);calcHoras()">Sab</div>
+        <div class="disp-btn" data-dia="6" onclick="toggleDisp(this);calcHoras()">Dom</div>
+      </div>
+    </div>
+
+    <!-- ALERTAS CLT -->
+    <div class="clt-box" id="f-clt-alertas"></div>
+
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="fecharModal()">Cancelar</button>
+      <button class="btn-salvar" onclick="salvarFuncionario()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: VAGA EM ABERTO -->
+<div class="modal-overlay" id="modal-vaga">
+  <div class="modal" style="width:400px;">
+    <div class="modal-title">&#128994; Vaga em Aberto</div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">SETOR</label>
+        <select class="form-select" id="v-setor">
+          <option>Cozinha</option>
+          <option>Sal&#227;o</option>
+          <option>Bar</option>
+          <option>Caixa</option>
+          <option>Expedi&#231;&#227;o</option>
+          <option>Limpeza</option>
+          <option>Entrega</option>
+          <option>Gest&#227;o</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">PRIORIDADE</label>
+        <select class="form-select" id="v-prioridade">
+          <option value="normal">Normal</option>
+          <option value="urgente">&#128308; Urgente</option>
+          <option value="planejado">Planejado</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">FUN&#199;&#195;O / CARGO</label>
+      <select class="form-select" id="v-funcao">
+        <option>Chef de Cozinha</option>
+        <option>Cozinheiro</option>
+        <option>Auxiliar de Cozinha</option>
+        <option>Churrasqueiro</option>
+        <option>Confeiteiro</option>
+        <option>Gar&#231;om</option>
+        <option>Caixa</option>
+        <option>Atendente</option>
+        <option>Gerente</option>
+        <option>Limpeza</option>
+        <option>Delivery</option>
+        <option>Barman</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">&#128994; ENTRADA</label>
+        <input class="form-input" id="v-entrada" type="time" value="08:00">
+      </div>
+      <div class="form-group">
+        <label class="form-label">&#128308; SA&#205;DA</label>
+        <input class="form-input" id="v-saida" type="time" value="17:00">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">N&#186; DE VAGAS</label>
+        <input class="form-input" id="v-qtd" type="number" value="1" min="1" max="20">
+      </div>
+      <div class="form-group">
+        <label class="form-label">SAL&#193;RIO PREVISTO (R$)</label>
+        <input class="form-input" id="v-salario" type="number" placeholder="2320" min="0" step="50">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">OBSERVA&#199;&#195;O (opcional)</label>
+      <input class="form-input" id="v-obs" type="text" placeholder="Ex: experi&#234;ncia com churrasco">
+    </div>
+
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="fecharModalVaga()">Cancelar</button>
+      <button class="btn-salvar" onclick="salvarVaga()" style="background:var(--gn);">Salvar Vaga</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toast-wrap"></div>
+
+<script>
+// AMBIENT NEURAL
+(function(){
+  const c=document.getElementById("bgCanvas");
+  const ctx=c.getContext("2d");let W,H;
+  function resize(){W=c.width=window.innerWidth;H=c.height=window.innerHeight;}
+  resize();window.addEventListener("resize",resize);
+  const nodes=[];
+  for(let i=0;i<30;i++)nodes.push({x:Math.random()*1200,y:Math.random()*800,vx:(Math.random()-.5)*.15,vy:(Math.random()-.5)*.12,warm:Math.random()<.5});
+  const conns=[];let ct=0;
+  function spawnConn(){
+    if(nodes.length<2)return;
+    const a=Math.floor(Math.random()*nodes.length);let b=Math.floor(Math.random()*nodes.length);
+    if(b===a)b=(a+1)%nodes.length;
+    const dx=nodes[b].x-nodes[a].x,dy=nodes[b].y-nodes[a].y,d=Math.sqrt(dx*dx+dy*dy);
+    if(d<80||d>300)return;
+    conns.push({a,b,prog:0,speed:.006+Math.random()*.008,warm:nodes[a].warm,alpha:.08+Math.random()*.07});
+    if(conns.length>18)conns.shift();
+  }
+  function tick(){
+    ctx.clearRect(0,0,W,H);
+    nodes.forEach(n=>{n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;});
+    ct++;if(ct>=30){spawnConn();ct=0;}
+    const rem=[];
+    conns.forEach((cn,i)=>{
+      const na=nodes[cn.a],nb=nodes[cn.b];
+      const px=na.x+(nb.x-na.x)*cn.prog,py=na.y+(nb.y-na.y)*cn.prog;
+      const col=cn.warm?"rgba(245,158,11,":"rgba(43,143,255,";
+      ctx.beginPath();ctx.moveTo(na.x,na.y);ctx.lineTo(px,py);
+      ctx.strokeStyle=col+cn.alpha+")";ctx.lineWidth=.7;ctx.stroke();
+      ctx.beginPath();ctx.arc(px,py,1.3,0,Math.PI*2);ctx.fillStyle=col+(cn.alpha*4)+")";ctx.fill();
+      cn.prog+=cn.speed;if(cn.prog>=1)rem.push(i);
+    });
+    for(let i=rem.length-1;i>=0;i--)conns.splice(rem[i],1);
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+
+// ── ESTADO ───────────────────────────────────────────────────────────
+const DIAS = ["Seg","Ter","Qua","Qui","Sex","Sab","Dom"];
+const TURNOS = {
+  manha:   {label:"MANHA",  hora:"06-14h", css:"turno-manha",  icon:"🌅"},
+  tarde:   {label:"TARDE",  hora:"12-20h", css:"turno-tarde",  icon:"☀️"},
+  noite:   {label:"NOITE",  hora:"16-00h", css:"turno-noite",  icon:"🌙"},
+  integral:{label:"INTEGRAL",hora:"08-18h",css:"turno-tarde",  icon:"📋"},
+  folga:   {label:"FOLGA",  hora:"",       css:"turno-folga",  icon:"💤"},
+  ferias:  {label:"FERIAS", hora:"",       css:"turno-ferias", icon:"🏖️"},
+};
+const ORDEM_TURNOS = ["manha","tarde","noite","integral","folga","ferias"];
+
+let funcionarios = JSON.parse(localStorage.getItem("rios_escala_func") || "[]");
+let escalas      = JSON.parse(localStorage.getItem("rios_escala_grade") || "{}");
+let semanaOffset = 0;
+let editandoIdx  = null;
+
+// ── SEMANA ────────────────────────────────────────────────────────────
+function getSemanaKey(offset=semanaOffset){
+  const d=new Date();
+  d.setDate(d.getDate()-d.getDay()+1+(offset*7)); // segunda
+  return d.toISOString().slice(0,10);
+}
+function getSemanaLabel(){
+  const ini=new Date(getSemanaKey()+"T00:00:00");
+  const fim=new Date(ini); fim.setDate(fim.getDate()+6);
+  const fmt=d=>d.toLocaleDateString("pt-BR",{day:"2-digit",month:"short"});
+  return fmt(ini)+" — "+fmt(fim);
+}
+function navSemana(dir){semanaOffset+=dir;renderTudo();}
+
+// ── RENDER FUNCIONARIOS (SIDEBAR) ────────────────────────────────────
+function renderFuncs(){
+  const el=document.getElementById("func-list");
+  if(!funcionarios.length){
+    el.innerHTML=`<div class="empty-state" style="height:140px;gap:8px;">
+      <div class="empty-icon">&#128101;</div>
+      <div class="empty-text" style="font-size:12px;">Nenhum funcionário cadastrado</div>
+      <button onclick="abrirModalFunc()" style="padding:8px 18px;border-radius:9px;background:rgba(245,158,11,.2);border:1px solid rgba(245,158,11,.4);color:#f59e0b;font-size:11px;font-weight:700;cursor:pointer;margin-top:4px;">+ Adicionar funcionário</button>
+    </div>`;
+    return;
+  }
+  el.innerHTML=funcionarios.map((f,i)=>`
+    <div class="func-card ${editandoIdx===i?"selected":""}" onclick="selecionarFunc(${i})">
+      <div class="func-nome">${f.nome}</div>
+      <div class="func-cargo">${f.cargo} &middot; ${f.contrato}</div>
+      <div class="func-tags">
+        ${f.horario?`<span class="func-tag">${f.horario.entrada}–${f.horario.saida}</span>`:`<span class="func-tag">${TURNOS[f.turno]?.icon||"📋"} ${TURNOS[f.turno]?.label||f.turno}</span>`}
+        ${f.salario?`<span class="func-tag part">R$ ${Number(f.salario).toLocaleString("pt-BR")}/mês</span>`:""}
+      </div>
+    </div>`).join("");
+}
+
+function selecionarFunc(i){
+  editandoIdx = editandoIdx===i ? null : i;
+  renderFuncs();
+}
+
+// ── RENDER GRADE ──────────────────────────────────────────────────────
+function renderGrade(){
+  const wrap=document.getElementById("grade-wrap");
+  const key=getSemanaKey();
+  if(!funcionarios.length){
+    wrap.innerHTML=`<div class="empty-state" style="gap:12px;padding:40px 20px;">
+      <div class="empty-icon">&#128203;</div>
+      <div class="empty-text" style="font-size:15px;font-weight:700;">Monte a escala da sua equipe</div>
+      <div class="empty-sub" style="text-align:center;line-height:1.8;">
+        1. Cadastre os funcionários pelo painel à esquerda<br>
+        2. A grade semanal aparece automaticamente<br>
+        3. Clique em qualquer célula para alternar o turno<br>
+        4. Use "Gerar Escala com IA" para sugestão automática
+      </div>
+      <button onclick="abrirModalFunc()" style="padding:12px 28px;border-radius:10px;background:rgba(245,158,11,.2);border:1px solid rgba(245,158,11,.5);color:#f59e0b;font-size:13px;font-weight:700;cursor:pointer;">&#128101; Cadastrar primeiro funcionário</button>
+    </div>`;
+    return;
+  }
+  if(!escalas[key]){
+    escalas[key]={};
+    funcionarios.forEach((f,i)=>{
+      escalas[key][i]=DIAS.map((d,di)=>f.disponibilidade.includes(di)?f.turno:"folga");
+    });
+    salvarEscalas();
+  }
+  const head=DIAS.map(d=>`<th>${d}</th>`).join("");
+  const rows=funcionarios.map((f,i)=>{
+    const turnos=(escalas[key][i]||Array(7).fill("folga"));
+    const cells=turnos.map((t,di)=>{
+      const td=TURNOS[t]||TURNOS.folga;
+      return `<td><div class="turno-cell ${td.css}" onclick="toggleTurno(${i},${di})">
+        <span class="turno-label">${td.icon} ${td.label}</span>
+        ${td.hora?`<span class="turno-hora">${td.hora}</span>`:""}
+      </div></td>`;
+    }).join("");
+    return `<tr>
+      <td class="td-nome">
+        <div>${f.nome.split(" ")[0]}</div>
+        <div class="td-sub">${f.cargo}</div>
+      </td>${cells}
+    </tr>`;
+  }).join("");
+
+  wrap.innerHTML=`<table class="grade-table">
+    <thead><tr><th class="th-nome">Funcionario</th>${head}</tr></thead>
+    <tbody>${rows}</tbody>
+  </table>`;
+
+  atualizarCusto();
+}
+
+function toggleTurno(fi,di){
+  const key=getSemanaKey();
+  if(!escalas[key]) return;
+  const atual=escalas[key][fi][di];
+  const idx=ORDEM_TURNOS.indexOf(atual);
+  const prox=ORDEM_TURNOS[(idx+1)%ORDEM_TURNOS.length];
+  escalas[key][fi][di]=prox;
+  salvarEscalas();
+  renderGrade();
+}
+
+function atualizarCusto(){
+  const key=getSemanaKey();
+  let totalSemana=0;
+  let totalMensal=0;
+  const detalheArr=[];
+
+  funcionarios.forEach((f,i)=>{
+    const turnos=escalas[key]?.[i]||[];
+    const diasTrab=turnos.filter(t=>t!=="folga"&&t!=="ferias").length;
+    const salMes=Number(f.salario)||0;
+    const custoDia=salMes/26;
+    const custoFuncSemana=custoDia*diasTrab;
+    totalSemana+=custoFuncSemana;
+    totalMensal+=salMes;
+    if(custoFuncSemana>0){
+      detalheArr.push(f.nome.split(" ")[0]+": R$"+custoFuncSemana.toLocaleString("pt-BR",{minimumFractionDigits:0,maximumFractionDigits:0}));
+    }
+  });
+
+  const box=document.getElementById("custo-box");
+  const temDados=totalSemana>0||totalMensal>0;
+  box.style.display=temDados?"block":"none";
+
+  document.getElementById("custo-val").textContent=
+    "R$ "+totalSemana.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});
+
+  document.getElementById("custo-mensal").textContent=
+    "R$ "+totalMensal.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});
+
+  const detalheEl=document.getElementById("custo-detalhe");
+  if(detalheEl){
+    detalheEl.textContent=detalheArr.length
+      ? detalheArr.join(" · ")
+      : (funcionarios.length?"Funcionários sem salário cadastrado":"");
+  }
+}
+
+function salvarEscalas(){
+  localStorage.setItem("rios_escala_grade",JSON.stringify(escalas));
+}
+
+// ── HELPERS CLT ──────────────────────────────────────────────────────
+const TURNO_DEFAULTS = {
+  manha:   {entrada:"06:00",pausaIni:"10:00",pausaFim:"10:15",saida:"14:00"},
+  tarde:   {entrada:"12:00",pausaIni:"15:00",pausaFim:"16:00",saida:"20:00"},
+  noite:   {entrada:"16:00",pausaIni:"19:30",pausaFim:"20:30",saida:"00:00"},
+  integral:{entrada:"08:00",pausaIni:"12:00",pausaFim:"13:00",saida:"18:00"},
+};
+function toMin(t){if(!t)return 0;const[h,m]=t.split(":").map(Number);return h*60+m;}
+function fmtH(min){const h=Math.floor(min/60),m=min%60;return h+"h"+(m?m+"min":"");}
+
+function derivarTurno(entrada){
+  const h=parseInt((entrada||"08").split(":")[0]);
+  if(h>=4&&h<10)return"manha";
+  if(h>=10&&h<15)return"tarde";
+  return"noite";
+}
+
+function calcHoras(){
+  const ent=document.getElementById("f-entrada").value;
+  const pIni=document.getElementById("f-pausa-ini").value;
+  const pFim=document.getElementById("f-pausa-fim").value;
+  const sai=document.getElementById("f-saida").value;
+  if(!ent||!sai){document.getElementById("f-horas-badge").innerHTML="";return;}
+
+  let entM=toMin(ent), saiM=toMin(sai);
+  if(saiM<=entM)saiM+=1440; // virada de meia-noite
+  const brutoM=saiM-entM;
+
+  let pausaM=0;
+  if(pIni&&pFim){let pi=toMin(pIni),pf=toMin(pFim);if(pf<=pi)pf+=1440;pausaM=pf-pi;}
+  const liquidoM=brutoM-pausaM;
+
+  const dias=Array.from(document.querySelectorAll(".disp-btn.ativo")).length;
+  const semM=liquidoM*dias;
+
+  // Badge resumo
+  const badge=document.getElementById("f-horas-badge");
+  badge.innerHTML=`<span class="horas-badge">⏱ ${fmtH(liquidoM)}/dia &nbsp;·&nbsp; ${fmtH(semM)}/semana &nbsp;·&nbsp; Pausa: ${fmtH(pausaM)}</span>`;
+
+  // Alertas CLT
+  const alertas=[];
+  const entH=parseInt(ent.split(":")[0]);
+  const saiH=parseInt(sai.split(":")[0]);
+  const noturno=(entH>=22||entH<5||saiH<5||(saiM>24*60&&toMin(sai)<300));
+
+  // Jornada máxima
+  if(liquidoM>10*60)
+    alertas.push({t:"err",m:"🚨 Jornada "+fmtH(liquidoM)+" excede limite de 10h/dia (8h+2h extra) — CLT Art. 59"});
+  else if(liquidoM>8*60)
+    alertas.push({t:"warn",m:"⚠️ Jornada "+fmtH(liquidoM)+": "+fmtH(liquidoM-480)+" de hora extra (adicional mín. 50%) — CLT Art. 59"});
+
+  // Intervalo intrajornada
+  if(brutoM>6*60&&pausaM<60)
+    alertas.push({t:"err",m:"🚨 Jornada >6h exige intervalo mínimo de 1h (atual: "+fmtH(pausaM)+") — CLT Art. 71"});
+  else if(brutoM>=4*60&&brutoM<=6*60&&pausaM<15)
+    alertas.push({t:"warn",m:"⚠️ Jornada 4-6h exige intervalo de 15min (atual: "+fmtH(pausaM)+") — CLT Art. 71"});
+  else if(brutoM>6*60&&pausaM>=60)
+    alertas.push({t:"info",m:"✓ Intervalo de "+fmtH(pausaM)+" está dentro da norma (min. 1h) — CLT Art. 71"});
+
+  // Carga semanal
+  if(semM>44*60)
+    alertas.push({t:"err",m:"🚨 "+fmtH(semM)+"/semana excede 44h semanais — CLT Art. 58. Reduza dias ou jornada."});
+  else if(semM>40*60)
+    alertas.push({t:"warn",m:"⚠️ "+fmtH(semM)+"/semana: próximo do limite de 44h — verifique banco de horas ou CCT"});
+  else
+    alertas.push({t:"ok",m:"✓ Carga semanal de "+fmtH(semM)+" dentro do limite de 44h — CLT Art. 58"});
+
+  // Trabalho noturno
+  if(noturno)
+    alertas.push({t:"info",m:"🌙 Jornada noturna (22h–5h): adicional de 20% e hora noturna = 52min52seg — CLT Art. 73"});
+
+  // Domingo
+  const hasDom=document.querySelector(".disp-btn[data-dia='6'].ativo");
+  if(hasDom){
+    alertas.push({t:"warn",m:"☀️ Trabalho aos domingos: garanta mínimo 1 domingo/mês de folga remunerada — CLT Art. 67 + Lei 605/49"});
+    alertas.push({t:"info",m:"💰 Horas extras aos domingos: adicional de 100% (não 50%) — jurisprudência TST"});
+  }
+
+  // Intervalo entre jornadas
+  alertas.push({t:"info",m:"⏸ Lembre: mínimo 11h de descanso entre jornadas (intervalo interjornada) — CLT Art. 66"});
+
+  document.getElementById("f-clt-alertas").innerHTML=
+    alertas.map(a=>`<div class="clt-item clt-${a.t}">${a.m}</div>`).join("");
+}
+
+// ── MODAL FUNCIONARIO ────────────────────────────────────────────────
+function abrirModalFunc(idx=null){
+  editandoIdx=idx;
+  const def={nome:"",cargo:"Cozinheiro",contrato:"CLT",salario:"",
+    horario:{entrada:"08:00",pausaIni:"12:00",pausaFim:"13:00",saida:"17:00"},
+    disponibilidade:[0,1,2,3,4]};
+  let f=idx!==null?funcionarios[idx]:def;
+  // Backward compat: se tem turno mas não horario, usa default do turno
+  if(!f.horario){const d=TURNO_DEFAULTS[f.turno]||TURNO_DEFAULTS.integral;
+    f={...f,horario:{entrada:d.entrada,pausaIni:d.pausaIni,pausaFim:d.pausaFim,saida:d.saida}};}
+
+  document.getElementById("f-nome").value=f.nome||"";
+  document.getElementById("f-cargo").value=f.cargo||"Cozinheiro";
+  document.getElementById("f-contrato").value=f.contrato||"CLT";
+  document.getElementById("f-salario").value=f.salario||"";
+  document.getElementById("f-entrada").value=f.horario.entrada||"08:00";
+  document.getElementById("f-pausa-ini").value=f.horario.pausaIni||"12:00";
+  document.getElementById("f-pausa-fim").value=f.horario.pausaFim||"13:00";
+  document.getElementById("f-saida").value=f.horario.saida||"17:00";
+  document.querySelectorAll(".disp-btn").forEach(b=>{
+    b.classList.toggle("ativo",(f.disponibilidade||[0,1,2,3,4]).includes(Number(b.dataset.dia)));
+  });
+  document.getElementById("f-clt-alertas").innerHTML="";
+  document.getElementById("f-horas-badge").innerHTML="";
+  document.getElementById("modal-func").style.display="flex";
+  setTimeout(()=>{calcHoras();document.getElementById("f-nome").focus();},80);
+}
+function fecharModal(){
+  document.getElementById("modal-func").style.display="none";
+  editandoIdx=null;
+}
+function toggleDisp(el){el.classList.toggle("ativo");}
+
+function salvarFuncionario(){
+  const nome=document.getElementById("f-nome").value.trim();
+  if(!nome){toast("Informe o nome do funcionário","err");return;}
+  const entrada=document.getElementById("f-entrada").value||"08:00";
+  const disp=Array.from(document.querySelectorAll(".disp-btn.ativo")).map(b=>Number(b.dataset.dia));
+  const horario={
+    entrada:document.getElementById("f-entrada").value||"08:00",
+    pausaIni:document.getElementById("f-pausa-ini").value||"12:00",
+    pausaFim:document.getElementById("f-pausa-fim").value||"13:00",
+    saida:document.getElementById("f-saida").value||"17:00",
+  };
+  const func={
+    nome,
+    cargo:document.getElementById("f-cargo").value,
+    contrato:document.getElementById("f-contrato").value,
+    salario:document.getElementById("f-salario").value,
+    turno:derivarTurno(horario.entrada),
+    horario,
+    disponibilidade:disp,
+    id:editandoIdx!==null?funcionarios[editandoIdx].id:Date.now(),
+  };
+  if(editandoIdx!==null) funcionarios[editandoIdx]=func;
+  else funcionarios.push(func);
+  localStorage.setItem("rios_escala_func",JSON.stringify(funcionarios));
+  fecharModal();
+  renderTudo();
+  toast(`${nome} salvo com sucesso`,"ok");
+}
+
+// ── GERAR ESCALA COM IA ───────────────────────────────────────────────
+async function gerarEscalaIA(){
+  if(!funcionarios.length){toast("Cadastre funcionarios primeiro","err");return;}
+  const btn=document.querySelector(".btn-gerar");
+  btn.textContent="&#10022; Gerando...";
+  btn.disabled=true;
+
+  const painel=document.getElementById("ia-panel");
+  const res=document.getElementById("ia-resultado");
+  painel.style.display="block";
+  res.textContent="RIOS Cortex analisando equipe e disponibilidades...";
+
+  const equipeDescricao=funcionarios.map(f=>
+    `${f.nome} (${f.cargo}, ${f.contrato}, turno ${f.turno}, disponivel: ${f.disponibilidade.map(d=>DIAS[d]).join("-")})`
+  ).join("; ");
+
+  try{
+    const resp=await fetch("/api/chat",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        task:"escala",
+        messages:[{role:"user",content:[{type:"text",text:
+          `Voce e um especialista em gestao de pessoas para restaurantes. Analise esta equipe e gere uma sugestao de escala semanal (Seg a Dom).
+
+EQUIPE:
+${equipeDescricao}
+
+Retorne um JSON com:
+{"analise":"analise breve da cobertura","sugestao":"escala sugerida por dia (texto simples)","alertas":["alerta 1","alerta 2"],"dica":"dica estrategica para o gestor"}`
+        }]}]
+      })
+    });
+    const data=await resp.json();
+    if(data.content?.[0]?.text){
+      try{
+        const rawTxt=data.content[0].text.replace(/```json[\r\n]*/g,'').replace(/```/g,'').trim();
+        const j=JSON.parse(rawTxt);
+        const html=[
+          j.analise?`<strong style="color:var(--esc)">Analise:</strong> ${j.analise}`:"",
+          j.sugestao?`<br><strong style="color:var(--bl)">Sugestao:</strong> ${j.sugestao}`:"",
+          j.alertas?.length?`<br><strong style="color:var(--rd)">Alertas:</strong> ${j.alertas.join(" | ")}`:"",
+          j.dica?`<br><strong style="color:var(--gn)">Dica:</strong> ${j.dica}`:"",
+        ].filter(Boolean).join("");
+        res.innerHTML=html||data.content[0].text;
+      }catch{res.textContent=data.content[0].text;}
+    }else{
+      res.textContent="Resposta recebida. Verifique a grade gerada.";
+    }
+    aplicarSugestaoIA();
+    toast("Escala gerada pelo RIOS Cortex","ok");
+  }catch(e){
+    res.textContent="Erro ao conectar com o servidor. Verifique se o RIOS esta rodando.";
+    toast("Erro ao gerar escala","err");
+  }finally{
+    btn.innerHTML="&#10022; Gerar Escala com IA";
+    btn.disabled=false;
+  }
+}
+
+function aplicarSugestaoIA(){
+  const key=getSemanaKey();
+  if(!escalas[key]) escalas[key]={};
+  funcionarios.forEach((f,i)=>{
+    if(!escalas[key][i]){
+      escalas[key][i]=DIAS.map((d,di)=>f.disponibilidade.includes(di)?f.turno:"folga");
+    }
+  });
+  salvarEscalas();
+  renderGrade();
+}
+
+// ── EXPORTAR ─────────────────────────────────────────────────────────
+function exportarEscala(){
+  const key=getSemanaKey();
+  const linhas=["RIOS — Escala de Equipe","Semana: "+getSemanaLabel(),""];
+  linhas.push(["Funcionario","Cargo",...DIAS].join("	"));
+  funcionarios.forEach((f,i)=>{
+    const t=(escalas[key]?.[i]||Array(7).fill("folga")).map(t=>TURNOS[t]?.label||t);
+    linhas.push([f.nome,f.cargo,...t].join("	"));
+  });
+  const blob=new Blob([linhas.join("\n")],{type:"text/plain;charset=utf-8"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download=`RIOS_Escala_${key}.txt`;
+  a.click();
+  toast("Escala exportada","ok");
+}
+
+// ── RENDER GERAL + HELPERS ────────────────────────────────────────────
+function renderTudo(){
+  document.getElementById("semana-label").textContent=getSemanaLabel();
+  renderFuncs();
+  renderGrade();
+}
+
+function toast(msg,type="info"){
+  const wrap=document.getElementById("toast-wrap");
+  const t=document.createElement("div");
+  t.className=`toast ${type==="ok"?"ok":type==="err"?"err":""}`;t.textContent=msg;
+  wrap.appendChild(t);setTimeout(()=>t.style.opacity="0",2400);setTimeout(()=>t.remove(),2700);
+}
+
+// ── VAGAS EM ABERTO ──────────────────────────────────────────────────
+let vagas=JSON.parse(localStorage.getItem("rios_escala_vagas")||"[]");
+let editandoVagaIdx=null;
+
+function renderVagas(){
+  const el=document.getElementById("vagas-list");
+  if(!vagas.length){
+    el.innerHTML='<div style="font-size:10px;color:var(--sb);text-align:center;padding:8px 0;opacity:.55;">Nenhuma vaga cadastrada</div>';
+    return;
+  }
+  const total=vagas.reduce(function(s,v){return s+(Number(v.qtd)||1);},0);
+  el.innerHTML='<div style="font-size:9px;color:var(--sb);margin-bottom:5px;opacity:.7;">'+total+' vaga'+(total>1?"s":"")+" aberta"+(total>1?"s":"")+" &middot; "+vagas.length+" cargo"+(vagas.length>1?"s":"")+"</div>"
+    +vagas.map(function(v,i){
+      var urg=v.prioridade==="urgente";
+      return '<div class="vaga-item'+(urg?" urgente":"")+'\" onclick="abrirModalVaga('+i+')">'
+        +'<div class="vaga-row">'
+        +'<span class="vaga-setor'+(urg?" urgente":"")+'">'+v.setor+'</span>'
+        +(Number(v.qtd)>1?'<span style="font-size:9px;color:var(--or);font-weight:700;">'+v.qtd+'x</span>':'')
+        +(urg?'<span style="font-size:9px;color:var(--rd);font-weight:700;">URGENTE</span>':'')
+        +'<button class="vaga-del" onclick="event.stopPropagation();excluirVaga('+i+')" title="Excluir">&#10005;</button>'
+        +'</div>'
+        +'<div class="vaga-func">'+v.funcao+'</div>'
+        +'<div class="vaga-hora">&#9200; '+v.entrada+'&ndash;'+v.saida
+          +(v.salario?' &middot; R$ '+Number(v.salario).toLocaleString("pt-BR"):'')+'</div>'
+        +(v.obs?'<div style="font-size:9px;color:var(--sb);margin-top:2px;opacity:.7;">'+v.obs+'</div>':'')
+        +'</div>';
+    }).join("");
+}
+
+function abrirModalVaga(idx){
+  if(idx===undefined)idx=null;
+  editandoVagaIdx=idx;
+  var def={setor:"Cozinha",prioridade:"normal",funcao:"Cozinheiro",entrada:"08:00",saida:"17:00",qtd:1,salario:"",obs:""};
+  var v=idx!==null?vagas[idx]:def;
+  document.getElementById("v-setor").value=v.setor||"Cozinha";
+  document.getElementById("v-prioridade").value=v.prioridade||"normal";
+  document.getElementById("v-funcao").value=v.funcao||"Cozinheiro";
+  document.getElementById("v-entrada").value=v.entrada||"08:00";
+  document.getElementById("v-saida").value=v.saida||"17:00";
+  document.getElementById("v-qtd").value=v.qtd||1;
+  document.getElementById("v-salario").value=v.salario||"";
+  document.getElementById("v-obs").value=v.obs||"";
+  document.getElementById("modal-vaga").style.display="flex";
+}
+
+function fecharModalVaga(){
+  document.getElementById("modal-vaga").style.display="none";
+  editandoVagaIdx=null;
+}
+
+function salvarVaga(){
+  var vaga={
+    setor:document.getElementById("v-setor").value,
+    prioridade:document.getElementById("v-prioridade").value,
+    funcao:document.getElementById("v-funcao").value,
+    entrada:document.getElementById("v-entrada").value||"08:00",
+    saida:document.getElementById("v-saida").value||"17:00",
+    qtd:Number(document.getElementById("v-qtd").value)||1,
+    salario:document.getElementById("v-salario").value,
+    obs:document.getElementById("v-obs").value.trim(),
+    id:editandoVagaIdx!==null?vagas[editandoVagaIdx].id:Date.now(),
+  };
+  if(editandoVagaIdx!==null)vagas[editandoVagaIdx]=vaga;
+  else vagas.push(vaga);
+  localStorage.setItem("rios_escala_vagas",JSON.stringify(vagas));
+  fecharModalVaga();
+  renderVagas();
+  var total=vagas.reduce(function(s,v){return s+(Number(v.qtd)||1);},0);
+  toast(vaga.funcao+" ("+vaga.setor+") salva &mdash; "+total+" vaga"+(total>1?"s":"")+" aberta"+(total>1?"s":""),"ok");
+}
+
+function excluirVaga(idx){
+  var v=vagas[idx];
+  vagas.splice(idx,1);
+  localStorage.setItem("rios_escala_vagas",JSON.stringify(vagas));
+  renderVagas();
+  toast("Vaga de "+v.funcao+" removida","ok");
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────
+document.addEventListener("keydown",function(e){
+  if(e.key==="Escape"){fecharModal();fecharModalVaga();}
+});
+renderVagas();
+renderTudo();
+</script>
+</body>
+</html>

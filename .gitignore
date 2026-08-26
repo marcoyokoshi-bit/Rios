@@ -1,0 +1,14 @@
+# Segredos — nunca versionar
+.env
+
+# Dados gerados em runtime (backup automático, registros de QC)
+backups/
+qc_registros/
+
+# Cache Python
+__pycache__/
+*.pyc
+
+# Arquivos temporários de SO
+Thumbs.db
+.DS_Store

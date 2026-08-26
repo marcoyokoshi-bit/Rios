@@ -1,0 +1,82 @@
+{
+  "versao": "1.0",
+  "atualizado": "2026-06-28",
+
+  "metas": {
+    "qc_aprovacao_pct": 85,
+    "qc_aprovacao_7dias_pct": 80,
+    "cmv_max_pct": 32,
+    "reprovacoes_consecutivas_max": 3,
+    "aceitos_com_falha_dia_max": 5,
+    "fichas_minimo": 10,
+    "score_medio_minimo": 75
+  },
+
+  "regras": [
+    {
+      "id": "qc_baixa_aprovacao_7dias",
+      "nome": "Taxa de Aprovação Semanal Baixa",
+      "descricao": "Taxa de aprovação nos últimos 7 dias abaixo da meta",
+      "ativa": true,
+      "campo": "qc_aprovacao_7dias_pct",
+      "operador": "<",
+      "limiar": 80,
+      "meta_campo": "qc_aprovacao_7dias_pct",
+      "severidade": "aviso",
+      "icone": "📉",
+      "mensagem": "Taxa de aprovação QC (7 dias) em {valor}% — meta: {limiar}%"
+    },
+    {
+      "id": "qc_reprovacoes_consecutivas",
+      "nome": "Reprovações Consecutivas",
+      "descricao": "Vários pratos reprovados em sequência",
+      "ativa": true,
+      "campo": "reprovacoes_consecutivas",
+      "operador": ">=",
+      "limiar": 3,
+      "meta_campo": "reprovacoes_consecutivas_max",
+      "severidade": "critico",
+      "icone": "🚨",
+      "mensagem": "{valor} reprovações consecutivas — verificar padrão e processo"
+    },
+    {
+      "id": "qc_muitas_falhas_hoje",
+      "nome": "Excesso de Falhas no Dia",
+      "descricao": "Alto número de pratos aceitos com falha hoje",
+      "ativa": true,
+      "campo": "aceitos_com_falha_hoje",
+      "operador": ">=",
+      "limiar": 5,
+      "meta_campo": "aceitos_com_falha_dia_max",
+      "severidade": "aviso",
+      "icone": "⚠️",
+      "mensagem": "{valor} pratos aceitos com falha hoje — atenção à qualidade da saída"
+    },
+    {
+      "id": "qc_score_medio_baixo",
+      "nome": "Score Médio Abaixo do Padrão",
+      "descricao": "Média de pontuação QC abaixo do mínimo esperado",
+      "ativa": true,
+      "campo": "score_medio_7dias",
+      "operador": "<",
+      "limiar": 75,
+      "meta_campo": "score_medio_minimo",
+      "severidade": "aviso",
+      "icone": "📊",
+      "mensagem": "Score médio QC (7 dias) em {valor}% — mínimo esperado: {limiar}%"
+    },
+    {
+      "id": "fichas_poucas",
+      "nome": "Poucas Fichas Técnicas",
+      "descricao": "Número de fichas técnicas abaixo do mínimo recomendado",
+      "ativa": true,
+      "campo": "total_fichas",
+      "operador": "<",
+      "limiar": 10,
+      "meta_campo": "fichas_minimo",
+      "severidade": "info",
+      "icone": "📋",
+      "mensagem": "Apenas {valor} fichas técnicas cadastradas — recomendado: {limiar}+"
+    }
+  ]
+}

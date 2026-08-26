@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RIOS — POP</title>
+<style>
+:root{--bg:#0a0a14;--sf:#111120;--cd:#161628;--bd:#222240;--bl:#2b8fff;--bld:#1a5fcc;
+--or:#ff8c00;--ord:#cc6a00;--tx:#e8eaf0;--sb:#7a7d9a;--gn:#27d97e;--rd:#ff4d6a;
+--yl:#ffd93d;--pu:#a855f7}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font-family:"Segoe UI",system-ui,sans-serif;min-height:100vh}
+.topbar{background:var(--sf);border-bottom:1px solid var(--bd);padding:11px 20px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:100}
+.back-home-ft{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.2s;color:rgba(255,255,255,.25);font-size:18px;flex-shrink:0;border:1px solid transparent;text-decoration:none;margin-right:4px}
+.back-home-ft:hover{color:var(--bl);background:rgba(43,143,255,.1);border-color:rgba(43,143,255,.2)}
+.back-home-ft svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.logo{display:flex;align-items:center;gap:10px}
+.lbadge{background:linear-gradient(135deg,var(--bl),var(--or));width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:10px;color:#fff;text-align:center;line-height:1.15}
+.lname{font-size:18px;font-weight:800;letter-spacing:1px}.lname span{color:var(--bl)}
+.lsub{font-size:9px;color:var(--sb);letter-spacing:2px;text-transform:uppercase}
+.tr{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.tag{border:1px solid var(--bd);padding:4px 11px;border-radius:14px;font-size:11px;font-weight:600;background:var(--cd)}
+.tg{color:var(--gn);border-color:var(--gn)}.tw{color:var(--yl);border-color:var(--yl)}.tr_{color:var(--rd);border-color:var(--rd)}
+.bic{background:var(--cd);border:1px solid var(--bd);color:var(--sb);border-radius:7px;padding:6px 12px;cursor:pointer;font-size:11px;display:flex;align-items:center;gap:5px;transition:all .2s;font-weight:600}
+.bic:hover{border-color:var(--bl);color:var(--bl)}
+.main{max-width:1100px;margin:0 auto;padding:22px 16px}
+.tabs{display:flex;gap:3px;border-bottom:1px solid var(--bd);margin-bottom:22px;overflow-x:auto}
+.tab{padding:9px 16px;font-size:12px;font-weight:700;cursor:pointer;border-radius:7px 7px 0 0;color:var(--sb);border:1px solid transparent;border-bottom:none;transition:all .2s;white-space:nowrap}
+.tab.on{color:var(--bl);border-color:var(--bd);border-bottom-color:var(--cd);background:var(--cd);margin-bottom:-1px}
+.tab:hover:not(.on){color:var(--tx)}
+.tc{display:none}.tc.on{display:block}
+.sec{font-size:10px;font-weight:700;color:var(--bl);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.sec::after{content:"";flex:1;height:1px;background:var(--bd)}
+.card{background:var(--cd);border:1px solid var(--bd);border-radius:13px;padding:18px;margin-bottom:14px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:11px}
+.full{grid-column:1/-1}
+.fg{display:flex;flex-direction:column;gap:4px}
+label{font-size:9px;font-weight:700;color:var(--sb);letter-spacing:1px;text-transform:uppercase}
+input,select,textarea{background:var(--sf);border:1px solid var(--bd);border-radius:7px;color:var(--tx);font-size:13px;padding:8px 10px;outline:none;transition:border-color .2s;width:100%;font-family:inherit}
+input:focus,select:focus,textarea:focus{border-color:var(--bl)}
+textarea{resize:vertical;min-height:60px}
+select option{background:var(--cd)}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;border:none;transition:all .2s;letter-spacing:.3px}
+.bp{background:var(--bl);color:#fff}.bp:hover{background:var(--bld)}
+.bo{background:transparent;color:var(--bl);border:1px solid var(--bl)}.bo:hover{background:rgba(43,143,255,.1)}
+.bor{background:var(--or);color:#fff}.bor:hover{background:var(--ord)}
+.bg_{background:var(--sf);color:var(--tx);border:1px solid var(--bd)}.bg_:hover{border-color:var(--bl)}
+.bgn{background:var(--gn);color:#000;font-weight:800}.bgn:hover{opacity:.9}
+.bpu{background:var(--pu);color:#fff}.bpu:hover{opacity:.9}
+.brd{background:rgba(255,77,106,.15);color:var(--rd);border:1px solid rgba(255,77,106,.3)}.brd:hover{background:rgba(255,77,106,.25)}
+.br{display:flex;align-items:center;gap:8px;margin-top:12px;flex-wrap:wrap}
+.divider{height:1px;background:var(--bd);margin:16px 0}
+.itw{overflow-x:auto}
+.it{width:100%;border-collapse:collapse;min-width:640px}
+.it thead th{font-size:9px;font-weight:700;color:var(--sb);letter-spacing:1px;text-transform:uppercase;padding:7px 6px;text-align:left;border-bottom:1px solid var(--bd);white-space:nowrap}
+.it tbody tr{border-bottom:1px solid rgba(255,255,255,.03)}
+.it td{padding:5px 4px;vertical-align:middle}
+.it td input{padding:6px 8px;font-size:12px}
+.bd2{background:none;border:1px solid var(--bd);color:var(--rd);border-radius:5px;width:26px;height:26px;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0}
+.bd2:hover{background:rgba(255,77,106,.15)}
+.lrow{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:13px;margin-bottom:9px;position:relative}
+.lrow .lrow-del{position:absolute;top:9px;right:9px}
+.etapa-card{background:var(--sf);border:1px solid var(--bd);border-radius:11px;padding:14px;margin-bottom:11px;transition:border-color .2s,background .2s}
+.etapa-card.dg-critico{border-color:var(--rd);background:rgba(255,77,106,.05)}
+.etapa-card.dg-regra{border-color:var(--or);background:rgba(255,140,0,.06)}
+.etapa-card.dg-financeiro{border-color:var(--yl);background:rgba(255,211,61,.06)}
+.etapa-head{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.etapa-num{width:24px;height:24px;border-radius:50%;background:var(--bl);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
+.flow-wrap{display:flex;flex-direction:column;gap:0;align-items:stretch;max-width:440px;margin:6px auto}
+.flow-box{padding:11px 16px;border-radius:8px;color:#fff;font-size:12px;font-weight:800;text-align:center}
+.flow-arrow{text-align:center;color:var(--sb);font-size:15px;line-height:1.6}
+.flow-banner{margin-top:8px;padding:11px 16px;border-radius:8px;background:linear-gradient(135deg,#0e7a8a,#12a5b8);color:#fff;font-size:11px;font-weight:800;text-align:center}
+.badge{display:inline-block;padding:2px 9px;border-radius:12px;font-size:9px;font-weight:800;letter-spacing:.5px;text-transform:uppercase}
+.bd-ativo{background:rgba(39,217,126,.15);color:var(--gn)}
+.bd-rascunho{background:rgba(255,211,61,.15);color:var(--yl)}
+.bd-obsoleto{background:rgba(255,77,106,.15);color:var(--rd)}
+.fl2{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:11px;margin-top:8px}
+.fi{background:var(--sf);border:1px solid var(--bd);border-radius:11px;padding:14px;cursor:pointer;transition:border-color .2s,transform .15s;position:relative}
+.fi:hover{border-color:var(--bl);transform:translateY(-2px)}
+.fi h4{font-size:14px;font-weight:700;margin-bottom:4px;padding-right:60px}
+.fi p{font-size:11px;color:var(--sb);margin-bottom:8px}
+.fi .ftags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.fi .ftag{font-size:9px;font-weight:700;color:var(--sb);border:1px solid var(--bd);padding:2px 8px;border-radius:10px}
+.fi .fiacts{display:flex;gap:6px}
+.fi .fiacts button{flex:1}
+.empty{text-align:center;padding:48px 22px;color:var(--sb)}
+.empty .eic{font-size:42px;margin-bottom:10px}
+.mo{position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:500;display:none;align-items:center;justify-content:center;padding:14px;overflow-y:auto}
+.mo.open{display:flex}
+.mob{background:var(--cd);border:1px solid var(--bd);border-radius:15px;padding:24px;width:100%;max-width:620px;max-height:92vh;overflow-y:auto}
+.mob h2{font-size:16px;font-weight:800;margin-bottom:4px}
+.mob .sub{font-size:11px;color:var(--sb);margin-bottom:16px;line-height:1.6}
+.moa{display:flex;gap:8px;margin-top:18px;justify-content:flex-end}
+.lv{position:fixed;inset:0;background:rgba(0,0,0,.84);z-index:2000;display:none;align-items:center;justify-content:center;flex-direction:column;gap:12px}
+.lv.open{display:flex}
+.lsp{width:42px;height:42px;border:3px solid rgba(255,255,255,.15);border-top-color:var(--bl);border-radius:50%;animation:sp .7s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.lmsg{font-size:13px;font-weight:600;color:var(--tx)}.lsub2{font-size:11px;color:var(--sb)}
+.toast{position:fixed;bottom:22px;right:22px;background:var(--cd);border:1px solid var(--bd);border-radius:10px;padding:11px 16px;font-size:12px;font-weight:600;z-index:9999;display:none;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(0,0,0,.5);max-width:320px}
+.toast.open{display:flex}
+.ia-box{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:13px;margin-bottom:9px;font-size:12px;line-height:1.6}
+.ia-nota{font-size:26px;font-weight:800;color:var(--gn)}
+#print-area{display:none}
+@media(max-width:700px){.g2,.g3,.g4{grid-template-columns:1fr}}
+@media print{
+  @page{margin:18mm 16mm 20mm 16mm}
+  html,body{background:#fff!important}
+  body>*:not(#print-area){display:none!important}
+  #print-area{display:block!important;position:static;color:#161616;background:#fff;padding:0;max-width:100%;
+    font-family:"Calibri","Segoe UI",Arial,Helvetica,sans-serif;font-size:11px;line-height:1.48;counter-reset:psec}
+
+  /* Timbre / cabeçalho principal (como nos modelos originais) */
+  #print-area table.plt{width:100%;border-collapse:collapse;border:1.4px solid #1c2b4a;margin-bottom:16px}
+  #print-area table.plt td{border:1px solid #1c2b4a;padding:9px 11px;vertical-align:middle}
+  #print-area .plt-logo{width:70px;text-align:center}
+  #print-area .plt-logo .badge{width:50px;height:50px;border-radius:9px;background:#1c2b4a;color:#fff;
+    display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;letter-spacing:.5px}
+  #print-area .plt-title{text-align:center}
+  #print-area .plt-title .empresa{font-size:14px;font-weight:800;color:#111}
+  #print-area .plt-title .doctit{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-top:4px;color:#333}
+  #print-area .plt-meta{width:172px;padding:0!important;border:none!important}
+  #print-area .plt-meta table{width:100%;height:100%;border-collapse:collapse}
+  #print-area .plt-meta td{border:1px solid #1c2b4a;padding:4px 8px;font-size:9px}
+  #print-area .plt-meta b{font-weight:700}
+
+  #print-area h2{counter-increment:psec;font-size:12px;margin:16px 0 7px;padding-bottom:3px;
+    border-bottom:1.5px solid #1c2b4a;color:#1c2b4a;text-transform:uppercase;letter-spacing:.4px;page-break-after:avoid}
+  #print-area h2::before{content:counter(psec) ". "}
+  #print-area .h2plain{font-size:12px;font-weight:700;margin:2px 0 7px;padding-bottom:3px;
+    border-bottom:1.5px solid #1c2b4a;color:#1c2b4a;text-transform:uppercase;letter-spacing:.4px;page-break-after:avoid}
+
+  #print-area table.pt{width:100%;border-collapse:collapse;font-size:10px;margin-bottom:4px}
+  #print-area table.pt td,#print-area table.pt th{border:1px solid #999;padding:5px 7px;text-align:left;vertical-align:top}
+  #print-area table.pt th{background:#e9e9ef;font-weight:700}
+  #print-area table.pt-rev th{background:#e3ddf2}
+  #print-area .ptcap{font-size:8.5px;font-weight:700;color:#555;margin:0 0 12px}
+
+  #print-area ul,#print-area ol{margin:4px 0 8px 18px}
+  #print-area li{margin-bottom:3px}
+  #print-area p{margin-bottom:8px}
+
+  #print-area .petapa{page-break-inside:avoid;margin-bottom:11px;padding:2px 0 2px 11px;border-left:3px solid #ccc}
+  #print-area .petapa.pd-critico{border-color:#b00020}
+  #print-area .petapa.pd-regra{border-color:#c9740a}
+  #print-area .petapa.pd-financeiro{border-color:#a68b00}
+  #print-area .petapa-tit{font-weight:700;font-size:11px;margin-bottom:3px}
+  #print-area .petapa-tag{font-size:8.5px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;margin-left:6px}
+  #print-area .petapa.pd-critico .petapa-tag{color:#b00020}
+  #print-area .petapa.pd-regra .petapa-tag{color:#c9740a}
+  #print-area .petapa.pd-financeiro .petapa-tag{color:#a68b00}
+  #print-area .petapa ul{margin-top:2px;margin-bottom:0}
+
+  #print-area .pflow{max-width:300px;margin:6px auto 16px}
+  #print-area .pflow-box{padding:8px 12px;border-radius:6px;color:#fff;font-size:10.5px;font-weight:700;text-align:center;margin-bottom:1px}
+  #print-area .pflow-arrow{text-align:center;font-size:12px;color:#777;line-height:1.2}
+
+  #print-area .psign{margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:50px;page-break-inside:avoid}
+  #print-area .psign div{border-top:1px solid #111;padding-top:5px;font-size:10px;text-align:center;color:#333}
+
+  #print-area .pfoot{margin-top:22px;display:flex;justify-content:space-between;
+    font-size:8.5px;color:#888;border-top:1px solid #ddd;padding-top:5px}
+}
+</style>
+</head>
+<body>
+
+<div class="lv" id="lv"><div class="lsp"></div><div class="lmsg" id="lmsg">Processando...</div><div class="lsub2" id="lsub2"></div></div>
+<div class="toast" id="toast"><span id="toast-ic"></span><span id="toast-msg"></span></div>
+
+<!-- Modal: Parecer da IA -->
+<div class="mo" id="mo-ia">
+  <div class="mob">
+    <h2>🧠 Parecer da IA — RIOS Cortex</h2>
+    <p class="sub">Análise crítica do POP: cobertura de riscos, clareza e pontos de melhoria.</p>
+    <div id="ia-body"></div>
+    <div class="moa"><button class="btn bg_" onclick="closeMo('mo-ia')">Fechar</button></div>
+  </div>
+</div>
+
+<!-- Modal: Papel Timbrado do Cliente -->
+<div class="mo" id="mo-branding">
+  <div class="mob">
+    <h2>🎨 Papel Timbrado do Cliente</h2>
+    <p class="sub">Logotipo e cor institucional usados na capa e no cabeçalho do Word gerado para <b id="brand-cliente-nome">—</b>. Sem logo, o documento usa um espaço reservado "LOGOTIPO DO CLIENTE".</p>
+    <div class="fg" style="margin-bottom:12px">
+      <label>Logotipo (PNG, fundo transparente de preferência)</label>
+      <input type="file" id="brand-logo-file" accept="image/png,image/jpeg" onchange="onBrandLogoChange(event)">
+    </div>
+    <div id="brand-logo-preview" style="display:flex;align-items:center;gap:12px;margin-bottom:14px"></div>
+    <div class="fg" style="margin-bottom:6px">
+      <label>Cor institucional</label>
+      <input type="color" id="brand-color" value="#5e4778" style="height:40px;padding:4px;cursor:pointer">
+    </div>
+    <div class="moa">
+      <button class="btn brd" onclick="clearBranding()">Remover Logo</button>
+      <button class="btn bg_" onclick="closeMo('mo-branding')">Fechar</button>
+      <button class="btn bp" onclick="saveBranding()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: confirmação -->
+<div class="mo" id="mo-confirm">
+  <div class="mob" style="max-width:400px">
+    <h2 id="confirm-title">Confirmar</h2>
+    <p class="sub" id="confirm-sub"></p>
+    <div class="moa">
+      <button class="btn bg_" onclick="closeMo('mo-confirm')">Cancelar</button>
+      <button class="btn brd" id="confirm-btn">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<div class="topbar">
+  <a class="back-home-ft" href="/" title="Voltar à tela inicial"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></a>
+  <div class="logo">
+    <div class="lbadge">RI<br>OS</div>
+    <div><div class="lname"><span>R</span>IOS</div><div class="lsub">POP — Procedimento Operacional Padrão</div></div>
+  </div>
+  <div class="tr">
+    <span class="tag" id="cliente-tag" style="color:var(--pu);border-color:var(--pu)" title="Empresa/cliente ativo — troque na Home">&#127970; &mdash;</span>
+    <button class="bic" onclick="openBrandingModal()" title="Logo e cor institucional do cliente, usados no Word gerado">🎨 Papel Timbrado</button>
+    <span class="tag" id="ai-tag">● IA Offline</span>
+  </div>
+</div>
+
+<div class="main">
+  <div class="tabs">
+    <div class="tab on" onclick="showTab('novo')">&#43; Novo POP</div>
+    <div class="tab" onclick="showTab('salvos')">&#128196; POPs Salvos</div>
+  </div>
+
+  <!-- TAB: NOVO -->
+  <div id="tc-novo" class="tc on">
+
+    <div class="card">
+      <div class="sec">📋 Identificação</div>
+      <div class="g3">
+        <div class="fg full" style="grid-column:1/3"><label>Título do Processo *</label><input id="f-titulo" placeholder="Ex: Recebimento de Salmão"></div>
+        <div class="fg"><label>Código</label><input id="f-codigo" placeholder="POP-0001" style="color:var(--bl);font-weight:700"></div>
+        <div class="fg"><label>Cliente / Restaurante</label><input id="f-cliente" readonly title="Definido pela empresa ativa — troque na Home" style="color:var(--pu);font-weight:700;cursor:not-allowed"></div>
+        <div class="fg"><label>Setor</label>
+          <select id="f-setor">
+            <option>Cozinha</option><option>Recebimento / Compras</option><option>Estoque</option>
+            <option>Atendimento / Salão</option><option>Higiene / BPM</option><option>RH / Financeiro</option>
+            <option>Delivery</option><option>Outro</option>
+          </select>
+        </div>
+        <div class="fg"><label>Status</label>
+          <select id="f-status"><option value="rascunho">Rascunho</option><option value="ativo">Ativo</option><option value="obsoleto">Obsoleto</option></select>
+        </div>
+        <div class="fg"><label>Versão</label><input id="f-versao" value="1.0" style="width:80px"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="sec">🕓 Histórico de Revisão</div>
+      <div class="itw">
+        <table class="it">
+          <thead><tr><th style="width:50px">Rev.</th><th>Descrição</th><th>Revisado por</th><th>Aprovado por</th><th style="width:130px">Data</th><th style="width:26px"></th></tr></thead>
+          <tbody id="rev-body"></tbody>
+        </table>
+      </div>
+      <div class="br"><button class="btn bo" onclick="addRevisao()">&#43; Adicionar Revisão</button></div>
+    </div>
+
+    <div class="card">
+      <div class="sec">🎯 Objetivo</div>
+      <div class="fg"><textarea id="f-objetivo" placeholder="O que este POP garante / qual problema evita..." style="min-height:70px"></textarea></div>
+    </div>
+
+    <div class="card">
+      <div class="sec">📍 Campo de Aplicação</div>
+      <div class="fg"><textarea id="f-aplicacao" placeholder="Setores, áreas e pessoas a que este POP se aplica..." style="min-height:60px"></textarea></div>
+    </div>
+
+    <div class="g2">
+      <div class="card">
+        <div class="sec">📚 Referências</div>
+        <div class="fg"><label>Uma por linha</label><textarea id="f-referencias" placeholder="Ex: ISO 22000:2018&#10;Boas Práticas de Manipulação (BPM)" style="min-height:80px"></textarea></div>
+      </div>
+      <div class="card">
+        <div class="sec">🧰 Materiais, Utensílios e EPIs</div>
+        <div class="fg"><label>Um por linha</label><textarea id="f-materiais" placeholder="Ex: Balança calibrada&#10;Luvas, avental, touca" style="min-height:80px"></textarea></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="sec">📖 Definições <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--sb)">(opcional — termos técnicos usados no POP)</span></div>
+      <div id="def-body"></div>
+      <div class="br"><button class="btn bo" onclick="addDefinicao()">&#43; Adicionar Definição</button></div>
+    </div>
+
+    <div class="card">
+      <div class="sec">👥 Responsáveis</div>
+      <div id="resp-body"></div>
+      <div class="br"><button class="btn bo" onclick="addResponsavel()">&#43; Adicionar Responsável</button></div>
+    </div>
+
+    <div class="card">
+      <div class="sec">⏱ Frequência e Horário</div>
+      <div class="fg"><input id="f-frequencia" placeholder="Ex: Diária, 1x ao dia — manhã, antes da abertura"></div>
+    </div>
+
+    <div class="card">
+      <div class="sec">⚙️ Descrição do Processo — Etapas</div>
+      <div id="etapas-body"></div>
+      <div class="br"><button class="btn bo" onclick="addEtapa()">&#43; Adicionar Etapa</button></div>
+    </div>
+
+    <div class="card">
+      <div class="sec">🔀 Fluxo (gerado automaticamente das etapas)</div>
+      <div id="flow-preview" class="flow-wrap"></div>
+    </div>
+
+    <div class="card">
+      <div class="sec">🚨 Pontos Críticos de Controle (PCC)</div>
+      <div class="itw">
+        <table class="it">
+          <thead><tr><th>Etapa</th><th>Risco</th><th>Controle</th><th style="width:26px"></th></tr></thead>
+          <tbody id="pcc-body"></tbody>
+        </table>
+      </div>
+      <div class="br"><button class="btn bo" onclick="addPcc()">&#43; Adicionar PCC</button></div>
+    </div>
+
+    <div class="g2">
+      <div class="card">
+        <div class="sec">🗂 Registros Obrigatórios <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--sb)">(o que anotar a cada execução)</span></div>
+        <div class="fg"><label>Um por linha</label><textarea id="f-registros" placeholder="Ex: Data e hora&#10;Fornecedor&#10;Peso da NF&#10;Peso real aferido" style="min-height:90px"></textarea></div>
+      </div>
+      <div class="card">
+        <div class="sec">📊 Indicadores de Gestão</div>
+        <div class="fg"><label>Um por linha</label><textarea id="f-indicadores" placeholder="Ex: Taxa de ruptura (%)&#10;Tempo médio de execução" style="min-height:90px"></textarea></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="sec">📝 Observações Complementares</div>
+      <div class="fg"><textarea id="f-obs" placeholder="Regras especiais, tabelas de referência, exceções..." style="min-height:70px"></textarea></div>
+    </div>
+
+    <div id="ia-parecer-wrap"></div>
+
+    <div class="br" style="margin-bottom:30px">
+      <button class="btn bp" onclick="salvarPop()">&#10003; Salvar POP</button>
+      <button class="btn bpu" onclick="gerarParecer()">🧠 Parecer da IA</button>
+      <button class="btn bg_" onclick="imprimirFormAtual()">🖨️ Imprimir</button>
+      <button class="btn bor" onclick="gerarWordFormAtual()">📝 Gerar Word (.docx)</button>
+      <button class="btn bg_" onclick="limparForm()">Limpar Formulário</button>
+    </div>
+  </div>
+
+  <!-- TAB: SALVOS -->
+  <div id="tc-salvos" class="tc">
+    <div class="fl2" id="pops-grid"></div>
+  </div>
+</div>
+
+<div id="print-area"></div>
+
+<script>
+let pops = JSON.parse(localStorage.getItem('rios_pops') || '[]');
+let editingId = null;
+
+// ── Sessão / Cliente Ativo (isolamento por consultoria) ─────────────────────
+function getActiveUser(){ try{ return JSON.parse(localStorage.getItem('rios_user')||'null'); }catch(e){ return null; } }
+const ACTIVE_USER = getActiveUser();
+const ACTIVE_CLIENTE = ACTIVE_USER && ACTIVE_USER.cliente ? ACTIVE_USER.cliente : null;
+if (!ACTIVE_CLIENTE){
+  window.location.href = '/';
+}
+function popVisivel(p){
+  // POPs sem cliente (criados antes do isolamento) ficam visíveis em qualquer contexto,
+  // marcados como "sem cliente", até serem salvos de novo.
+  return !p.clienteId || p.clienteId === ACTIVE_CLIENTE.id;
+}
+
+// ── Utils ────────────────────────────────────────────────────────────────
+function v(id){ return (document.getElementById(id)||{}).value || ''; }
+function setv(id,val){ const el=document.getElementById(id); if(el) el.value = val||''; }
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function linesOf(id){ return v(id).split('\n').map(s=>s.trim()).filter(Boolean); }
+function today(){ return new Date().toISOString().slice(0,10); }
+function uid(){ return 'pop_'+Date.now()+'_'+Math.random().toString(36).slice(2,8); }
+function nextCodigo(){
+  const nums = pops.map(p=>parseInt((p.codigo||'').replace('POP-',''))||0);
+  const last = nums.length ? Math.max(...nums) : 0;
+  return 'POP-' + String(last+1).padStart(4,'0');
+}
+
+function toast(msg, type='ok'){
+  const el=document.getElementById('toast');
+  const icons={ok:'✓',err:'✗',warn:'⚠'}; const colors={ok:'var(--gn)',err:'var(--rd)',warn:'var(--yl)'};
+  document.getElementById('toast-ic').textContent = icons[type]||'●';
+  document.getElementById('toast-ic').style.color = colors[type]||'var(--bl)';
+  document.getElementById('toast-msg').textContent = msg;
+  el.classList.add('open'); clearTimeout(window._tt); window._tt=setTimeout(()=>el.classList.remove('open'),3500);
+}
+function showLoad(msg,sub=''){ document.getElementById('lmsg').textContent=msg; document.getElementById('lsub2').textContent=sub; document.getElementById('lv').classList.add('open'); }
+function hideLoad(){ document.getElementById('lv').classList.remove('open'); }
+function openMo(id){ document.getElementById(id).classList.add('open'); }
+function closeMo(id){ document.getElementById(id).classList.remove('open'); }
+function confirmAction(title, sub, onYes){
+  document.getElementById('confirm-title').textContent = title;
+  document.getElementById('confirm-sub').textContent = sub;
+  const btn = document.getElementById('confirm-btn');
+  const nb = btn.cloneNode(true); btn.parentNode.replaceChild(nb, btn);
+  nb.onclick = () => { closeMo('mo-confirm'); onYes(); };
+  openMo('mo-confirm');
+}
+
+function showTab(t){
+  document.querySelectorAll('.tab').forEach(el => el.classList.toggle('on', el.getAttribute('onclick').includes(t)));
+  document.querySelectorAll('.tc').forEach(el => el.classList.remove('on'));
+  document.getElementById('tc-'+t).classList.add('on');
+  if (t === 'salvos') renderGrid();
+}
+
+function updateAITag(){
+  const el = document.getElementById('ai-tag');
+  fetch('/api/status').then(r=>r.json()).then(d=>{
+    if (d.key_configured){ el.textContent='✦ RIOS Cortex Online'; el.className='tag tg'; }
+    else { el.textContent='● Cortex Offline'; el.className='tag tw'; }
+  }).catch(()=>{ el.textContent='● Servidor Offline'; el.className='tag tr_'; });
+}
+
+// ── Revisões ─────────────────────────────────────────────────────────────
+function addRevisao(descricao='', revisadoPor='', aprovadoPor='', data=today()){
+  const n = document.querySelectorAll('#rev-body tr').length;
+  const id = 'rv'+Date.now()+Math.random().toString(36).slice(2,6);
+  const row = `<tr id="${id}">
+    <td style="text-align:center;font-weight:700;color:var(--bl)">${n}</td>
+    <td><input class="rv-desc" value="${esc(descricao)}" placeholder="Revisão inicial"></td>
+    <td><input class="rv-rev" value="${esc(revisadoPor)}" placeholder="Nome"></td>
+    <td><input class="rv-apr" value="${esc(aprovadoPor)}" placeholder="Nome"></td>
+    <td><input class="rv-data" type="date" value="${esc(data)}"></td>
+    <td><button class="bd2" onclick="document.getElementById('${id}').remove()">✕</button></td>
+  </tr>`;
+  document.getElementById('rev-body').insertAdjacentHTML('beforeend', row);
+}
+
+// ── Definições ───────────────────────────────────────────────────────────
+function addDefinicao(termo='', definicao=''){
+  const id = 'df'+Date.now()+Math.random().toString(36).slice(2,6);
+  const row = `<div class="lrow" id="${id}">
+    <button class="bd2 lrow-del" onclick="document.getElementById('${id}').remove()">✕</button>
+    <div class="g2">
+      <div class="fg"><label>Termo</label><input class="df-termo" value="${esc(termo)}" placeholder="Ex: Peso líquido real"></div>
+      <div class="fg"><label>Definição</label><input class="df-def" value="${esc(definicao)}" placeholder="O que significa..."></div>
+    </div>
+  </div>`;
+  document.getElementById('def-body').insertAdjacentHTML('beforeend', row);
+}
+
+// ── Responsáveis ─────────────────────────────────────────────────────────
+function addResponsavel(papel='', tarefas=[]){
+  const id = 'rp'+Date.now()+Math.random().toString(36).slice(2,6);
+  const row = `<div class="lrow" id="${id}">
+    <button class="bd2 lrow-del" onclick="document.getElementById('${id}').remove()">✕</button>
+    <div class="fg" style="margin-bottom:8px"><label>Papel / Cargo</label><input class="rp-papel" value="${esc(papel)}" placeholder="Ex: Estoquista / Comprador"></div>
+    <div class="fg"><label>Responsabilidades (uma por linha)</label><textarea class="rp-tarefas" style="min-height:56px" placeholder="Ex: Conferência&#10;Reposição&#10;Baixa no sistema">${esc((tarefas||[]).join('\n'))}</textarea></div>
+  </div>`;
+  document.getElementById('resp-body').insertAdjacentHTML('beforeend', row);
+}
+
+// ── Etapas ───────────────────────────────────────────────────────────────
+const DG_LABELS = {'':'Nenhum destaque','regra':'⭐ Regra Principal','critico':'🚨 Ponto Crítico','financeiro':'💰 PCC Financeiro'};
+function addEtapa(titulo='', destaque='', itens=[]){
+  const id = 'et'+Date.now()+Math.random().toString(36).slice(2,6);
+  const num = document.querySelectorAll('#etapas-body .etapa-card').length + 1;
+  const opts = Object.keys(DG_LABELS).map(k=>`<option value="${k}" ${k===destaque?'selected':''}>${DG_LABELS[k]}</option>`).join('');
+  const card = `<div class="etapa-card ${destaque?'dg-'+destaque:''}" id="${id}">
+    <div class="etapa-head">
+      <div class="etapa-num">${num}</div>
+      <input class="et-titulo full" style="flex:1" value="${esc(titulo)}" placeholder="Ex: Conferência (PONTO CRÍTICO)">
+      <select class="et-destaque" style="max-width:190px" onchange="document.getElementById('${id}').className='etapa-card '+(this.value?'dg-'+this.value:'')">${opts}</select>
+      <button class="bd2" onclick="document.getElementById('${id}').remove();renumEtapas();updateFlowPreview()">✕</button>
+    </div>
+    <div class="fg"><label>Passos / Itens (um por linha)</label><textarea class="et-itens" oninput="updateFlowPreview()" style="min-height:70px" placeholder="Ex: Verificar cor, odor e textura&#10;Se não conforme, recusar o produto">${esc((itens||[]).join('\n'))}</textarea></div>
+  </div>`;
+  document.getElementById('etapas-body').insertAdjacentHTML('beforeend', card);
+  updateFlowPreview();
+}
+function renumEtapas(){
+  document.querySelectorAll('#etapas-body .etapa-card').forEach((el,i)=>{ el.querySelector('.etapa-num').textContent = i+1; });
+}
+
+const FLOW_COLORS = ['#2b8fff','#27d97e','#ff8c00','#a855f7','#ff4d6a','#12a5b8'];
+function updateFlowPreview(){
+  const cards = [...document.querySelectorAll('#etapas-body .etapa-card')];
+  const box = document.getElementById('flow-preview');
+  if (!cards.length){ box.innerHTML = '<div style="text-align:center;color:var(--sb);font-size:12px;padding:10px">Adicione etapas para gerar o fluxo.</div>'; return; }
+  let html = '';
+  let regraTxt = '';
+  cards.forEach((c,i)=>{
+    const titulo = c.querySelector('.et-titulo').value || ('Etapa '+(i+1));
+    const dg = c.querySelector('.et-destaque').value;
+    if (dg === 'regra' && !regraTxt) regraTxt = titulo;
+    const color = FLOW_COLORS[i % FLOW_COLORS.length];
+    html += `<div class="flow-box" style="background:${color}">${esc(titulo)}</div>`;
+    if (i < cards.length-1) html += `<div class="flow-arrow">↓</div>`;
+  });
+  if (regraTxt) html += `<div class="flow-banner">⭐ ${esc(regraTxt)}</div>`;
+  box.innerHTML = html;
+}
+
+// ── PCC ──────────────────────────────────────────────────────────────────
+function addPcc(etapa='', risco='', controle=''){
+  const id = 'pc'+Date.now()+Math.random().toString(36).slice(2,6);
+  const row = `<tr id="${id}">
+    <td><input class="pc-etapa" value="${esc(etapa)}" placeholder="Ex: Pesagem"></td>
+    <td><input class="pc-risco" value="${esc(risco)}" placeholder="Ex: Perda financeira"></td>
+    <td><input class="pc-controle" value="${esc(controle)}" placeholder="Ex: Remoção total do gelo"></td>
+    <td><button class="bd2" onclick="document.getElementById('${id}').remove()">✕</button></td>
+  </tr>`;
+  document.getElementById('pcc-body').insertAdjacentHTML('beforeend', row);
+}
+
+// ── Coletar / Preencher formulário ──────────────────────────────────────
+function collectForm(){
+  const revisoes = [...document.querySelectorAll('#rev-body tr')].map((tr,i)=>({
+    numero: i, descricao: tr.querySelector('.rv-desc').value, revisadoPor: tr.querySelector('.rv-rev').value,
+    aprovadoPor: tr.querySelector('.rv-apr').value, data: tr.querySelector('.rv-data').value
+  }));
+  const definicoes = [...document.querySelectorAll('#def-body .lrow')].map(el=>({
+    termo: el.querySelector('.df-termo').value, definicao: el.querySelector('.df-def').value
+  })).filter(d=>d.termo||d.definicao);
+  const responsaveis = [...document.querySelectorAll('#resp-body .lrow')].map(el=>({
+    papel: el.querySelector('.rp-papel').value,
+    tarefas: el.querySelector('.rp-tarefas').value.split('\n').map(s=>s.trim()).filter(Boolean)
+  })).filter(r=>r.papel);
+  const etapas = [...document.querySelectorAll('#etapas-body .etapa-card')].map(el=>({
+    titulo: el.querySelector('.et-titulo').value,
+    destaque: el.querySelector('.et-destaque').value,
+    itens: el.querySelector('.et-itens').value.split('\n').map(s=>s.trim()).filter(Boolean)
+  })).filter(e=>e.titulo);
+  const pcc = [...document.querySelectorAll('#pcc-body tr')].map(tr=>({
+    etapa: tr.querySelector('.pc-etapa').value, risco: tr.querySelector('.pc-risco').value, controle: tr.querySelector('.pc-controle').value
+  })).filter(p=>p.etapa||p.risco||p.controle);
+
+  return {
+    titulo: v('f-titulo'), codigo: v('f-codigo') || nextCodigo(),
+    cliente: ACTIVE_CLIENTE ? ACTIVE_CLIENTE.nome : v('f-cliente'),
+    clienteId: ACTIVE_CLIENTE ? ACTIVE_CLIENTE.id : null,
+    setor: v('f-setor'), status: v('f-status'), versao: v('f-versao'),
+    revisoes, objetivo: v('f-objetivo'), aplicacao: v('f-aplicacao'),
+    referencias: linesOf('f-referencias'), materiais: linesOf('f-materiais'),
+    definicoes, responsaveis, frequencia: v('f-frequencia'), etapas, pcc,
+    registros: linesOf('f-registros'), indicadores: linesOf('f-indicadores'),
+    obs: v('f-obs'), atualizadoEm: new Date().toISOString()
+  };
+}
+
+function preencherForm(p){
+  setv('f-titulo', p.titulo); setv('f-codigo', p.codigo); setv('f-cliente', p.cliente);
+  setv('f-setor', p.setor); setv('f-status', p.status); setv('f-versao', p.versao);
+  setv('f-objetivo', p.objetivo); setv('f-aplicacao', p.aplicacao);
+  setv('f-referencias', (p.referencias||[]).join('\n'));
+  setv('f-materiais', (p.materiais||[]).join('\n'));
+  setv('f-frequencia', p.frequencia);
+  setv('f-registros', (p.registros||[]).join('\n'));
+  setv('f-indicadores', (p.indicadores||[]).join('\n'));
+  setv('f-obs', p.obs);
+  document.getElementById('rev-body').innerHTML = '';
+  (p.revisoes||[]).forEach(r=>addRevisao(r.descricao,r.revisadoPor,r.aprovadoPor,r.data));
+  document.getElementById('def-body').innerHTML = '';
+  (p.definicoes||[]).forEach(d=>addDefinicao(d.termo,d.definicao));
+  document.getElementById('resp-body').innerHTML = '';
+  (p.responsaveis||[]).forEach(r=>addResponsavel(r.papel,r.tarefas));
+  document.getElementById('etapas-body').innerHTML = '';
+  (p.etapas||[]).forEach(e=>addEtapa(e.titulo,e.destaque,e.itens));
+  document.getElementById('pcc-body').innerHTML = '';
+  (p.pcc||[]).forEach(pc=>addPcc(pc.etapa,pc.risco,pc.controle));
+  document.getElementById('ia-parecer-wrap').innerHTML = '';
+  if (p.parecerIA) renderParecerInline(p.parecerIA);
+  updateFlowPreview();
+}
+
+function limparForm(){
+  confirmAction('Limpar formulário?', 'Todos os campos não salvos serão perdidos.', ()=>{
+    editingId = null;
+    ['f-titulo','f-codigo','f-objetivo','f-aplicacao','f-referencias','f-materiais','f-frequencia','f-registros','f-indicadores','f-obs'].forEach(id=>setv(id,''));
+    setv('f-status','rascunho'); setv('f-versao','1.0'); setv('f-setor','Cozinha');
+    setv('f-cliente', ACTIVE_CLIENTE ? ACTIVE_CLIENTE.nome : '');
+    ['rev-body','def-body','resp-body','etapas-body','pcc-body'].forEach(id=>document.getElementById(id).innerHTML='');
+    document.getElementById('ia-parecer-wrap').innerHTML = '';
+    addRevisao('Revisão Inicial','','',today());
+    updateFlowPreview();
+    toast('Formulário limpo.','ok');
+  });
+}
+
+// ── Salvar / Listar ──────────────────────────────────────────────────────
+function salvarPop(){
+  if (!v('f-titulo').trim()){ toast('Informe o título do processo!','err'); return; }
+  const f = collectForm();
+  if (editingId){
+    const idx = pops.findIndex(p=>p.id===editingId);
+    f.id = editingId; f.criadoEm = pops[idx].criadoEm; f.parecerIA = pops[idx].parecerIA;
+    pops[idx] = f;
+  } else {
+    f.id = uid(); f.criadoEm = new Date().toISOString(); f.parecerIA = null;
+    pops.unshift(f);
+    editingId = f.id;
+  }
+  localStorage.setItem('rios_pops', JSON.stringify(pops));
+  toast('POP salvo: '+f.titulo, 'ok');
+  autoBackupServidor();
+  showTab('salvos');
+}
+
+function renderGrid(){
+  const grid = document.getElementById('pops-grid');
+  const visiveis = pops.filter(popVisivel);
+  if (!visiveis.length){
+    grid.innerHTML = `<div class="empty" style="grid-column:1/-1"><div class="eic">📋</div><p>Nenhum POP cadastrado ainda para ${esc(ACTIVE_CLIENTE?ACTIVE_CLIENTE.nome:'esta empresa')}. Crie o primeiro na aba "Novo POP".</p></div>`;
+    return;
+  }
+  grid.innerHTML = visiveis.map(p=>{
+    const badgeClass = p.status==='ativo' ? 'bd-ativo' : (p.status==='obsoleto' ? 'bd-obsoleto' : 'bd-rascunho');
+    return `<div class="fi" onclick="editarPop('${p.id}')">
+      <span class="badge ${badgeClass}" style="position:absolute;top:12px;right:12px">${(p.status||'rascunho').toUpperCase()}</span>
+      <h4>${esc(p.titulo)}</h4>
+      <p>${esc(p.codigo||'')} · v${esc(p.versao||'1.0')}</p>
+      <div class="ftags">
+        <span class="ftag">${esc(p.setor||'—')}</span>
+        <span class="ftag">${p.clienteId?esc(p.cliente||''):'sem cliente'}</span>
+        <span class="ftag">${(p.etapas||[]).length} etapas</span>
+      </div>
+      <div class="fiacts" onclick="event.stopPropagation()">
+        <button class="btn bg_" style="padding:6px 8px;font-size:10px" onclick="imprimirPop('${p.id}')">🖨️ Imprimir</button>
+        <button class="btn bor" style="padding:6px 8px;font-size:10px" onclick="gerarWordPop('${p.id}')">📝 Word</button>
+        <button class="btn bg_" style="padding:6px 8px;font-size:10px" onclick="duplicarPop('${p.id}')">⧉ Duplicar</button>
+        <button class="btn brd" style="padding:6px 8px;font-size:10px" onclick="excluirPop('${p.id}')">🗑</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function editarPop(id){
+  const p = pops.find(x=>x.id===id); if (!p) return;
+  editingId = id;
+  preencherForm(p);
+  showTab('novo');
+}
+function duplicarPop(id){
+  const p = pops.find(x=>x.id===id); if (!p) return;
+  const copia = JSON.parse(JSON.stringify(p));
+  copia.id = uid(); copia.titulo = p.titulo + ' (cópia)'; copia.status = 'rascunho';
+  copia.codigo = nextCodigo(); copia.criadoEm = new Date().toISOString(); copia.parecerIA = null;
+  pops.unshift(copia); localStorage.setItem('rios_pops', JSON.stringify(pops));
+  toast('POP duplicado.','ok'); renderGrid();
+}
+function excluirPop(id){
+  const p = pops.find(x=>x.id===id); if (!p) return;
+  confirmAction('Excluir POP?', `"${p.titulo}" será removido permanentemente.`, ()=>{
+    pops = pops.filter(x=>x.id!==id);
+    localStorage.setItem('rios_pops', JSON.stringify(pops));
+    toast('POP excluído.','ok'); renderGrid();
+  });
+}
+
+// ── Backup (mesmo endpoint do servidor usado por Fichas) ────────────────
+async function autoBackupServidor(){
+  try {
+    const r = await fetch('/api/backup', { method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ versao:'1.0', exportado_em:new Date().toISOString(), pops }) });
+    const res = await r.json();
+    if (!res.success) toast('Backup local salvo, mas servidor recusou: '+(res.error||''),'warn');
+  } catch(e){ toast('Servidor offline — POP salvo só localmente.','warn'); }
+}
+
+// ── Parecer da IA (usa /api/chat em modo genérico "messages") ───────────
+function buildPopSummary(f){
+  const lines = [`PROCESSO: ${f.titulo}`, `SETOR: ${f.setor}`, `CLIENTE/RESTAURANTE: ${f.cliente||'Interno'}`];
+  if (f.objetivo) lines.push(`OBJETIVO: ${f.objetivo}`);
+  if (f.aplicacao) lines.push(`CAMPO DE APLICAÇÃO: ${f.aplicacao}`);
+  if (f.responsaveis?.length) lines.push('RESPONSÁVEIS: ' + f.responsaveis.map(r=>`${r.papel} (${r.tarefas.join('; ')})`).join(' | '));
+  if (f.etapas?.length) lines.push('ETAPAS:\n' + f.etapas.map((e,i)=>`${i+1}. ${e.titulo}${e.destaque?' ['+e.destaque.toUpperCase()+']':''}: ${e.itens.join('; ')}`).join('\n'));
+  if (f.pcc?.length) lines.push('PCC:\n' + f.pcc.map(p=>`${p.etapa} — risco: ${p.risco} — controle: ${p.controle}`).join('\n'));
+  if (f.registros?.length) lines.push('REGISTROS OBRIGATÓRIOS: ' + f.registros.join(', '));
+  if (f.indicadores?.length) lines.push('INDICADORES: ' + f.indicadores.join(', '));
+  return lines.join('\n');
+}
+
+function parseAIJson(text){
+  text = (text||'').trim().replace(/^```(?:json)?\s*/,'').replace(/\s*```$/,'');
+  try { return JSON.parse(text); } catch(e){}
+  const m = text.match(/\{[\s\S]*\}/);
+  if (m){ try { return JSON.parse(m[0]); } catch(e){} }
+  return null;
+}
+
+async function gerarParecer(){
+  if (!v('f-titulo').trim()){ toast('Preencha ao menos o título e as etapas antes de pedir o parecer.','err'); return; }
+  const f = collectForm();
+  const prompt = `Você é o RIOS Cortex, sistema de inteligência operacional do Chef Marco À Souza, consultor gastronômico. `+
+    `Analise criticamente o POP (Procedimento Operacional Padrão) abaixo, como um auditor de processos de food service faria. `+
+    `Aponte riscos não cobertos, ambiguidades, etapas fracas e o que está bem resolvido. Seja direto e específico.\n\n` +
+    buildPopSummary(f) +
+    `\n\nRetorne SOMENTE JSON: {"nota":8.5,"pontos_fortes":["..."],"pontos_melhoria":["..."],"riscos_nao_cobertos":["..."],"recomendacao":"..."}`;
+
+  showLoad('🧠 Gerando parecer da IA...', 'RIOS Cortex está analisando o POP');
+  try {
+    const resp = await fetch('/api/chat', { method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ task:'pop_analise', messages:[{role:'user', content: prompt}] }) });
+    const result = await resp.json();
+    hideLoad();
+    if (!resp.ok || result.error) throw new Error(result.error || 'Erro desconhecido');
+    const text = result.content?.[0]?.text || '';
+    const data = parseAIJson(text);
+    if (!data) throw new Error('Não foi possível interpretar a resposta da IA.');
+    if (editingId){
+      const idx = pops.findIndex(p=>p.id===editingId);
+      if (idx>=0){ pops[idx].parecerIA = data; localStorage.setItem('rios_pops', JSON.stringify(pops)); }
+    }
+    renderParecerInline(data);
+    showParecerModal(data);
+  } catch(e){ hideLoad(); toast('Erro IA: '+e.message, 'err'); }
+}
+
+function renderParecerInline(data){
+  document.getElementById('ia-parecer-wrap').innerHTML = `<div class="card">
+    <div class="sec">🧠 Último Parecer da IA <span class="ia-nota">${data.nota??'—'}</span></div>
+    <div class="ia-box"><b>Pontos fortes:</b> ${(data.pontos_fortes||[]).join('; ')||'—'}</div>
+    <div class="ia-box"><b>A melhorar:</b> ${(data.pontos_melhoria||[]).join('; ')||'—'}</div>
+    <div class="ia-box"><b>Riscos não cobertos:</b> ${(data.riscos_nao_cobertos||[]).join('; ')||'—'}</div>
+    <div class="ia-box"><b>Recomendação:</b> ${esc(data.recomendacao||'—')}</div>
+  </div>`;
+}
+function showParecerModal(data){
+  document.getElementById('ia-body').innerHTML = `
+    <div style="text-align:center;margin-bottom:14px"><div class="ia-nota" style="font-size:38px">${data.nota??'—'}</div><div style="font-size:10px;color:var(--sb);text-transform:uppercase;letter-spacing:1px">Nota do POP</div></div>
+    <div class="ia-box"><b>✓ Pontos fortes</b><br>${(data.pontos_fortes||[]).map(esc).join('<br>')||'—'}</div>
+    <div class="ia-box"><b>⚠ A melhorar</b><br>${(data.pontos_melhoria||[]).map(esc).join('<br>')||'—'}</div>
+    <div class="ia-box"><b>🚨 Riscos não cobertos</b><br>${(data.riscos_nao_cobertos||[]).map(esc).join('<br>')||'—'}</div>
+    <div class="ia-box"><b>💡 Recomendação</b><br>${esc(data.recomendacao||'—')}</div>`;
+  openMo('mo-ia');
+}
+
+// ── Impressão ────────────────────────────────────────────────────────────
+function clienteIniciais(nome){
+  const partes = String(nome||'').trim().split(/\s+/).filter(Boolean);
+  if (!partes.length) return 'POP';
+  if (partes.length === 1) return partes[0].slice(0,3).toUpperCase();
+  return (partes[0][0] + partes[1][0]).toUpperCase();
+}
+
+function renderPrintArea(p){
+  const revisoes = p.revisoes||[];
+  const ultimaRev = revisoes.length ? revisoes[revisoes.length-1] : null;
+  const rev = revisoes.map(r=>`<tr><td>${esc(String(r.numero??''))}</td><td>${esc(r.descricao)}</td><td>${esc(r.revisadoPor)}</td><td>${esc(r.aprovadoPor)}</td><td>${esc(r.data)}</td></tr>`).join('');
+  const resp = (p.responsaveis||[]).map(r=>`<li><b>${esc(r.papel)}:</b> ${r.tarefas.map(esc).join('; ')}</li>`).join('');
+  const etapas = (p.etapas||[]).map((e,i)=>{
+    const tagTxt = e.destaque ? DG_LABELS[e.destaque].replace(/[^\w\sÀ-ú]/g,'').trim() : '';
+    return `<div class="petapa${e.destaque?' pd-'+e.destaque:''}">
+      <div class="petapa-tit">Etapa ${i+1} — ${esc(e.titulo)}${tagTxt?`<span class="petapa-tag">${esc(tagTxt)}</span>`:''}</div>
+      <ul>${e.itens.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>
+    </div>`;
+  }).join('');
+  const pcc = (p.pcc||[]).map(x=>`<tr><td>${esc(x.etapa)}</td><td>${esc(x.risco)}</td><td>${esc(x.controle)}</td></tr>`).join('');
+  const flow = (p.etapas||[]).map((e,i)=>{
+    const color = FLOW_COLORS[i % FLOW_COLORS.length];
+    const arrow = i < (p.etapas.length-1) ? '<div class="pflow-arrow">↓</div>' : '';
+    return `<div class="pflow-box" style="background:${color}">${esc(e.titulo)}</div>${arrow}`;
+  }).join('');
+  const dataGeracao = new Date().toLocaleDateString('pt-BR');
+  const dataDoc = (ultimaRev && ultimaRev.data) || (p.atualizadoEm||'').slice(0,10) || today();
+  const clienteNome = p.cliente || 'Consultoria Chef Marco À Souza';
+
+  document.getElementById('print-area').innerHTML = `
+    <table class="plt">
+      <tr>
+        <td class="plt-logo"><div class="badge">${esc(clienteIniciais(p.cliente))}</div></td>
+        <td class="plt-title">
+          <div class="empresa">Sistema de Gestão ${esc(clienteNome)}</div>
+          <div class="doctit">${esc(p.titulo||'Procedimento Operacional Padrão')}</div>
+        </td>
+        <td class="plt-meta">
+          <table>
+            <tr><td><b>Cód.</b> ${esc(p.codigo||'—')}</td></tr>
+            <tr><td><b>Rev.:</b> ${esc(String(ultimaRev?ultimaRev.numero:0))}</td></tr>
+            <tr><td><b>Data:</b> ${esc(dataDoc)}</td></tr>
+            <tr><td><b>Setor:</b> ${esc(p.setor||'—')}</td></tr>
+            <tr><td><b>Aprov.:</b> ${esc((ultimaRev&&ultimaRev.aprovadoPor)||'—')}</td></tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+
+    <div class="h2plain">Histórico de Revisão</div>
+    <table class="pt pt-rev"><tr><th>Rev.</th><th>Descrição</th><th>Revisado por</th><th>Aprovado por</th><th>Data</th></tr>${rev||'<tr><td colspan="5" style="color:#999">—</td></tr>'}</table>
+
+    <h2>Objetivo</h2><p>${esc(p.objetivo)||'—'}</p>
+    <h2>Campo de Aplicação</h2><p>${esc(p.aplicacao)||'—'}</p>
+    ${p.referencias?.length?`<h2>Referências</h2><ul>${p.referencias.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}
+    ${p.definicoes?.length?`<h2>Definições</h2><ul>${p.definicoes.map(d=>`<li><b>${esc(d.termo)}:</b> ${esc(d.definicao)}</li>`).join('')}</ul>`:''}
+    <h2>Responsáveis</h2><ul>${resp||'<li style="color:#999">—</li>'}</ul>
+    ${p.materiais?.length?`<h2>Materiais, Utensílios e EPIs</h2><ul>${p.materiais.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}
+    ${p.frequencia?`<h2>Frequência e Horário</h2><p>${esc(p.frequencia)}</p>`:''}
+    <h2>Descrição do Processo</h2>${etapas||'<p style="color:#999">—</p>'}
+    ${p.etapas?.length?`<h2>Fluxo</h2><div class="pflow">${flow}</div>`:''}
+    <h2>Pontos Críticos de Controle (PCC)</h2>
+    <table class="pt"><tr><th>Etapa</th><th>Risco</th><th>Controle</th></tr>${pcc||'<tr><td colspan="3" style="color:#999">—</td></tr>'}</table>
+    <div class="ptcap">Tabela de PCC</div>
+    ${p.registros?.length?`<h2>Registros Obrigatórios</h2><ul>${p.registros.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}
+    ${p.indicadores?.length?`<h2>Indicadores de Gestão</h2><ul>${p.indicadores.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}
+    ${p.obs?`<h2>Observações</h2><p>${esc(p.obs)}</p>`:''}
+
+    <div class="psign">
+      <div>Responsável pela Elaboração</div>
+      <div>Aprovação do Cliente / Gestor</div>
+    </div>
+    <div class="pfoot"><span>${esc(p.codigo||'POP')} · Rev.${esc(String(ultimaRev?ultimaRev.numero:0))} · ${esc(clienteNome)}</span><span>Consultoria Chef Marco À Souza · ${esc(dataGeracao)}</span></div>
+  `;
+}
+
+function imprimirPop(id){
+  const p = pops.find(x=>x.id===id); if (!p) return;
+  renderPrintArea(p);
+  window.print();
+}
+
+function imprimirFormAtual(){
+  if (!v('f-titulo').trim()){ toast('Preencha ao menos o título antes de imprimir.','err'); return; }
+  const f = collectForm();
+  renderPrintArea(f);
+  window.print();
+}
+
+// ── Papel Timbrado do Cliente (logo + cor institucional p/ o Word) ──────
+function getBrandingMap(){
+  try{ return JSON.parse(localStorage.getItem('rios_cliente_branding')||'{}'); }catch(e){ return {}; }
+}
+function saveBrandingMap(map){ localStorage.setItem('rios_cliente_branding', JSON.stringify(map)); }
+function getBranding(clienteId){
+  if (!clienteId) return null;
+  return getBrandingMap()[clienteId] || null;
+}
+let _brandLogoB64 = null;
+
+function openBrandingModal(){
+  if (!ACTIVE_CLIENTE){ toast('Nenhuma empresa ativa.','err'); return; }
+  document.getElementById('brand-cliente-nome').textContent = ACTIVE_CLIENTE.nome;
+  const b = getBranding(ACTIVE_CLIENTE.id);
+  _brandLogoB64 = b ? b.logoBase64 : null;
+  document.getElementById('brand-color').value = (b && b.corHex) ? ('#'+b.corHex.replace('#','')) : '#5e4778';
+  renderBrandPreview();
+  openMo('mo-branding');
+}
+function renderBrandPreview(){
+  const el = document.getElementById('brand-logo-preview');
+  if (_brandLogoB64){
+    el.innerHTML = `<img src="${_brandLogoB64}" style="max-width:140px;max-height:80px;background:#fff;border-radius:8px;padding:6px"><span style="font-size:11px;color:var(--sb)">Logo configurado</span>`;
+  } else {
+    el.innerHTML = `<span style="font-size:11px;color:var(--sb)">Nenhum logo configurado — o Word usará um espaço reservado "LOGOTIPO DO CLIENTE".</span>`;
+  }
+}
+function onBrandLogoChange(ev){
+  const file = ev.target.files && ev.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => { _brandLogoB64 = reader.result; renderBrandPreview(); };
+  reader.readAsDataURL(file);
+}
+function clearBranding(){
+  _brandLogoB64 = null;
+  renderBrandPreview();
+  toast('Logo removido deste rascunho — clique em Salvar para confirmar.','warn');
+}
+function saveBranding(){
+  if (!ACTIVE_CLIENTE){ toast('Nenhuma empresa ativa.','err'); return; }
+  const map = getBrandingMap();
+  const corHex = (v('brand-color')||'#5e4778').replace('#','');
+  map[ACTIVE_CLIENTE.id] = { logoBase64: _brandLogoB64 || null, corHex };
+  saveBrandingMap(map);
+  toast('Papel timbrado salvo para '+ACTIVE_CLIENTE.nome+'.','ok');
+  closeMo('mo-branding');
+}
+
+// ── Gerar Word (.docx) — padrão definido no Prompt Mestre ───────────────
+async function gerarWordDe(pop){
+  if (!pop.titulo || !pop.titulo.trim()){ toast('Preencha ao menos o título antes de gerar o Word.','err'); return; }
+  const branding = ACTIVE_CLIENTE ? getBranding(ACTIVE_CLIENTE.id) : null;
+  if (!branding || !branding.logoBase64){
+    toast('Gerando sem logotipo do cliente — configure em 🎨 Papel Timbrado para um resultado mais profissional.','warn');
+  }
+  const cliente = {
+    nome: (ACTIVE_CLIENTE && ACTIVE_CLIENTE.nome) || pop.cliente || 'Cliente',
+    corHex: branding ? branding.corHex : null
+  };
+  showLoad('📝 Gerando arquivo Word...', 'Montando capa, cabeçalho, fluxograma e seções do POP');
+  try{
+    const resp = await fetch('/api/pop/docx', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ pop, cliente, logoBase64: branding ? branding.logoBase64 : null })
+    });
+    if (!resp.ok){
+      const err = await resp.json().catch(()=>({}));
+      throw new Error(err.error || ('Erro '+resp.status));
+    }
+    const blob = await resp.blob();
+    let fname = 'POP.docx';
+    const cd = resp.headers.get('Content-Disposition') || '';
+    const m = cd.match(/filename=([^;]+)/);
+    if (m) fname = m[1].trim().replace(/^"|"$/g,'');
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = fname; document.body.appendChild(a); a.click();
+    a.remove(); URL.revokeObjectURL(url);
+    hideLoad();
+    toast('Word gerado: '+fname, 'ok');
+  } catch(e){ hideLoad(); toast('Erro ao gerar Word: '+e.message, 'err'); }
+}
+function gerarWordFormAtual(){
+  const f = collectForm();
+  gerarWordDe(f);
+}
+function gerarWordPop(id){
+  const p = pops.find(x=>x.id===id); if (!p) return;
+  gerarWordDe(p);
+}
+
+// ── Init ─────────────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', ()=>{
+  updateAITag();
+  const ct = document.getElementById('cliente-tag');
+  if (ct && ACTIVE_CLIENTE) ct.innerHTML = '&#127970; ' + esc(ACTIVE_CLIENTE.nome);
+  setv('f-cliente', ACTIVE_CLIENTE ? ACTIVE_CLIENTE.nome : '');
+  addRevisao('Revisão Inicial','','',today());
+  addResponsavel();
+  addEtapa();
+  updateFlowPreview();
+  renderGrid();
+});
+</script>
+</body>
+</html>

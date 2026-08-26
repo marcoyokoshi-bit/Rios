@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>RIOS — Insights & Metas</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --dk:#050510;--dk2:#0a0a1e;--sf:#101028;
+  --bl:#2b8fff;--cy:#00d4ff;--or:#ff8c00;--rd:#ff4d6a;
+  --gn:#27d97e;--yl:#ffd93d;--pu:#a855f7;
+  --tx:#e8eaf0;--sb:#7a8ca0;
+  --bl10:rgba(43,143,255,.10);
+}
+html,body{
+  height:100%;width:100%;
+  background:var(--dk);color:var(--tx);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
+  overflow:hidden;
+}
+#bgCanvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
+
+/* ── TOP BAR ──────────────────────────────────────────────────── */
+.topbar{
+  position:fixed;top:0;left:0;right:0;height:52px;z-index:20;
+  background:rgba(5,5,16,.92);backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  display:flex;align-items:center;padding:0 14px;gap:10px;
+}
+.back-btn{
+  width:32px;height:32px;border-radius:8px;border:1px solid transparent;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:rgba(255,255,255,.3);font-size:16px;transition:.2s;
+}
+.back-btn:hover{color:var(--bl);background:rgba(43,143,255,.1);border-color:rgba(43,143,255,.2);}
+.back-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.topbar-logo{font-size:20px;font-weight:900;color:var(--bl);letter-spacing:-1px;}
+.topbar-sep{width:1px;height:22px;background:rgba(255,255,255,.08);}
+.topbar-title{font-size:13px;color:var(--sb);flex:1;}
+.topbar-badge{
+  font-size:9px;font-weight:700;padding:3px 9px;border-radius:20px;
+  background:rgba(168,85,247,.12);color:var(--pu);
+  border:1px solid rgba(168,85,247,.3);
+}
+
+/* ── SCROLL CONTENT ───────────────────────────────────────────── */
+.content{
+  position:fixed;top:52px;left:0;right:0;bottom:0;
+  overflow-y:auto;padding:16px 14px 80px;z-index:10;
+}
+.content::-webkit-scrollbar{width:3px;}
+.content::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:3px;}
+
+/* ── SECTION LABEL ─────────────────────────────────────────────── */
+.slbl{
+  font-size:9px;font-weight:700;letter-spacing:2px;
+  color:var(--sb);text-transform:uppercase;
+  margin:20px 0 10px;
+}
+.slbl:first-child{margin-top:4px;}
+
+/* ── STATS ROW ─────────────────────────────────────────────────── */
+.stats-row{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:4px;}
+.stat-card{
+  background:var(--sf);border:1px solid rgba(255,255,255,.06);
+  border-radius:12px;padding:14px 12px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.stat-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--accent,var(--bl));
+}
+.stat-val{font-size:26px;font-weight:800;line-height:1;margin-bottom:3px;}
+.stat-lbl{font-size:8px;color:var(--sb);text-transform:uppercase;letter-spacing:1px;}
+.stat-sub{font-size:9px;color:var(--sb);margin-top:3px;}
+
+/* ── ALERT SECTION ─────────────────────────────────────────────── */
+#alert-section{margin-bottom:4px;}
+.alert-card{
+  border-radius:11px;padding:10px 13px;
+  display:flex;align-items:flex-start;gap:10px;margin-bottom:7px;
+  border:1px solid;
+}
+.alert-card.critico{
+  background:rgba(255,77,106,.07);border-color:rgba(255,77,106,.25);
+}
+.alert-card.aviso{
+  background:rgba(255,211,0,.06);border-color:rgba(255,211,0,.2);
+}
+.alert-card.info{
+  background:rgba(43,143,255,.06);border-color:rgba(43,143,255,.2);
+}
+.alert-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
+.alert-body{flex:1;}
+.alert-nome{font-size:11px;font-weight:700;margin-bottom:2px;}
+.alert-card.critico .alert-nome{color:var(--rd);}
+.alert-card.aviso   .alert-nome{color:var(--yl);}
+.alert-card.info    .alert-nome{color:var(--bl);}
+.alert-msg{font-size:10px;color:var(--sb);line-height:1.5;}
+.no-alerts{
+  background:rgba(39,217,126,.05);border:1px solid rgba(39,217,126,.2);
+  border-radius:11px;padding:12px 14px;
+  display:flex;align-items:center;gap:10px;
+  font-size:11px;color:var(--gn);
+}
+
+/* ── CHART SECTION ─────────────────────────────────────────────── */
+.chart-card{
+  background:var(--sf);border:1px solid rgba(255,255,255,.06);
+  border-radius:12px;padding:14px;margin-bottom:4px;
+}
+.chart-title{font-size:11px;font-weight:600;margin-bottom:12px;color:var(--tx);}
+.bar-chart{display:flex;align-items:flex-end;gap:6px;height:80px;}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.bar-wrap{width:100%;display:flex;align-items:flex-end;justify-content:center;height:60px;}
+.bar{
+  width:100%;border-radius:4px 4px 0 0;min-height:3px;
+  transition:.3s;
+}
+.bar-pct{font-size:8px;color:var(--sb);line-height:1;}
+.bar-day{font-size:7px;color:rgba(255,255,255,.3);line-height:1;}
+.chart-empty{
+  height:80px;display:flex;align-items:center;justify-content:center;
+  font-size:11px;color:var(--sb);
+}
+
+/* ── DISHES TABLE ──────────────────────────────────────────────── */
+.dish-row{
+  background:var(--sf);border:1px solid rgba(255,255,255,.06);
+  border-radius:10px;padding:10px 12px;
+  display:flex;align-items:center;gap:10px;margin-bottom:6px;
+}
+.dish-rank{
+  font-size:10px;font-weight:800;color:var(--sb);
+  width:18px;text-align:center;flex-shrink:0;
+}
+.dish-info{flex:1;min-width:0;}
+.dish-nome{font-size:11px;font-weight:600;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.dish-sub{font-size:9px;color:var(--sb);margin-top:1px;}
+.dish-bar-wrap{width:70px;flex-shrink:0;}
+.dish-bar-bg{height:4px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;}
+.dish-bar-fill{height:100%;border-radius:2px;background:var(--gn);}
+.dish-pct{font-size:9px;text-align:right;margin-top:2px;font-weight:700;}
+
+/* ── METAS SECTION ─────────────────────────────────────────────── */
+.metas-card{
+  background:var(--sf);border:1px solid rgba(255,255,255,.06);
+  border-radius:12px;padding:14px;
+}
+.meta-row{
+  display:flex;align-items:center;gap:10px;
+  padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04);
+}
+.meta-row:last-child{border-bottom:none;padding-bottom:0;}
+.meta-lbl{flex:1;font-size:11px;color:var(--tx);}
+.meta-sub{font-size:9px;color:var(--sb);}
+.meta-input{
+  width:64px;background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);border-radius:7px;
+  padding:5px 8px;color:var(--tx);font-size:12px;font-weight:700;
+  text-align:center;outline:none;transition:.2s;
+}
+.meta-input:focus{border-color:var(--bl);box-shadow:0 0 0 2px rgba(43,143,255,.2);}
+.meta-unit{font-size:10px;color:var(--sb);width:16px;}
+.save-metas-btn{
+  width:100%;margin-top:12px;padding:10px;
+  background:rgba(43,143,255,.12);border:1px solid rgba(43,143,255,.3);
+  border-radius:9px;color:var(--bl);font-size:12px;font-weight:700;
+  cursor:pointer;transition:.2s;
+}
+.save-metas-btn:hover{background:rgba(43,143,255,.2);}
+.save-metas-btn:active{transform:scale(.97);}
+
+/* ── AI INSIGHTS BUTTON ────────────────────────────────────────── */
+.ai-btn{
+  width:100%;padding:14px;margin-bottom:10px;
+  background:linear-gradient(135deg,rgba(168,85,247,.15),rgba(43,143,255,.15));
+  border:1px solid rgba(168,85,247,.3);
+  border-radius:12px;color:var(--tx);font-size:13px;font-weight:700;
+  cursor:pointer;transition:.25s;letter-spacing:.3px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.ai-btn:hover{background:linear-gradient(135deg,rgba(168,85,247,.25),rgba(43,143,255,.25));}
+.ai-btn:active{transform:scale(.97);}
+.ai-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+
+/* ── AI RESULTS ─────────────────────────────────────────────────── */
+#ai-result{display:none;}
+.ai-result-card{
+  background:linear-gradient(135deg,rgba(168,85,247,.07),rgba(43,143,255,.07));
+  border:1px solid rgba(168,85,247,.2);border-radius:12px;padding:16px;
+  margin-bottom:10px;
+}
+.ai-nota-row{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.ai-nota{
+  font-size:36px;font-weight:900;
+  background:linear-gradient(135deg,var(--pu),var(--bl));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  line-height:1;
+}
+.ai-evolucao{
+  font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;
+}
+.evol-melhorando{background:rgba(39,217,126,.12);color:var(--gn);border:1px solid rgba(39,217,126,.3);}
+.evol-estavel{background:rgba(255,211,0,.1);color:var(--yl);border:1px solid rgba(255,211,0,.3);}
+.evol-piorando{background:rgba(255,77,106,.1);color:var(--rd);border:1px solid rgba(255,77,106,.3);}
+.ai-resumo{font-size:12px;line-height:1.6;color:var(--tx);margin-bottom:12px;}
+.ai-section-title{
+  font-size:9px;font-weight:700;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--sb);margin:10px 0 6px;
+}
+.ai-item{
+  font-size:11px;color:var(--tx);line-height:1.5;
+  padding:5px 0 5px 12px;border-left:2px solid rgba(168,85,247,.4);
+  margin-bottom:4px;
+}
+.ai-item.imediato{border-left-color:var(--rd);}
+.ai-item.semana{border-left-color:var(--yl);}
+.ai-prato-card{
+  background:rgba(255,255,255,.04);border-radius:8px;padding:8px 10px;
+  margin-bottom:5px;
+}
+.ai-prato-nome{font-size:11px;font-weight:700;margin-bottom:3px;}
+.ai-prato-prob{font-size:10px;color:var(--sb);}
+.ai-prato-acao{font-size:10px;color:var(--cy);margin-top:3px;}
+.ai-mensagem{
+  background:rgba(39,217,126,.05);border:1px solid rgba(39,217,126,.15);
+  border-radius:9px;padding:10px 12px;font-size:11px;
+  color:rgba(255,255,255,.7);line-height:1.6;font-style:italic;margin-top:10px;
+}
+
+/* ── TOAST ─────────────────────────────────────────────────────── */
+.toast-wrap{
+  position:fixed;bottom:14px;left:50%;transform:translateX(-50%);
+  z-index:200;pointer-events:none;width:90%;max-width:340px;
+  display:flex;flex-direction:column;gap:7px;
+}
+.toast{
+  background:var(--sf);border:1px solid rgba(255,255,255,.1);
+  border-radius:10px;padding:10px 16px;font-size:12px;
+  box-shadow:0 6px 20px rgba(0,0,0,.4);
+  animation:fadeUp .3s ease;display:flex;align-items:center;gap:8px;
+}
+.toast.ok{border-left:3px solid var(--gn);}
+.toast.err{border-left:3px solid var(--rd);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── SPINNER ────────────────────────────────────────────────────── */
+@keyframes spin{to{transform:rotate(360deg)}}
+.spinner{
+  width:18px;height:18px;border:2px solid rgba(168,85,247,.3);
+  border-top-color:var(--pu);border-radius:50%;
+  animation:spin .8s linear infinite;display:inline-block;
+}
+</style>
+</head>
+<body>
+
+<canvas id="bgCanvas"></canvas>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="back-btn" onclick="history.back()" title="Voltar">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+  </div>
+  <div class="topbar-logo">RIOS</div>
+  <div class="topbar-sep"></div>
+  <div class="topbar-title">Insights & Metas</div>
+  <span class="topbar-badge">✦ Cortex</span>
+</div>
+
+<div class="content">
+
+  <!-- ── STATS ── -->
+  <div class="slbl">Visão Geral — 7 Dias</div>
+  <div class="stats-row">
+    <div class="stat-card" style="--accent:var(--bl)">
+      <div class="stat-val" id="st-total" style="color:var(--bl)">—</div>
+      <div class="stat-lbl">Análises QC</div>
+      <div class="stat-sub" id="st-total-sub">últimos 7 dias</div>
+    </div>
+    <div class="stat-card" style="--accent:var(--gn)">
+      <div class="stat-val" id="st-taxa" style="color:var(--gn)">—</div>
+      <div class="stat-lbl">Taxa Aprovação</div>
+      <div class="stat-sub" id="st-meta-sub">meta: 85%</div>
+    </div>
+    <div class="stat-card" style="--accent:var(--cy)">
+      <div class="stat-val" id="st-score" style="color:var(--cy)">—</div>
+      <div class="stat-lbl">Score Médio</div>
+      <div class="stat-sub">última semana</div>
+    </div>
+    <div class="stat-card" style="--accent:var(--or)">
+      <div class="stat-val" id="st-alertas" style="color:var(--or)">—</div>
+      <div class="stat-lbl">Alertas Ativos</div>
+      <div class="stat-sub">motor de regras</div>
+    </div>
+  </div>
+
+  <!-- ── ALERTAS ── -->
+  <div class="slbl">Alertas do Motor de Regras</div>
+  <div id="alert-section">
+    <div style="text-align:center;padding:14px;font-size:11px;color:var(--sb)">Verificando regras…</div>
+  </div>
+
+  <!-- ── TENDÊNCIA ── -->
+  <div class="slbl">Tendência de Aprovação (7 dias)</div>
+  <div class="chart-card">
+    <div class="chart-title">Taxa de Aprovação por Dia</div>
+    <div class="bar-chart" id="bar-chart">
+      <div class="chart-empty">Sem dados suficientes</div>
+    </div>
+  </div>
+
+  <!-- ── AI INSIGHTS ── -->
+  <div class="slbl">Inteligência Artificial</div>
+  <button class="ai-btn" id="ai-btn" onclick="gerarInsights()">
+    <span>✦</span> Gerar Insights do Dia com IA
+  </button>
+  <div id="ai-result"></div>
+
+  <!-- ── PRATOS PROBLEMÁTICOS ── -->
+  <div class="slbl" id="pratos-lbl" style="display:none">Pratos com Maior Taxa de Falha</div>
+  <div id="pratos-list"></div>
+
+  <!-- ── METAS ── -->
+  <div class="slbl">Configurar Metas</div>
+  <div class="metas-card">
+    <div class="meta-row">
+      <div>
+        <div class="meta-lbl">Taxa de Aprovação QC</div>
+        <div class="meta-sub">Meta semanal mínima</div>
+      </div>
+      <input class="meta-input" id="meta-qc-aprovacao" type="number" min="50" max="100" value="85">
+      <span class="meta-unit">%</span>
+    </div>
+    <div class="meta-row">
+      <div>
+        <div class="meta-lbl">Reprovações Consecutivas</div>
+        <div class="meta-sub">Máximo tolerável seguido</div>
+      </div>
+      <input class="meta-input" id="meta-reprov" type="number" min="1" max="20" value="3">
+      <span class="meta-unit">qt</span>
+    </div>
+    <div class="meta-row">
+      <div>
+        <div class="meta-lbl">Falhas Aceitas por Dia</div>
+        <div class="meta-sub">Limite de aceites com falha</div>
+      </div>
+      <input class="meta-input" id="meta-falhas" type="number" min="1" max="50" value="5">
+      <span class="meta-unit">qt</span>
+    </div>
+    <div class="meta-row">
+      <div>
+        <div class="meta-lbl">CMV Máximo</div>
+        <div class="meta-sub">Custo de mercadoria vendida</div>
+      </div>
+      <input class="meta-input" id="meta-cmv" type="number" min="10" max="70" value="32">
+      <span class="meta-unit">%</span>
+    </div>
+    <div class="meta-row">
+      <div>
+        <div class="meta-lbl">Score Médio Mínimo QC</div>
+        <div class="meta-sub">Pontuação média esperada</div>
+      </div>
+      <input class="meta-input" id="meta-score" type="number" min="50" max="100" value="75">
+      <span class="meta-unit">%</span>
+    </div>
+    <button class="save-metas-btn" onclick="salvarMetas()">💾 Salvar Metas</button>
+  </div>
+
+</div><!-- /content -->
+
+<div class="toast-wrap" id="toast-wrap"></div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// AMBIENT NEURAL BACKGROUND
+// ═══════════════════════════════════════════════════════════════
+(function initAmbient() {
+  const canvas = document.getElementById('bgCanvas');
+  const ctx    = canvas.getContext('2d');
+  let W, H;
+  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; rebuildNodes(); }
+  const dust = [];
+  function buildDust() {
+    dust.length = 0;
+    for (let i = 0; i < 140; i++)
+      dust.push({ x:Math.random()*W, y:Math.random()*H, r:Math.random()*1.0+0.2,
+        op:Math.random()*0.3+0.04, vx:(Math.random()-.5)*.09, vy:-(Math.random()*.18+0.04) });
+  }
+  const nodes = [];
+  function rebuildNodes() {
+    nodes.length = 0; buildDust();
+    for (let i = 0; i < 38; i++)
+      nodes.push({ x:Math.random()*W, y:Math.random()*H,
+        vx:(Math.random()-.5)*.16, vy:(Math.random()-.5)*.13, warm:Math.random()<.45 });
+  }
+  const conns = []; let connTimer = 0;
+  function spawnConn() {
+    if (nodes.length < 2) return;
+    const a = Math.floor(Math.random()*nodes.length);
+    let b = Math.floor(Math.random()*nodes.length);
+    if (b === a) b = (a+1)%nodes.length;
+    const dx = nodes[b].x-nodes[a].x, dy = nodes[b].y-nodes[a].y;
+    const d = Math.sqrt(dx*dx+dy*dy);
+    if (d < 60 || d > 300) return;
+    conns.push({ a, b, prog:0, speed:.007+Math.random()*.008, warm:nodes[a].warm, alpha:.1+Math.random()*.09 });
+    if (conns.length > 20) conns.shift();
+  }
+  resize(); window.addEventListener('resize', resize);
+  function tick() {
+    ctx.clearRect(0,0,W,H);
+    dust.forEach(p => {
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(160,185,255,${p.op})`; ctx.fill();
+      p.x+=p.vx; p.y+=p.vy;
+      if (p.y<-4){p.y=H+4;p.x=Math.random()*W;} if(p.x<0)p.x=W; if(p.x>W)p.x=0;
+    });
+    nodes.forEach(n=>{n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;});
+    connTimer++; if(connTimer>=28){spawnConn();connTimer=0;}
+    const toRemove=[];
+    conns.forEach((c,i)=>{
+      const na=nodes[c.a],nb=nodes[c.b];
+      const px=na.x+(nb.x-na.x)*c.prog, py=na.y+(nb.y-na.y)*c.prog;
+      const col=c.warm?`rgba(255,140,0,${c.alpha})`:`rgba(43,143,255,${c.alpha})`;
+      ctx.beginPath();ctx.moveTo(na.x,na.y);ctx.lineTo(px,py);
+      ctx.strokeStyle=col;ctx.lineWidth=0.7;ctx.stroke();
+      const sc=c.warm?`rgba(255,200,80,${c.alpha*5})`:`rgba(0,212,255,${c.alpha*5})`;
+      ctx.beginPath();ctx.arc(px,py,1.4,0,Math.PI*2);ctx.fillStyle=sc;ctx.fill();
+      ctx.beginPath();ctx.arc(na.x,na.y,1.8,0,Math.PI*2);
+      ctx.fillStyle=c.warm?`rgba(255,140,0,${c.alpha*1.2})`:`rgba(43,143,255,${c.alpha*1.2})`;
+      ctx.fill(); c.prog+=c.speed; if(c.prog>=1)toRemove.push(i);
+    });
+    for(let i=toRemove.length-1;i>=0;i--)conns.splice(toRemove[i],1);
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+
+// ═══════════════════════════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════════════════════════
+function toast(msg, type='info') {
+  const wrap = document.getElementById('toast-wrap');
+  const t = document.createElement('div');
+  t.className = `toast ${type==='ok'?'ok':type==='err'?'err':''}`;
+  t.textContent = msg;
+  wrap.appendChild(t);
+  setTimeout(()=>t.style.opacity='0', 2600);
+  setTimeout(()=>t.remove(), 2900);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// DADOS DO HISTÓRICO QC
+// ═══════════════════════════════════════════════════════════════
+function getHistory() {
+  try { return JSON.parse(localStorage.getItem('rios_qc_history') || '[]'); }
+  catch(e) { return []; }
+}
+
+function getStatus(r) {
+  if (r.status) return r.status;
+  return (r.pct || 0) >= 80 ? 'aprovado' : 'refazer';
+}
+
+// Calcula métricas dos últimos N dias
+function calcMetrics(dias = 7) {
+  const all = getHistory();
+  const agora = Date.now();
+  const corte = agora - dias * 24 * 3600 * 1000;
+  const recentes = all.filter(r => new Date(r.ts).getTime() > corte);
+
+  const total    = recentes.length;
+  const aprovados = recentes.filter(r => getStatus(r) === 'aprovado').length;
+  const refazer   = recentes.filter(r => getStatus(r) === 'refazer').length;
+  const aceito_falha = recentes.filter(r => getStatus(r) === 'aceito_falha').length;
+  const taxa = total ? (aprovados / total) * 100 : 0;
+  const score_medio = total ? recentes.reduce((s,r) => s + (r.pct||0), 0) / total : 0;
+
+  // Reprovações consecutivas (mais recentes)
+  let consecutivas = 0;
+  for (const r of [...recentes].sort((a,b) => new Date(b.ts) - new Date(a.ts))) {
+    if (getStatus(r) !== 'aprovado') consecutivas++;
+    else break;
+  }
+
+  // Aceitos com falha hoje
+  const hoje = new Date().toDateString();
+  const aceitos_hoje = all.filter(r =>
+    new Date(r.ts).toDateString() === hoje && getStatus(r) === 'aceito_falha'
+  ).length;
+
+  // Total fichas
+  const fichas = JSON.parse(localStorage.getItem('rios_fichas') || '[]');
+
+  return {
+    total, aprovados, refazer, aceito_falha,
+    qc_aprovacao_7dias_pct: Math.round(taxa * 10) / 10,
+    score_medio_7dias: Math.round(score_medio * 10) / 10,
+    reprovacoes_consecutivas: consecutivas,
+    aceitos_com_falha_hoje: aceitos_hoje,
+    total_fichas: fichas.length,
+  };
+}
+
+// Agrupa por dia (últimos 7 dias)
+function calcPorDia() {
+  const all = getHistory();
+  const map = {};
+  const hoje = new Date();
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(hoje);
+    d.setDate(hoje.getDate() - i);
+    const key = d.toDateString();
+    const label = d.toLocaleDateString('pt-BR', { weekday: 'short', day: '2-digit' });
+    map[key] = { data: label, total: 0, aprovados: 0, taxa: 0 };
+  }
+  all.forEach(r => {
+    const key = new Date(r.ts).toDateString();
+    if (map[key]) {
+      map[key].total++;
+      if (getStatus(r) === 'aprovado') map[key].aprovados++;
+    }
+  });
+  return Object.values(map).map(d => ({
+    ...d,
+    taxa: d.total ? (d.aprovados / d.total) * 100 : null,
+  }));
+}
+
+// Pratos com maior taxa de falha
+function calcPratos() {
+  const all = getHistory();
+  const map = {};
+  all.forEach(r => {
+    const nome = r.prato || 'Sem nome';
+    if (!map[nome]) map[nome] = { nome, total: 0, reprovados: 0, scores: [] };
+    map[nome].total++;
+    if (getStatus(r) !== 'aprovado') map[nome].reprovados++;
+    if (r.pct) map[nome].scores.push(r.pct);
+  });
+  return Object.values(map)
+    .filter(p => p.total >= 2)
+    .map(p => ({
+      ...p,
+      taxa_falha: (p.reprovados / p.total) * 100,
+      score_medio: p.scores.length ? p.scores.reduce((a,b) => a+b, 0) / p.scores.length : 0,
+    }))
+    .sort((a, b) => b.taxa_falha - a.taxa_falha)
+    .slice(0, 8);
+}
+
+// Itens mais reprovados
+function calcFalhasFreq() {
+  const all = getHistory();
+  const map = {};
+  all.forEach(r => {
+    if (!r.items) return;
+    r.items.forEach(it => {
+      if ((it.status || it.ok) === 'fail' || it.ok === false) {
+        const nome = it.item || it.nome || it.name || '?';
+        map[nome] = (map[nome] || 0) + 1;
+      }
+    });
+  });
+  return Object.entries(map)
+    .sort((a,b) => b[1] - a[1])
+    .slice(0, 10)
+    .map(([item, ocorrencias]) => ({ item, ocorrencias }));
+}
+
+// ═══════════════════════════════════════════════════════════════
+// RENDER STATS
+// ═══════════════════════════════════════════════════════════════
+let metricsCache = null;
+
+function renderStats() {
+  const m = calcMetrics(7);
+  metricsCache = m;
+
+  document.getElementById('st-total').textContent = m.total || '0';
+  document.getElementById('st-taxa').textContent  = m.total ? Math.round(m.qc_aprovacao_7dias_pct) + '%' : '—';
+  document.getElementById('st-score').textContent = m.total ? Math.round(m.score_medio_7dias) + '%' : '—';
+
+  // Cor da taxa de aprovação
+  const taxaEl = document.getElementById('st-taxa');
+  taxaEl.style.color = m.qc_aprovacao_7dias_pct >= 85 ? 'var(--gn)' :
+                        m.qc_aprovacao_7dias_pct >= 70 ? 'var(--yl)' : 'var(--rd)';
+}
+
+// ═══════════════════════════════════════════════════════════════
+// RENDER CHART
+// ═══════════════════════════════════════════════════════════════
+function renderChart() {
+  const dias = calcPorDia();
+  const el = document.getElementById('bar-chart');
+  const hasData = dias.some(d => d.total > 0);
+  if (!hasData) {
+    el.innerHTML = '<div class="chart-empty">Sem dados suficientes ainda</div>';
+    return;
+  }
+  el.innerHTML = dias.map(d => {
+    const pct    = d.taxa !== null ? Math.round(d.taxa) : null;
+    const height = pct !== null ? Math.max(4, Math.round(pct * 0.6)) : 0;
+    const color  = pct === null ? 'rgba(255,255,255,.1)' :
+                   pct >= 85 ? 'var(--gn)' : pct >= 70 ? 'var(--yl)' : 'var(--rd)';
+    return `
+      <div class="bar-col">
+        <div class="bar-wrap">
+          <div class="bar" style="height:${height}px;background:${color};opacity:${d.total?1:.3}"></div>
+        </div>
+        <div class="bar-pct">${pct !== null ? pct + '%' : '—'}</div>
+        <div class="bar-day">${d.data}</div>
+      </div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════════════════════════════
+// RENDER PRATOS
+// ═══════════════════════════════════════════════════════════════
+function renderPratos() {
+  const pratos = calcPratos();
+  const lbl  = document.getElementById('pratos-lbl');
+  const list = document.getElementById('pratos-list');
+  if (!pratos.length) { lbl.style.display = 'none'; list.innerHTML = ''; return; }
+  lbl.style.display = 'block';
+  list.innerHTML = pratos.map((p, i) => {
+    const color = p.taxa_falha <= 20 ? 'var(--gn)' : p.taxa_falha <= 40 ? 'var(--yl)' : 'var(--rd)';
+    const aprPct = 100 - p.taxa_falha;
+    return `
+      <div class="dish-row">
+        <div class="dish-rank">${i+1}</div>
+        <div class="dish-info">
+          <div class="dish-nome">${p.nome}</div>
+          <div class="dish-sub">${p.total} análises · score médio ${Math.round(p.score_medio)}%</div>
+        </div>
+        <div class="dish-bar-wrap">
+          <div class="dish-bar-bg">
+            <div class="dish-bar-fill" style="width:${Math.round(aprPct)}%;background:${color}"></div>
+          </div>
+          <div class="dish-pct" style="color:${color}">${Math.round(aprPct)}% ok</div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════════════════════════════
+// ALERTAS (Motor de Regras)
+// ═══════════════════════════════════════════════════════════════
+async function checkAlertas(metrics) {
+  const el = document.getElementById('alert-section');
+  try {
+    const res = await fetch('/api/rules/check', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ metrics }),
+    });
+    const data = await res.json();
+    const alertas = data.alertas || [];
+
+    document.getElementById('st-alertas').textContent = alertas.length || '✓';
+    document.getElementById('st-alertas').style.color = alertas.length > 0 ?
+      (data.criticos > 0 ? 'var(--rd)' : 'var(--yl)') : 'var(--gn)';
+
+    if (!alertas.length) {
+      el.innerHTML = `
+        <div class="no-alerts">
+          <span>✅</span>
+          <span>Nenhum alerta ativo — operação dentro das metas configuradas.</span>
+        </div>`;
+      return;
+    }
+    el.innerHTML = alertas.map(a => `
+      <div class="alert-card ${a.severidade}">
+        <div class="alert-icon">${a.icone}</div>
+        <div class="alert-body">
+          <div class="alert-nome">${a.nome}</div>
+          <div class="alert-msg">${a.mensagem}</div>
+        </div>
+      </div>`).join('');
+  } catch(e) {
+    el.innerHTML = `<div style="font-size:10px;color:var(--sb);padding:8px">
+      Servidor offline — alertas indisponíveis</div>`;
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// METAS — LOAD & SAVE
+// ═══════════════════════════════════════════════════════════════
+async function loadMetas() {
+  try {
+    const res  = await fetch('/api/rules');
+    const data = await res.json();
+    const m    = data.metas || {};
+    if (m.qc_aprovacao_pct)        document.getElementById('meta-qc-aprovacao').value = m.qc_aprovacao_pct;
+    if (m.reprovacoes_consecutivas_max) document.getElementById('meta-reprov').value  = m.reprovacoes_consecutivas_max;
+    if (m.aceitos_com_falha_dia_max)    document.getElementById('meta-falhas').value  = m.aceitos_com_falha_dia_max;
+    if (m.cmv_max_pct)             document.getElementById('meta-cmv').value   = m.cmv_max_pct;
+    if (m.score_medio_minimo)      document.getElementById('meta-score').value  = m.score_medio_minimo;
+    document.getElementById('st-meta-sub').textContent = `meta: ${m.qc_aprovacao_pct || 85}%`;
+  } catch(e) { /* servidor offline, usa defaults */ }
+}
+
+async function salvarMetas() {
+  try {
+    const res = await fetch('/api/rules');
+    const data = await res.json();
+    data.metas = {
+      ...data.metas,
+      qc_aprovacao_pct:            parseInt(document.getElementById('meta-qc-aprovacao').value) || 85,
+      qc_aprovacao_7dias_pct:      parseInt(document.getElementById('meta-qc-aprovacao').value) || 85,
+      reprovacoes_consecutivas_max: parseInt(document.getElementById('meta-reprov').value) || 3,
+      aceitos_com_falha_dia_max:   parseInt(document.getElementById('meta-falhas').value) || 5,
+      cmv_max_pct:                 parseInt(document.getElementById('meta-cmv').value) || 32,
+      score_medio_minimo:          parseInt(document.getElementById('meta-score').value) || 75,
+    };
+    // Atualiza limiares das regras conforme metas
+    (data.regras || []).forEach(r => {
+      if (r.id === 'qc_baixa_aprovacao_7dias') r.limiar = data.metas.qc_aprovacao_7dias_pct;
+      if (r.id === 'qc_reprovacoes_consecutivas') r.limiar = data.metas.reprovacoes_consecutivas_max;
+      if (r.id === 'qc_muitas_falhas_hoje') r.limiar = data.metas.aceitos_com_falha_dia_max;
+      if (r.id === 'qc_score_medio_baixo') r.limiar = data.metas.score_medio_minimo;
+    });
+    const saveRes = await fetch('/api/rules', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    if ((await saveRes.json()).success) {
+      toast('Metas salvas com sucesso!', 'ok');
+      document.getElementById('st-meta-sub').textContent =
+        `meta: ${data.metas.qc_aprovacao_pct}%`;
+      // Recheck alertas com novas metas
+      if (metricsCache) await checkAlertas(metricsCache);
+    }
+  } catch(e) {
+    toast('Erro ao salvar metas — servidor offline?', 'err');
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// GERAR INSIGHTS IA
+// ═══════════════════════════════════════════════════════════════
+async function gerarInsights() {
+  const btn = document.getElementById('ai-btn');
+  const resultEl = document.getElementById('ai-result');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Analisando dados…';
+  resultEl.style.display = 'none';
+
+  try {
+    const m       = calcMetrics(7);
+    const porDia  = calcPorDia();
+    const pratos  = calcPratos();
+    const falhas  = calcFalhasFreq();
+    const fichas  = JSON.parse(localStorage.getItem('rios_fichas') || '[]');
+
+    const payload = {
+      resumo: {
+        total:           m.total,
+        aprovados:       m.aprovados,
+        refazer:         m.refazer,
+        aceito_falha:    m.aceito_falha,
+        taxa_aprovacao:  m.qc_aprovacao_7dias_pct,
+        score_medio:     m.score_medio_7dias,
+      },
+      por_dia: porDia,
+      pratos_problematicos: pratos.map(p => ({
+        nome:        p.nome,
+        total:       p.total,
+        reprovados:  p.reprovados,
+        taxa_falha:  p.taxa_falha,
+      })),
+      falhas_frequentes: falhas,
+      total_fichas: fichas.length,
+    };
+
+    const res  = await fetch('/api/insights/daily', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+
+    if (!data.success || !data.data) {
+      toast(data.error || 'Erro ao gerar insights', 'err');
+      return;
+    }
+    renderInsights(data.data);
+  } catch(e) {
+    toast('Erro de conexão — servidor offline?', 'err');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<span>✦</span> Atualizar Insights';
+  }
+}
+
+function renderInsights(d) {
+  const evolucaoClass = {
+    'Melhorando': 'evol-melhorando',
+    'Estável':    'evol-estavel',
+    'Piorando':   'evol-piorando',
+  }[d.evolucao] || 'evol-estavel';
+
+  const pratosHTML = (d.pratos_atencao || []).map(p => `
+    <div class="ai-prato-card">
+      <div class="ai-prato-nome">🍽 ${p.nome}</div>
+      <div class="ai-prato-prob">Problema: ${p.problema}</div>
+      <div class="ai-prato-acao">→ ${p.acao}</div>
+    </div>`).join('');
+
+  const imediatasHTML = (d.acoes_imediatas || []).map(a =>
+    `<div class="ai-item imediato">🔴 ${a}</div>`).join('');
+
+  const semanaHTML = (d.acoes_semana || []).map(a =>
+    `<div class="ai-item semana">🟡 ${a}</div>`).join('');
+
+  const criticosHTML = (d.pontos_criticos || []).map(c =>
+    `<div class="ai-item">⚡ ${c}</div>`).join('');
+
+  const el = document.getElementById('ai-result');
+  el.style.display = 'block';
+  el.innerHTML = `
+    <div class="ai-result-card">
+      <div class="ai-nota-row">
+        <div class="ai-nota">${(d.nota_geral || 0).toFixed(1)}</div>
+        <div>
+          <span class="ai-evolucao ${evolucaoClass}">${d.evolucao || 'Estável'}</span>
+        </div>
+      </div>
+      <div class="ai-resumo">${d.resumo_executivo || ''}</div>
+      ${criticosHTML ? `<div class="ai-section-title">⚡ Pontos Críticos</div>${criticosHTML}` : ''}
+      ${pratosHTML ? `<div class="ai-section-title">🍽 Pratos para Atenção</div>${pratosHTML}` : ''}
+      ${imediatasHTML ? `<div class="ai-section-title">🔴 Ações para Hoje</div>${imediatasHTML}` : ''}
+      ${semanaHTML ? `<div class="ai-section-title">🟡 Ações para a Semana</div>${semanaHTML}` : ''}
+      ${d.mensagem_chef ? `<div class="ai-mensagem">💬 ${d.mensagem_chef}</div>` : ''}
+    </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════
+(async function init() {
+  renderStats();
+  renderChart();
+  renderPratos();
+  await loadMetas();
+  if (metricsCache) await checkAlertas(metricsCache);
+})();
+</script>
+</body>
+</html>

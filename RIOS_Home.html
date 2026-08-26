@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>RIOS — Restaurant Intelligence OS</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --dk:#050510;--dk2:#0a0a1e;--sf:#101028;
+  --bl:#2b8fff;--cy:#00d4ff;--or:#ff8c00;--rd:#ff4d6a;
+  --gn:#27d97e;--yl:#ffd93d;--tx:#e8eaf0;--sb:#7a8ca0;
+  --bl10:rgba(43,143,255,.10);--cy10:rgba(0,212,255,.10);
+  --or10:rgba(255,140,0,.10);
+}
+html,body{
+  height:100%;width:100%;
+  background:var(--dk);color:var(--tx);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
+  overflow:hidden;/* app screen never scrolls body */
+}
+/* login screen scrolls internally */
+#screen-login::-webkit-scrollbar{width:3px;}
+#screen-login::-webkit-scrollbar-thumb{background:rgba(43,143,255,.25);border-radius:3px;}
+#screen-login::-webkit-scrollbar-track{background:transparent;}
+
+/* ── Canvas particles (background) ─────────────────────────────── */
+#bgCanvas{
+  position:fixed;inset:0;z-index:0;
+  pointer-events:none;
+}
+
+/* ── LOGIN SCREEN ───────────────────────────────────────────────── */
+#screen-login{
+  position:fixed;inset:0;z-index:10;
+  display:flex;flex-direction:column;align-items:center;
+  padding:0 0 20px;
+  overflow-y:auto;overflow-x:hidden;
+}
+/* scrollbar defined in html/body section above */
+
+.hero-top{
+  display:flex;flex-direction:column;align-items:center;
+  padding:22px 0 8px;
+  flex-shrink:0;
+}
+.hero-logo{
+  font-size:48px;font-weight:900;color:var(--bl);
+  letter-spacing:-2px;line-height:1;
+  text-shadow:0 0 40px rgba(43,143,255,.7),0 0 80px rgba(43,143,255,.3);
+  animation:logoBreathe 4s ease-in-out infinite;
+}
+@keyframes logoBreathe{
+  0%,100%{text-shadow:0 0 40px rgba(43,143,255,.7),0 0 80px rgba(43,143,255,.3)}
+  50%{text-shadow:0 0 60px rgba(0,212,255,.9),0 0 120px rgba(43,143,255,.5)}
+}
+.hero-subtitle{
+  font-size:11px;color:var(--sb);letter-spacing:4px;
+  text-transform:uppercase;margin-top:4px;
+}
+
+/* ── Brain Stage ────────────────────────────────────────────────── */
+.brain-stage{
+  width:100%;max-width:860px;flex-shrink:0;
+  padding:0 8px;position:relative;
+}
+#brainSVG{
+  width:100%;height:auto;display:block;
+  overflow:visible;
+}
+
+/* ── Tagline ────────────────────────────────────────────────────── */
+.hero-tagline{
+  font-size:12px;color:rgba(255,255,255,.55);
+  text-align:center;line-height:1.7;padding:0 24px;
+  flex-shrink:0;margin-top:-4px;
+}
+.hero-tagline strong{color:var(--cy);font-weight:700;}
+
+/* ── Divider ────────────────────────────────────────────────────── */
+.bottom-line{
+  width:80px;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(43,143,255,.5),transparent);
+  margin:14px 0;flex-shrink:0;
+}
+
+/* ── Login form ─────────────────────────────────────────────────── */
+.login-form{
+  width:100%;max-width:340px;padding:0 20px;
+  display:flex;flex-direction:column;gap:10px;flex-shrink:0;
+}
+.login-input{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:12px;padding:13px 18px;
+  color:var(--tx);font-size:14px;outline:none;transition:.2s;
+  backdrop-filter:blur(10px);
+}
+.login-input:focus{border-color:var(--bl);box-shadow:0 0 0 2px rgba(43,143,255,.2);}
+.login-input::placeholder{color:rgba(136,153,170,.5);}
+.role-row{display:flex;gap:8px;}
+.role-opt{
+  flex:1;background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:10px;padding:9px 6px;text-align:center;
+  font-size:10px;color:var(--sb);cursor:pointer;transition:.2s;
+}
+.role-opt.active{
+  border-color:var(--bl);color:var(--bl);
+  background:rgba(43,143,255,.1);
+}
+.login-btn{
+  background:linear-gradient(135deg,var(--bl),var(--cy));
+  border:none;border-radius:12px;padding:14px;
+  color:#fff;font-size:14px;font-weight:800;
+  cursor:pointer;transition:.25s;
+  box-shadow:0 4px 20px rgba(43,143,255,.3);letter-spacing:.5px;
+}
+.login-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 32px rgba(43,143,255,.5);
+}
+.login-btn:active{transform:scale(.97);}
+.login-version{
+  text-align:center;font-size:9px;
+  color:rgba(255,255,255,.15);letter-spacing:1px;
+  margin-top:2px;
+}
+
+/* ── SVG Brain Animations ───────────────────────────────────────── */
+.brain-conn{
+  fill:none;stroke-width:0.8;
+  stroke-dasharray:4 8;
+  animation:dashFlow 3s linear infinite;
+  opacity:.5;
+}
+.brain-conn.left{stroke:rgba(255,140,0,.6);}
+.brain-conn.right{stroke:rgba(0,212,255,.6);}
+.brain-conn.cross{
+  stroke:rgba(255,255,255,.25);
+  stroke-dasharray:3 5;
+  animation-duration:2s;
+}
+@keyframes dashFlow{to{stroke-dashoffset:-24}}
+
+.brain-node{
+  animation:nodePulse 2s ease-in-out infinite;
+}
+.brain-node.left{fill:var(--or);}
+.brain-node.right{fill:var(--cy);}
+@keyframes nodePulse{
+  0%,100%{opacity:.7;r:3}
+  50%{opacity:1;r:4.5}
+}
+.brain-pulse{
+  filter:url(#glowPulse);
+  animation:pulseFly 0s linear infinite;
+}
+
+.module-line{
+  stroke:rgba(255,255,255,.15);stroke-width:.8;
+  stroke-dasharray:3 4;fill:none;
+  animation:dashFlow 4s linear infinite;
+}
+.module-dot{fill:rgba(255,255,255,.3);}
+.mod-icon-bg{opacity:.15;transition:.2s;}
+.mod-label{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
+  font-weight:800;font-size:8.5px;letter-spacing:.8px;
+  text-transform:uppercase;fill:rgba(255,255,255,.85);
+}
+.mod-sub{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
+  font-size:6.5px;fill:rgba(255,255,255,.4);
+}
+.mod-icon-txt{
+  font-family:system-ui,sans-serif;
+  font-size:10px;text-anchor:middle;dominant-baseline:central;
+}
+
+/* Center RIOS */
+.brain-rios{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
+  font-size:22px;font-weight:900;
+  fill:white;letter-spacing:2px;
+  text-anchor:middle;dominant-baseline:central;
+}
+.brain-rios-sub{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
+  font-size:5px;fill:rgba(255,255,255,.5);
+  text-anchor:middle;letter-spacing:2px;
+}
+.center-line{
+  stroke:rgba(255,255,255,.35);stroke-width:1;
+  filter:url(#glowCenter);
+}
+@keyframes centerPulse{
+  0%,100%{opacity:.3}50%{opacity:.7}
+}
+
+/* ── APP SCREEN ─────────────────────────────────────────────────── */
+#screen-app{
+  position:fixed;inset:0;z-index:10;
+  display:none;flex-direction:column;
+  background:var(--dk);
+}
+.topbar{
+  height:52px;background:var(--dk2);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  display:flex;align-items:center;padding:0 16px;gap:10px;
+  flex-shrink:0;position:relative;
+}
+.back-home{
+  width:32px;height:32px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:.2s;color:rgba(255,255,255,.25);
+  font-size:16px;flex-shrink:0;
+  border:1px solid transparent;
+}
+.back-home:hover{
+  color:var(--bl);background:rgba(43,143,255,.1);
+  border-color:rgba(43,143,255,.2);
+}
+.back-home svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.topbar-logo{font-size:20px;font-weight:900;color:var(--bl);letter-spacing:-1px;}
+.topbar-sep{width:1px;height:22px;background:rgba(255,255,255,.08);}
+.topbar-page{font-size:13px;color:var(--sb);flex:1;}
+.cortex-tag{
+  font-size:9px;font-weight:700;letter-spacing:.5px;
+  padding:3px 9px;border-radius:20px;
+}
+.cortex-on{background:rgba(39,217,126,.1);color:var(--gn);border:1px solid rgba(39,217,126,.3);}
+.cortex-off{background:rgba(255,77,106,.1);color:var(--rd);border:1px solid rgba(255,77,106,.3);}
+.user-pill{
+  display:flex;align-items:center;gap:7px;
+  background:var(--sf);border-radius:24px;
+  padding:4px 11px 4px 5px;cursor:pointer;
+  border:1px solid rgba(255,255,255,.06);transition:.2s;
+}
+.user-pill:hover{border-color:rgba(43,143,255,.4);}
+.user-avatar{
+  width:26px;height:26px;border-radius:50%;
+  background:rgba(43,143,255,.2);
+  border:2px solid rgba(43,143,255,.4);
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:700;color:var(--bl);
+}
+.user-name{font-size:11px;font-weight:600;color:var(--tx);}
+.user-role-lbl{font-size:9px;color:var(--sb);}
+.content{
+  flex:1;overflow-y:auto;padding:20px 16px 90px;
+}
+.content::-webkit-scrollbar{width:3px;}
+.content::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:3px;}
+.welcome-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.welcome-text h1{font-size:20px;font-weight:700;}
+.welcome-text p{font-size:12px;color:var(--sb);margin-top:1px;}
+.welcome-date{font-size:10px;color:var(--sb);text-align:right;line-height:1.5;}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:22px;}
+.stat-card{
+  background:var(--sf);border:1px solid rgba(255,255,255,.06);
+  border-radius:11px;padding:12px;text-align:center;
+}
+.stat-val{font-size:20px;font-weight:800;color:var(--tx);line-height:1;margin-bottom:3px;}
+.stat-lbl{font-size:8px;color:var(--sb);text-transform:uppercase;letter-spacing:1px;}
+.slbl{
+  font-size:9px;font-weight:700;letter-spacing:2px;
+  color:var(--sb);text-transform:uppercase;margin-bottom:10px;margin-top:20px;
+}
+.module-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:24px;}
+.mod-card{
+  background:var(--sf);border:1px solid rgba(255,255,255,.07);
+  border-radius:14px;padding:16px 14px;cursor:pointer;
+  transition:.25s;position:relative;overflow:hidden;
+  -webkit-tap-highlight-color:transparent;
+}
+.mod-card:hover{transform:translateY(-2px);border-color:var(--card-color,var(--bl));box-shadow:0 8px 28px rgba(0,0,0,.3);}
+.mod-card:active{transform:scale(.97);}
+.mod-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--card-color,var(--bl));border-radius:14px 14px 0 0;
+}
+.mod-card.soon{opacity:.45;cursor:not-allowed;}
+.mod-card.soon:hover{transform:none;border-color:rgba(255,255,255,.07);box-shadow:none;}
+.mod-icon{font-size:24px;margin-bottom:10px;display:block;}
+.mod-name{font-size:12px;font-weight:700;color:var(--tx);margin-bottom:3px;}
+.mod-desc{font-size:9px;color:var(--sb);line-height:1.5;}
+.mod-badge{
+  position:absolute;top:10px;right:10px;
+  font-size:7px;font-weight:700;padding:2px 6px;border-radius:20px;
+}
+.badge-active{background:rgba(39,217,126,.1);color:var(--gn);border:1px solid rgba(39,217,126,.3);}
+.badge-new{background:rgba(43,143,255,.1);color:var(--bl);border:1px solid rgba(43,143,255,.3);}
+.badge-soon{background:rgba(255,255,255,.04);color:var(--sb);border:1px solid rgba(255,255,255,.1);}
+.bottom-nav{
+  position:fixed;bottom:0;left:0;right:0;height:64px;
+  background:rgba(5,5,16,.95);backdrop-filter:blur(20px);
+  border-top:1px solid rgba(255,255,255,.07);
+  display:flex;align-items:center;justify-content:space-around;padding:0 4px 8px;z-index:20;
+}
+.nav-item{
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  flex:1;padding:6px;cursor:pointer;color:var(--sb);transition:.2s;border-radius:8px;
+}
+.nav-item.active,.nav-item:hover{color:var(--bl);}
+.nav-icon{font-size:18px;line-height:1;}
+.nav-label{font-size:8px;font-weight:600;letter-spacing:.3px;}
+.user-menu{
+  position:fixed;bottom:70px;right:12px;
+  background:var(--sf);border:1px solid rgba(255,255,255,.2);
+  border-radius:14px;padding:6px;min-width:220px;
+  box-shadow:0 -8px 32px rgba(0,0,0,.8);
+  display:none;z-index:9999;
+}
+.um-header{padding:8px 10px 10px;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:6px;}
+.um-name{font-size:13px;font-weight:700;}
+.um-role{font-size:10px;color:var(--sb);}
+.um-item{
+  display:flex;align-items:center;gap:8px;
+  padding:8px 10px;border-radius:8px;font-size:12px;cursor:pointer;transition:.15s;
+}
+.um-item:hover{background:rgba(255,255,255,.05);}
+.um-item.danger{color:var(--rd);}
+.um-sep{height:1px;background:rgba(255,255,255,.06);margin:4px 0;}
+.activity-list{display:flex;flex-direction:column;gap:7px;}
+.activity-item{
+  background:var(--sf);border:1px solid rgba(255,255,255,.05);
+  border-radius:10px;padding:10px 12px;
+  display:flex;align-items:center;gap:10px;
+}
+.activity-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.activity-title{font-size:11px;font-weight:500;}
+.activity-time{font-size:9px;color:var(--sb);margin-top:1px;}
+
+/* alert banner */
+.alert-banner-item{
+  border-radius:10px;padding:9px 12px;
+  display:flex;align-items:center;gap:8px;margin-bottom:6px;
+  cursor:pointer;transition:.2s;
+}
+.alert-banner-item.critico{
+  background:rgba(255,77,106,.08);border:1px solid rgba(255,77,106,.25);
+}
+.alert-banner-item.aviso{
+  background:rgba(255,211,0,.06);border:1px solid rgba(255,211,0,.2);
+}
+.ab-icon{font-size:16px;flex-shrink:0;}
+.ab-text{flex:1;font-size:10px;color:rgba(255,255,255,.75);line-height:1.4;}
+.ab-arrow{font-size:10px;color:var(--sb);}
+
+/* toast */
+.toast-wrap{
+  position:fixed;bottom:76px;left:50%;transform:translateX(-50%);
+  z-index:200;pointer-events:none;width:90%;max-width:340px;
+  display:flex;flex-direction:column;gap:7px;
+}
+.toast{
+  background:var(--sf);border:1px solid rgba(255,255,255,.1);
+  border-radius:10px;padding:10px 16px;font-size:12px;
+  box-shadow:0 6px 20px rgba(0,0,0,.4);
+  animation:fadeUp .3s ease;display:flex;align-items:center;gap:8px;
+}
+.toast.ok{border-left:3px solid var(--gn);}
+.toast.err{border-left:3px solid var(--rd);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:420px){
+  .hero-logo{font-size:40px;}
+  .hero-tagline{font-size:11px;}
+  .login-btn{padding:12px;}
+}
+</style>
+</head>
+<body>
+
+<canvas id="bgCanvas"></canvas>
+
+<!-- LOGIN SCREEN -->
+<div id="screen-login">
+  <div class="hero-top">
+    <div class="hero-logo">RIOS</div>
+    <div class="hero-subtitle">Restaurant Intelligence OS</div>
+  </div>
+  <div class="brain-stage">
+    <svg id="brainSVG" viewBox="0 0 900 470" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+      <defs>
+        <linearGradient id="warmGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#ff8c00" stop-opacity="0.9"/>
+          <stop offset="45%" stop-color="#ff5566" stop-opacity="0.85"/>
+          <stop offset="100%" stop-color="#aa1540" stop-opacity="0.8"/>
+        </linearGradient>
+        <linearGradient id="coolGrad" x1="100%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.9"/>
+          <stop offset="45%" stop-color="#2b8fff" stop-opacity="0.85"/>
+          <stop offset="100%" stop-color="#0a2080" stop-opacity="0.8"/>
+        </linearGradient>
+        <clipPath id="brainClip">
+          <path d="M 450,145 C 418,142 386,146 358,156 C 324,168 298,186 279,208 C 259,231 251,258 252,284 C 254,307 263,326 272,342 C 281,357 281,372 274,384 C 268,396 271,405 283,411 C 298,417 318,415 337,408 C 357,400 367,386 379,388 C 392,391 402,401 418,404 C 432,406 441,405 450,403 C 459,405 468,406 482,404 C 498,401 508,391 521,388 C 533,386 543,400 563,408 C 582,415 602,417 617,411 C 629,405 632,396 626,384 C 619,372 619,357 628,342 C 637,326 646,307 648,284 C 649,258 641,231 621,208 C 602,186 576,168 542,156 C 514,146 482,142 450,145 Z"/>
+        </clipPath>
+        <filter id="glowWarm" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="14" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="glowCool" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="14" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="glowCenter" x="-500%" y="-20%" width="1100%" height="140%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="glowText" x="-80%" y="-80%" width="260%" height="260%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="glowPulse" x="-200%" y="-200%" width="500%" height="500%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="glowNode" x="-200%" y="-200%" width="500%" height="500%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <path d="M 450,145 C 418,142 386,146 358,156 C 324,168 298,186 279,208 C 259,231 251,258 252,284 C 254,307 263,326 272,342 C 281,357 281,372 274,384 C 268,396 271,405 283,411 C 298,417 318,415 337,408 C 357,400 367,386 379,388 C 392,391 402,401 418,404 C 432,406 441,405 450,403 C 459,405 468,406 482,404 C 498,401 508,391 521,388 C 533,386 543,400 563,408 C 582,415 602,417 617,411 C 629,405 632,396 626,384 C 619,372 619,357 628,342 C 637,326 646,307 648,284 C 649,258 641,231 621,208 C 602,186 576,168 542,156 C 514,146 482,142 450,145 Z"
+        fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="1.2"/>
+      <g id="brain-network" clip-path="url(#brainClip)"></g>
+      <line x1="450" y1="148" x2="450" y2="400" stroke="rgba(255,255,255,0.35)" stroke-width="1" filter="url(#glowCenter)" style="animation:centerPulse 3s ease-in-out infinite"/>
+      <line x1="450" y1="148" x2="450" y2="400" stroke="rgba(255,255,255,0.8)" stroke-width="0.5"/>
+      <!-- Left modules -->
+      <g class="module-group">
+        <line x1="68" y1="192" x2="272" y2="213" class="module-line"/>
+        <circle cx="272" cy="213" r="2.5" class="module-dot"/>
+        <circle cx="36" cy="192" r="22" fill="rgba(255,140,0,0.1)" stroke="rgba(255,140,0,0.3)" stroke-width="1"/>
+        <text x="36" y="192" class="mod-icon-txt" fill="#ff8c00">&#128065;</text>
+        <text x="64" y="189" class="mod-label" fill="rgba(255,255,255,.85)">OBSERVA</text>
+        <text x="64" y="199" class="mod-sub">Monitora processos</text>
+      </g>
+      <g class="module-group">
+        <line x1="68" y1="263" x2="254" y2="267" class="module-line" style="animation-delay:.5s"/>
+        <circle cx="254" cy="267" r="2.5" class="module-dot"/>
+        <circle cx="36" cy="263" r="22" fill="rgba(255,93,86,0.1)" stroke="rgba(255,93,86,0.3)" stroke-width="1"/>
+        <text x="36" y="263" class="mod-icon-txt" fill="#ff5566">&#128202;</text>
+        <text x="64" y="260" class="mod-label" fill="rgba(255,255,255,.85)">ANALISA</text>
+        <text x="64" y="270" class="mod-sub">Transforma dados</text>
+      </g>
+      <g class="module-group">
+        <line x1="72" y1="333" x2="266" y2="325" class="module-line" style="animation-delay:1s"/>
+        <circle cx="266" cy="325" r="2.5" class="module-dot"/>
+        <circle cx="40" cy="333" r="22" fill="rgba(255,140,0,0.1)" stroke="rgba(255,140,0,0.25)" stroke-width="1"/>
+        <text x="40" y="333" class="mod-icon-txt" fill="#ff8c00">&#129504;</text>
+        <text x="68" y="330" class="mod-label" fill="rgba(255,255,255,.85)">APRENDE</text>
+        <text x="68" y="340" class="mod-sub">Com os dados do restaurante</text>
+      </g>
+      <g class="module-group">
+        <line x1="255" y1="435" x2="372" y2="401" class="module-line" style="animation-delay:2s"/>
+        <circle cx="372" cy="401" r="2.5" class="module-dot"/>
+        <circle cx="222" cy="435" r="22" fill="rgba(255,140,0,0.1)" stroke="rgba(255,140,0,0.25)" stroke-width="1"/>
+        <text x="222" y="435" class="mod-icon-txt" fill="#ff8c00">&#10024;</text>
+        <text x="250" y="432" class="mod-label" fill="rgba(255,255,255,.85)">SUGERE</text>
+        <text x="250" y="442" class="mod-sub">Recomenda melhorias</text>
+      </g>
+      <!-- Right modules -->
+      <g class="module-group">
+        <line x1="832" y1="192" x2="628" y2="213" class="module-line" style="animation-delay:.3s"/>
+        <circle cx="628" cy="213" r="2.5" class="module-dot"/>
+        <circle cx="864" cy="192" r="22" fill="rgba(0,212,255,0.1)" stroke="rgba(0,212,255,0.3)" stroke-width="1"/>
+        <text x="864" y="192" class="mod-icon-txt" fill="#00d4ff">&#127859;</text>
+        <text x="724" y="189" class="mod-label" fill="rgba(255,255,255,.85)" text-anchor="end">COZINHA</text>
+        <text x="836" y="199" class="mod-sub" text-anchor="end">Producao e qualidade</text>
+      </g>
+      <g class="module-group">
+        <line x1="832" y1="263" x2="646" y2="267" class="module-line" style="animation-delay:.8s"/>
+        <circle cx="646" cy="267" r="2.5" class="module-dot"/>
+        <circle cx="864" cy="263" r="22" fill="rgba(43,143,255,0.1)" stroke="rgba(43,143,255,0.3)" stroke-width="1"/>
+        <text x="864" y="263" class="mod-icon-txt" fill="#2b8fff">&#128230;</text>
+        <text x="836" y="260" class="mod-label" fill="rgba(255,255,255,.85)" text-anchor="end">ESTOQUE</text>
+        <text x="836" y="270" class="mod-sub" text-anchor="end">Controla e reduz custos</text>
+      </g>
+      <g class="module-group">
+        <line x1="828" y1="333" x2="634" y2="325" class="module-line" style="animation-delay:1.3s"/>
+        <circle cx="634" cy="325" r="2.5" class="module-dot"/>
+        <circle cx="860" cy="333" r="22" fill="rgba(0,212,255,0.1)" stroke="rgba(0,212,255,0.25)" stroke-width="1"/>
+        <text x="860" y="333" class="mod-icon-txt" fill="#00d4ff">&#128101;</text>
+        <text x="832" y="330" class="mod-label" fill="rgba(255,255,255,.85)" text-anchor="end">PESSOAS</text>
+        <text x="832" y="340" class="mod-sub" text-anchor="end">Equipe e treinamento</text>
+      </g>
+      <g class="module-group">
+        <line x1="764" y1="396" x2="600" y2="376" class="module-line" style="animation-delay:1.8s"/>
+        <circle cx="600" cy="376" r="2.5" class="module-dot"/>
+        <circle cx="796" cy="396" r="22" fill="rgba(43,143,255,0.1)" stroke="rgba(43,143,255,0.25)" stroke-width="1"/>
+        <text x="796" y="396" class="mod-icon-txt" fill="#2b8fff">&#128176;</text>
+        <text x="768" y="393" class="mod-label" fill="rgba(255,255,255,.85)" text-anchor="end">FINANCEIRO</text>
+        <text x="768" y="403" class="mod-sub" text-anchor="end">Analisa resultados</text>
+      </g>
+      <text x="200" y="150" text-anchor="middle" font-family="Arial" font-size="7" font-weight="700" fill="rgba(255,140,0,0.5)" letter-spacing="3">RESTAURANTE</text>
+      <text x="700" y="150" text-anchor="middle" font-family="Arial" font-size="7" font-weight="700" fill="rgba(0,212,255,0.5)" letter-spacing="3">INTELIGENCIA</text>
+      <rect x="406" y="248" width="88" height="32" rx="8" fill="rgba(0,0,10,0.7)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+      <text x="450" y="269" class="brain-rios" filter="url(#glowText)">RIOS</text>
+      <text x="450" y="286" font-family="Arial" font-size="5.5" fill="rgba(255,255,255,0.4)" text-anchor="middle" letter-spacing="2">CORTEX</text>
+    </svg>
+  </div>
+  <div class="hero-tagline">
+    O primeiro sistema operacional que cria um <strong>cerebro independente</strong> para o seu restaurante<br>
+    <span style="color:rgba(255,255,255,.3);font-size:10px">Um cerebro independente &middot; Decisoes inteligentes &middot; Resultados extraordinarios</span>
+  </div>
+  <div class="bottom-line"></div>
+  <div class="login-form">
+    <input class="login-input" id="li-name" type="text" placeholder="Seu nome" autocomplete="name">
+    <input class="login-input" id="li-empresa" type="text" placeholder="Empresa / Cliente (ex: Singular Sushi)" list="li-empresa-list" autocomplete="off" style="margin-top:8px">
+    <datalist id="li-empresa-list"></datalist>
+    <div class="role-row" style="margin-top:8px">
+      <div class="role-opt active" data-role="consultor" onclick="selectRole(this)">&#128188; Consultor</div>
+      <div class="role-opt" data-role="chef" onclick="selectRole(this)">&#128104;&#8205;&#127859; Chef</div>
+      <div class="role-opt" data-role="operador" onclick="selectRole(this)">&#129493; Operador</div>
+    </div>
+    <button class="login-btn" onclick="doLogin()">Entrar no RIOS</button>
+    <div class="login-version">v1.9.2 &mdash; RIOS Cortex &#10022; Powered by Anthropic Claude</div>
+  </div>
+</div>
+
+<!-- APP DASHBOARD -->
+<div id="screen-app">
+  <div class="topbar">
+    <div class="back-home" onclick="doLogout()" title="Voltar">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </div>
+    <div class="topbar-logo">RIOS</div>
+    <div class="topbar-sep"></div>
+    <div class="topbar-page" id="tp-page">Dashboard</div>
+    <span class="cortex-tag" id="empresa-tag" onclick="trocarEmpresa()" title="Clique para trocar de empresa/cliente" style="background:rgba(168,85,247,.12);border-color:#a855f7;color:#a855f7;cursor:pointer">&#127970; &mdash;</span>
+    <span class="cortex-tag cortex-off" id="cortex-status">&#9679; Cortex</span>
+    <div class="user-pill" onclick="toggleUserMenu()">
+      <div class="user-avatar" id="user-avatar">?</div>
+      <div>
+        <div class="user-name" id="user-name-top">&mdash;</div>
+        <div class="user-role-lbl" id="user-role-top">&mdash;</div>
+      </div>
+    </div>
+    <div class="user-menu" id="user-menu">
+      <div class="um-header">
+        <div class="um-name" id="um-name">&mdash;</div>
+        <div class="um-role" id="um-role">&mdash;</div>
+      </div>
+      <div class="um-item" onclick="openModule('fichas')">&#128203; Fichas Tecnicas</div>
+      <div class="um-item" onclick="openModule('qc')">&#128247; QC Visual</div>
+      <div class="um-item" onclick="openModule('historico')">&#128202; Historico QC</div>
+      <div class="um-item" onclick="openModule('insights')">&#10022; Insights &amp; Metas</div>
+      <div class="um-item" onclick="openModule('escala')">&#128101; Escala de Equipe</div>
+      <div class="um-item" onclick="openModule('pop')">&#128203; POP</div>
+      <div class="um-sep"></div>
+      <div class="um-item" onclick="trocarEmpresa()">&#127970; Trocar Empresa/Cliente</div>
+      <div class="um-item danger" onclick="doLogout()">&#128682; Sair</div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="welcome-row">
+      <div class="welcome-text">
+        <h1 id="welcome-name">Ola! &#128075;</h1>
+        <p id="welcome-sub">Selecione um modulo para comecar</p>
+      </div>
+      <div class="welcome-date" id="welcome-date"></div>
+    </div>
+
+    <!-- Alert Banner -->
+    <div id="alert-banner" style="display:none;margin-bottom:14px;"></div>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-val" id="stat-fichas">0</div>
+        <div class="stat-lbl">Fichas</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" id="stat-qc">0</div>
+        <div class="stat-lbl">QC Hoje</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" id="stat-pct" style="font-size:18px">&mdash;</div>
+        <div class="stat-lbl">Aprovacao 7d</div>
+      </div>
+    </div>
+
+    <div class="slbl">Modulos Ativos</div>
+    <div class="module-grid">
+      <div class="mod-card" style="--card-color:var(--bl)" onclick="openModule('fichas')">
+        <span class="mod-badge badge-active">ATIVO</span>
+        <span class="mod-icon">&#128203;</span>
+        <div class="mod-name">Fichas Tecnicas</div>
+        <div class="mod-desc">CMV, markup, alergenos, analise IA</div>
+      </div>
+      <div class="mod-card" style="--card-color:var(--rd)" onclick="openModule('qc')">
+        <span class="mod-badge badge-active">ATIVO</span>
+        <span class="mod-icon">&#128247;</span>
+        <div class="mod-name">QC Visual</div>
+        <div class="mod-desc">Saida de prato vs padrao</div>
+      </div>
+      <div class="mod-card" style="--card-color:var(--gn)" onclick="openModule('historico')">
+        <span class="mod-badge badge-active">ATIVO</span>
+        <span class="mod-icon">&#128202;</span>
+        <div class="mod-name">Historico QC</div>
+        <div class="mod-desc">Aprovados, reprovados e tendencias</div>
+      </div>
+      <div class="mod-card" style="--card-color:#a855f7" onclick="openModule('insights')">
+        <span class="mod-badge badge-new">NOVO</span>
+        <span class="mod-icon">&#10022;</span>
+        <div class="mod-name">Insights &amp; Metas</div>
+        <div class="mod-desc">Analise IA, alertas e metas</div>
+      </div>
+      <div class="mod-card" style="--card-color:#f59e0b" onclick="openModule('escala')">
+        <span class="mod-badge badge-new">NOVO</span>
+        <span class="mod-icon">&#128101;</span>
+        <div class="mod-name">Escala de Equipe</div>
+        <div class="mod-desc">Grade semanal, custos e sugestao IA</div>
+      </div>
+      <div class="mod-card" style="--card-color:#12a5b8" onclick="openModule('pop')">
+        <span class="mod-badge badge-new">NOVO</span>
+        <span class="mod-icon">&#128203;</span>
+        <div class="mod-name">POP</div>
+        <div class="mod-desc">Procedimentos Operacionais Padrao, com parecer da IA</div>
+      </div>
+    </div>
+
+    <div class="slbl">Em Desenvolvimento</div>
+    <div class="module-grid">
+      <div class="mod-card soon" style="--card-color:var(--gn)">
+        <span class="mod-badge badge-soon">EM BREVE</span>
+        <span class="mod-icon">&#128722;</span>
+        <div class="mod-name">Vendas</div>
+        <div class="mod-desc">Qtd vendida por prato/turno</div>
+      </div>
+      <div class="mod-card soon" style="--card-color:var(--or)">
+        <span class="mod-badge badge-soon">EM BREVE</span>
+        <span class="mod-icon">&#128202;</span>
+        <div class="mod-name">CMV Real</div>
+        <div class="mod-desc">Custo real vs teorico</div>
+      </div>
+      <div class="mod-card soon" style="--card-color:var(--yl)">
+        <span class="mod-badge badge-soon">EM BREVE</span>
+        <span class="mod-icon">&#128230;</span>
+        <div class="mod-name">Estoque</div>
+        <div class="mod-desc">Controle e alertas</div>
+      </div>
+      <div class="mod-card soon" style="--card-color:#a855f7">
+        <span class="mod-badge badge-soon">EM BREVE</span>
+        <span class="mod-icon">&#128200;</span>
+        <div class="mod-name">BI Dashboard</div>
+        <div class="mod-desc">Visao executiva</div>
+      </div>
+    </div>
+
+    <div class="slbl" id="act-lbl">Atividade Recente</div>
+    <div class="activity-list" id="activity-list">
+      <div class="activity-item">
+        <div class="activity-dot" style="background:var(--sb)"></div>
+        <div><div class="activity-title">Nenhuma atividade ainda</div>
+             <div class="activity-time">Abra um modulo para comecar</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <div class="nav-item active" onclick="navTo(this);window.scrollTo({top:0,behavior:'smooth'})">
+      <span class="nav-icon">&#8862;</span>
+      <span class="nav-label">Dashboard</span>
+    </div>
+    <div class="nav-item" onclick="openModule('fichas')">
+      <span class="nav-icon">&#128203;</span>
+      <span class="nav-label">Fichas</span>
+    </div>
+    <div class="nav-item" onclick="openModule('qc')">
+      <span class="nav-icon">&#128247;</span>
+      <span class="nav-label">QC</span>
+    </div>
+    <div class="nav-item" onclick="openModule('insights')">
+      <span class="nav-icon">&#10022;</span>
+      <span class="nav-label">Insights</span>
+    </div>
+    <div class="nav-item" onclick="toggleUserMenu(event)">
+      <span class="nav-icon">&#128100;</span>
+      <span class="nav-label">Perfil</span>
+    </div>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toast-wrap"></div>
+
+<script>
+// AMBIENT NEURAL BACKGROUND
+(function initAmbient() {
+  const canvas = document.getElementById('bgCanvas');
+  const ctx    = canvas.getContext('2d');
+  let W, H;
+  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; rebuildNodes(); }
+  const dust = [];
+  function buildDust() {
+    dust.length = 0;
+    for (let i = 0; i < 160; i++)
+      dust.push({ x:Math.random()*W, y:Math.random()*H, r:Math.random()*1.1+0.2,
+        op:Math.random()*0.35+0.05, vx:(Math.random()-.5)*.10, vy:-(Math.random()*.20+0.04) });
+  }
+  const nodes = [];
+  function rebuildNodes() {
+    nodes.length = 0; buildDust();
+    for (let i = 0; i < 42; i++)
+      nodes.push({ x:Math.random()*W, y:Math.random()*H,
+        vx:(Math.random()-.5)*.18, vy:(Math.random()-.5)*.14, warm:Math.random()<.45 });
+  }
+  const conns = []; let connTimer = 0;
+  function spawnConn() {
+    if (nodes.length < 2) return;
+    const a = Math.floor(Math.random()*nodes.length);
+    let b = Math.floor(Math.random()*nodes.length);
+    if (b===a) b=(a+1)%nodes.length;
+    const dx=nodes[b].x-nodes[a].x, dy=nodes[b].y-nodes[a].y;
+    const d=Math.sqrt(dx*dx+dy*dy);
+    if (d<60||d>320) return;
+    conns.push({a,b,prog:0,speed:.006+Math.random()*.009,warm:nodes[a].warm,alpha:.12+Math.random()*.10});
+    if (conns.length>22) conns.shift();
+  }
+  resize(); window.addEventListener('resize',resize);
+  function tick() {
+    ctx.clearRect(0,0,W,H);
+    dust.forEach(p=>{
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(160,185,255,${p.op})`;ctx.fill();
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.y<-4){p.y=H+4;p.x=Math.random()*W;} if(p.x<0)p.x=W; if(p.x>W)p.x=0;
+    });
+    nodes.forEach(n=>{n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;});
+    connTimer++;if(connTimer>=28){spawnConn();connTimer=0;}
+    const toRemove=[];
+    conns.forEach((c,i)=>{
+      const na=nodes[c.a],nb=nodes[c.b];
+      const px=na.x+(nb.x-na.x)*c.prog,py=na.y+(nb.y-na.y)*c.prog;
+      const col=c.warm?`rgba(255,140,0,${c.alpha})`:`rgba(43,143,255,${c.alpha})`;
+      ctx.beginPath();ctx.moveTo(na.x,na.y);ctx.lineTo(px,py);ctx.strokeStyle=col;ctx.lineWidth=0.7;ctx.stroke();
+      const sc=c.warm?`rgba(255,200,80,${c.alpha*5})`:`rgba(0,212,255,${c.alpha*5})`;
+      ctx.beginPath();ctx.arc(px,py,1.4,0,Math.PI*2);ctx.fillStyle=sc;ctx.fill();
+      ctx.beginPath();ctx.arc(na.x,na.y,1.8,0,Math.PI*2);
+      ctx.fillStyle=c.warm?`rgba(255,140,0,${c.alpha*1.2})`:`rgba(43,143,255,${c.alpha*1.2})`;
+      ctx.fill();c.prog+=c.speed;if(c.prog>=1)toRemove.push(i);
+    });
+    for(let i=toRemove.length-1;i>=0;i--)conns.splice(toRemove[i],1);
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+
+// BRAIN NETWORK SVG
+(function buildBrain() {
+  const ns='http://www.w3.org/2000/svg';
+  const grp=document.getElementById('brain-network');
+  if(!grp)return;
+  const LN=[[322,178],[364,162],[413,167],[441,191],[293,218],[347,220],[400,210],[433,235],
+    [277,265],[327,268],[380,256],[420,271],[300,311],[355,309],[404,302],[437,319],
+    [311,355],[361,353],[405,349],[430,375]];
+  const RN=LN.map(([x,y])=>[900-x,y]);
+  const CP=[[0,1],[1,2],[2,3],[4,5],[5,6],[6,7],[8,9],[9,10],[10,11],[12,13],[13,14],[14,15],
+    [16,17],[17,18],[18,19],[0,4],[1,5],[2,6],[3,7],[4,8],[5,9],[6,10],[7,11],
+    [8,12],[9,13],[10,14],[11,15],[12,16],[13,17],[14,18],[15,19],[1,6],[5,10],[9,14],[13,18]];
+  const CC=[[3,3],[7,7],[11,11],[15,15],[19,19]];
+  function el(tag,attrs){const e=document.createElementNS(ns,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));return e;}
+  function drawConns(nodes,pairs,isLeft,delay0){
+    const color=isLeft?'rgba(255,140,0,':'rgba(0,212,255,';
+    const pColor=isLeft?'#ff8c00':'#00d4ff';
+    pairs.forEach(([a,b],i)=>{
+      const [x1,y1]=nodes[a],[x2,y2]=nodes[b];
+      const mx=(x1+x2)/2+(Math.random()-.5)*12,my=(y1+y2)/2+(Math.random()-.5)*12;
+      const pathD=`M${x1},${y1} Q${mx},${my} ${x2},${y2}`;
+      const pathId=`cp_${isLeft?'l':'r'}_${i}`;
+      grp.appendChild(el('path',{id:pathId,d:pathD,fill:'none',stroke:'none'}));
+      grp.appendChild(el('path',{d:pathD,fill:'none',stroke:color+'0.55)','stroke-width':'0.9',
+        'stroke-dasharray':'4 8',style:`animation:dashFlow ${2.5+Math.random()}s linear infinite;animation-delay:${(i*.12+delay0).toFixed(2)}s`}));
+      const pulse=el('circle',{r:'2.2',fill:pColor,filter:'url(#glowPulse)',opacity:'0.9'});
+      const motion=el('animateMotion',{dur:`${1.8+Math.random()*1.4}s`,repeatCount:'indefinite',begin:`${(Math.random()*3).toFixed(2)}s`});
+      const mpath=el('mpath',{});
+      mpath.setAttributeNS('http://www.w3.org/1999/xlink','href','#'+pathId);
+      motion.appendChild(mpath);pulse.appendChild(motion);grp.appendChild(pulse);
+    });
+  }
+  function drawNodes(nodes,isLeft){
+    const c1=isLeft?'#ff8c00':'#00d4ff';const c2=isLeft?'#ff5566':'#2b8fff';
+    nodes.forEach(([x,y],i)=>{
+      const r=2.8+Math.random()*1.6,delay=(Math.random()*2.5).toFixed(2),dur=(1.8+Math.random()*1.4).toFixed(2);
+      grp.appendChild(el('circle',{cx:x,cy:y,r,fill:i%2===0?c1:c2,filter:'url(#glowNode)',
+        style:`animation:nodePulse ${dur}s ease-in-out ${delay}s infinite`}));
+    });
+  }
+  function drawCross(){
+    CC.forEach(([li,ri],i)=>{
+      const [x1,y1]=LN[li],[x2,y2]=RN[ri];
+      const pathD=`M${x1},${y1} C ${(x1+x2)/2-10},${y1} ${(x1+x2)/2+10},${y2} ${x2},${y2}`;
+      const pathId=`ccp_${i}`;
+      grp.appendChild(el('path',{id:pathId,d:pathD,fill:'none',stroke:'none'}));
+      grp.appendChild(el('path',{d:pathD,fill:'none',stroke:'rgba(255,255,255,0.2)','stroke-width':'0.7',
+        'stroke-dasharray':'3 5',style:`animation:dashFlow 2s linear infinite;animation-delay:${(i*.3).toFixed(2)}s`}));
+      const pulse=el('circle',{r:'1.8',fill:'rgba(255,255,255,0.9)',filter:'url(#glowPulse)'});
+      const motion=el('animateMotion',{dur:`${1.5+i*.2}s`,repeatCount:'indefinite',begin:`${i*.4}s`});
+      const mpath=el('mpath',{});
+      mpath.setAttributeNS('http://www.w3.org/1999/xlink','href','#'+pathId);
+      motion.appendChild(mpath);pulse.appendChild(motion);grp.appendChild(pulse);
+    });
+  }
+  drawConns(LN,CP,true,0);drawConns(RN,CP,false,.8);drawCross();drawNodes(LN,true);drawNodes(RN,false);
+})();
+
+// AUTH & STATE
+let currentUser=null, selectedRole='consultor', trocandoEmpresa=false;
+const ROLE_LABELS={consultor:'Consultor Gastronomico',chef:'Chef de Cozinha',operador:'Operador de Cozinha'};
+
+function selectRole(el){document.querySelectorAll('.role-opt').forEach(e=>e.classList.remove('active'));el.classList.add('active');selectedRole=el.dataset.role;}
+
+// ── Registro de Clientes/Empresas (isolamento de dados por consultoria) ────
+// Cada empresa/cliente vira um id estável; fichas, POPs etc. são gravados
+// com esse id e as telas só listam os registros do cliente ativo.
+function getClientes(){ try{ return JSON.parse(localStorage.getItem('rios_clientes')||'[]'); }catch(e){ return []; } }
+function saveClientes(list){ localStorage.setItem('rios_clientes', JSON.stringify(list)); }
+function upsertCliente(nomeRaw){
+  const nome = (nomeRaw||'').trim();
+  if (!nome) return null;
+  const list = getClientes();
+  const existente = list.find(c => c.nome.toLowerCase() === nome.toLowerCase());
+  if (existente) return existente;
+  const novo = { id: 'cli_'+Date.now()+'_'+Math.random().toString(36).slice(2,7), nome, criadoEm: new Date().toISOString() };
+  list.push(novo); saveClientes(list);
+  return novo;
+}
+function populateEmpresaDatalist(){
+  const dl = document.getElementById('li-empresa-list');
+  if (!dl) return;
+  dl.innerHTML = getClientes().map(c => `<option value="${c.nome.replace(/"/g,'&quot;')}">`).join('');
+}
+
+function doLogin(){
+  const name = document.getElementById('li-name').value.trim();
+  const empresaNome = document.getElementById('li-empresa').value.trim();
+  if (!name){ document.getElementById('li-name').focus(); return; }
+  if (!empresaNome){ document.getElementById('li-empresa').focus(); toast('Informe a empresa/cliente da consultoria.','warn'); return; }
+  const cliente = upsertCliente(empresaNome);
+  currentUser={name,role:selectedRole,label:ROLE_LABELS[selectedRole],
+    initials:name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase(),
+    loginAt:new Date().toISOString(), cliente};
+  localStorage.setItem('rios_user',JSON.stringify(currentUser));
+  addActivity(`Login: ${name}`, `${ROLE_LABELS[selectedRole]} · ${cliente.nome}`, 'var(--bl)');
+  populateEmpresaDatalist();
+  trocandoEmpresa=false;
+  enterApp();
+}
+
+function doLogout(){
+  document.getElementById('user-menu').style.display='none';
+  localStorage.removeItem('rios_user');currentUser=null;
+  document.getElementById('screen-app').style.display='none';
+  document.getElementById('screen-login').style.display='flex';
+  document.getElementById('li-name').value='';
+  document.getElementById('li-empresa').value='';
+  trocandoEmpresa=false;
+}
+
+// Troca só a empresa/cliente ativo, mantendo o nome do consultor já logado.
+function trocarEmpresa(){
+  document.getElementById('user-menu').style.display='none';
+  if (!currentUser) return;
+  trocandoEmpresa=true;
+  populateEmpresaDatalist();
+  document.getElementById('screen-app').style.display='none';
+  document.getElementById('screen-login').style.display='flex';
+  document.getElementById('li-name').value = currentUser.name;
+  document.getElementById('li-empresa').value = '';
+  document.querySelectorAll('.role-opt').forEach(e=>e.classList.toggle('active', e.dataset.role===currentUser.role));
+  selectedRole = currentUser.role;
+  setTimeout(()=>document.getElementById('li-empresa').focus(), 50);
+}
+
+function enterApp(){
+  document.getElementById('screen-login').style.display='none';
+  const app=document.getElementById('screen-app');
+  app.style.display='flex';
+  const u=currentUser;
+  document.getElementById('user-avatar').textContent=u.initials;
+  document.getElementById('user-name-top').textContent=u.name.split(' ')[0];
+  document.getElementById('user-role-top').textContent=u.label;
+  document.getElementById('um-name').textContent=u.name;
+  document.getElementById('um-role').textContent=u.cliente?`${u.label} · ${u.cliente.nome}`:u.label;
+  const empTag=document.getElementById('empresa-tag');
+  if(empTag) empTag.innerHTML = '&#127970; ' + (u.cliente?u.cliente.nome:'Sem empresa');
+  const h=new Date().getHours();
+  const s=h<12?'Bom dia':h<18?'Boa tarde':'Boa noite';
+  document.getElementById('welcome-name').textContent=`${s}, ${u.name.split(' ')[0]}!`;
+  document.getElementById('welcome-sub').textContent=`${u.label}${u.cliente?' · '+u.cliente.nome:''} — RIOS v1.9.2`;
+  const now=new Date();
+  document.getElementById('welcome-date').innerHTML=
+    now.toLocaleDateString('pt-BR',{weekday:'long'})[0].toUpperCase()+
+    now.toLocaleDateString('pt-BR',{weekday:'long'}).slice(1)+'<br>'+
+    now.toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'});
+  loadStats();checkCortex();renderActivity();
+}
+
+function getStatus(r){if(r.status)return r.status;return(r.pct||0)>=80?'aprovado':'refazer';}
+
+function loadStats(){
+  try{
+    const f=JSON.parse(localStorage.getItem('rios_fichas')||'[]');
+    document.getElementById('stat-fichas').textContent=f.length;
+  }catch(e){}
+  try{
+    const h=JSON.parse(localStorage.getItem('rios_qc_history')||'[]');
+    const today=new Date().toDateString();
+    document.getElementById('stat-qc').textContent=h.filter(r=>new Date(r.ts).toDateString()===today).length;
+    const corte7=Date.now()-7*24*3600*1000;
+    const rec7=h.filter(r=>new Date(r.ts).getTime()>corte7);
+    if(rec7.length){
+      const aprov7=rec7.filter(r=>getStatus(r)==='aprovado').length;
+      const taxa7=Math.round((aprov7/rec7.length)*100);
+      const pEl=document.getElementById('stat-pct');
+      pEl.textContent=taxa7+'%';
+      pEl.style.color=taxa7>=85?'var(--gn)':taxa7>=70?'var(--yl)':'var(--rd)';
+    }
+    checkHomeAlertas(h,JSON.parse(localStorage.getItem('rios_fichas')||'[]').length);
+  }catch(e){}
+}
+
+async function checkHomeAlertas(history,totalFichas){
+  try{
+    const corte7=Date.now()-7*24*3600*1000;
+    const rec7=history.filter(r=>new Date(r.ts).getTime()>corte7);
+    const aprov7=rec7.filter(r=>getStatus(r)==='aprovado').length;
+    const taxa7=rec7.length?(aprov7/rec7.length)*100:100;
+    const score7=rec7.length?rec7.reduce((s,r)=>s+(r.pct||0),0)/rec7.length:100;
+    let consec=0;
+    for(const r of [...history].sort((a,b)=>new Date(b.ts)-new Date(a.ts))){if(getStatus(r)!=='aprovado')consec++;else break;}
+    const hoje=new Date().toDateString();
+    const fHoje=history.filter(r=>new Date(r.ts).toDateString()===hoje&&getStatus(r)==='aceito_falha').length;
+    const metrics={
+      qc_aprovacao_7dias_pct:Math.round(taxa7*10)/10,
+      score_medio_7dias:Math.round(score7*10)/10,
+      reprovacoes_consecutivas:consec,
+      aceitos_com_falha_hoje:fHoje,
+      total_fichas:totalFichas,
+    };
+    const res=await fetch('/api/rules/check',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({metrics})});
+    const data=await res.json();
+    renderAlertBanner(data.alertas||[]);
+  }catch(e){}
+}
+
+function renderAlertBanner(alertas){
+  const banner=document.getElementById('alert-banner');
+  const visib=alertas.filter(a=>a.severidade!=='info').slice(0,3);
+  if(!visib.length){banner.style.display='none';return;}
+  banner.style.display='block';
+  banner.innerHTML=visib.map(a=>`
+    <div class="alert-banner-item ${a.severidade}" onclick="openModule('insights')">
+      <span class="ab-icon">${a.icone}</span>
+      <span class="ab-text">${a.mensagem}</span>
+      <span class="ab-arrow">&#8250;</span>
+    </div>`).join('');
+}
+
+function checkCortex(){
+  const el=document.getElementById('cortex-status');
+  fetch('/api/status').then(r=>r.json()).then(d=>{
+    if(d.key_configured){el.textContent='&#10022; Cortex Online';el.className='cortex-tag cortex-on';}
+    else{el.textContent='&#9679; Cortex Offline';el.className='cortex-tag cortex-off';}
+  }).catch(()=>{el.textContent='&#9679; Servidor Off';el.className='cortex-tag cortex-off';});
+}
+
+function openModule(mod){
+  document.getElementById('user-menu').style.display='none';
+  const URLS={fichas:'/fichas',qc:'/qc',historico:'/historico',insights:'/insights',escala:'/escala',pop:'/pop',backup:'/fichas?tab=backup'};
+  if(URLS[mod]){addActivity(`Modulo: ${mod}`,new Date().toLocaleTimeString('pt-BR'),'var(--bl)');window.location.href=URLS[mod];}
+}
+
+function toggleUserMenu(e){
+  if(e){e.stopPropagation();e.preventDefault();}
+  var m=document.getElementById('user-menu');
+  if(!m) return;
+  if(m.style.display==='block'){
+    m.style.display='none';
+  } else {
+    m.style.display='block';
+  }
+}
+document.addEventListener('click',function(e){
+  var m=document.getElementById('user-menu');
+  if(!m||m.style.display!=='block') return;
+  if(!e.target.closest('#user-menu')&&!e.target.closest('.user-pill')&&!e.target.closest('.nav-item')){
+    m.style.display='none';
+  }
+});
+
+function navTo(el){
+  document.querySelectorAll('.nav-item').forEach(e=>e.classList.remove('active'));
+  el.classList.add('active');
+  // Se não estiver já no home, navega para /
+  if(window.location.pathname !== '/'){window.location.href='/';}
+}
+
+function addActivity(title,subtitle,color){
+  const log=JSON.parse(localStorage.getItem('rios_activity')||'[]');
+  log.unshift({title,subtitle,color,ts:new Date().toISOString()});
+  if(log.length>20)log.pop();
+  localStorage.setItem('rios_activity',JSON.stringify(log));
+}
+
+function renderActivity(){
+  const log=JSON.parse(localStorage.getItem('rios_activity')||'[]');
+  if(!log.length)return;
+  document.getElementById('activity-list').innerHTML=log.slice(0,6).map(a=>`
+    <div class="activity-item">
+      <div class="activity-dot" style="background:${a.color}"></div>
+      <div><div class="activity-title">${a.title}</div>
+           <div class="activity-time">${a.subtitle} &middot; ${new Date(a.ts).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'})}</div></div>
+    </div>`).join('');
+}
+
+function toast(msg,type='info'){
+  const wrap=document.getElementById('toast-wrap');
+  const t=document.createElement('div');
+  t.className=`toast ${type==='ok'?'ok':type==='err'?'err':''}`;t.textContent=msg;
+  wrap.appendChild(t);setTimeout(()=>t.style.opacity='0',2400);setTimeout(()=>t.remove(),2700);
+}
+
+(function init(){
+  populateEmpresaDatalist();
+  const saved=localStorage.getItem('rios_user');
+  if(saved){
+    try{
+      currentUser=JSON.parse(saved);
+      if(currentUser && currentUser.cliente && currentUser.cliente.id){ enterApp(); return; }
+      // Sessao antiga (de antes do isolamento por empresa): pede pra escolher a empresa antes de continuar.
+      if(currentUser && currentUser.name){
+        document.getElementById('li-name').value=currentUser.name;
+        document.querySelectorAll('.role-opt').forEach(e=>e.classList.toggle('active', e.dataset.role===currentUser.role));
+        if(currentUser.role) selectedRole=currentUser.role;
+        toast('Sessao antiga sem empresa definida — selecione a empresa/cliente.','warn');
+      }
+    }catch(e){}
+  }
+  document.getElementById('screen-login').style.display='flex';
+  document.getElementById('li-name').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+  document.getElementById('li-empresa').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+})();
+</script>
+</body>
+</html>
