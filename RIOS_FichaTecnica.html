@@ -250,6 +250,16 @@ select option{background:var(--cd)}
             <option>Salgado</option><option>Bowl / Poke</option><option>Delivery</option><option>Outro</option>
           </select>
         </div>
+        <div class="fg"><label>Grupo Proteico</label>
+          <select id="f-grupo" title="Usado pelo módulo Cardápio Buffet para avisar quando há proteínas repetidas">
+            <option value="">— Selecionar —</option>
+            <option value="Bovina">Bovina</option>
+            <option value="Suína">Suína</option>
+            <option value="Ave">Ave</option>
+            <option value="Peixe">Peixe</option>
+            <option value="Outros">Outros / Sem proteína animal</option>
+          </select>
+        </div>
         <div class="fg"><label>Versão</label><input id="f-ver" value="1.0" style="width:80px"></div>
         <div class="fg"><label>Data de Elaboração</label><input id="f-data" type="date"></div>
         <div class="fg"><label>Elaborado por</label><input id="f-elab" placeholder="Chef Marco À Souza"></div>
@@ -956,6 +966,7 @@ function collectForm() {
     num:     v('f-num'),
     nome:    v('f-nome'),
     cat:     v('f-cat'),
+    grupo:   v('f-grupo'),
     ver:     v('f-ver'),
     data:    v('f-data'),
     elab:    v('f-elab'),
@@ -1007,7 +1018,7 @@ function novaFicha() {
   // Limpa form
   ['f-nome','f-ver','f-data','f-elab','f-rend','f-pporcao','f-temp','f-valid',
    'f-tprep','f-tcook','f-equip','f-alerg','f-desc','f-obs','f-mise','f-final',
-   'f-preco','f-vend'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+   'f-preco','f-vend','f-grupo'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
   document.getElementById('f-rend').value = '1';
   document.getElementById('ing-body').innerHTML = '';
   document.getElementById('step-list').innerHTML = '';
@@ -1034,7 +1045,7 @@ function loadFicha(idx) {
 
   // Campos simples
   const campos = {
-    'f-num': f.num, 'f-nome': f.nome, 'f-cat': f.cat, 'f-ver': f.ver,
+    'f-num': f.num, 'f-nome': f.nome, 'f-cat': f.cat, 'f-grupo': f.grupo, 'f-ver': f.ver,
     'f-data': f.data, 'f-elab': f.elab, 'f-rend': f.rend, 'f-pporcao': f.pporcao,
     'f-temp': f.temp, 'f-valid': f.valid, 'f-tprep': f.tprep, 'f-tcook': f.tcook,
     'f-equip': f.equip, 'f-alerg': f.alerg, 'f-desc': f.desc, 'f-obs': f.obs,

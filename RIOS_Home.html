@@ -622,6 +622,12 @@ html,body{
         <div class="mod-name">POP</div>
         <div class="mod-desc">Procedimentos Operacionais Padrao, com parecer da IA</div>
       </div>
+      <div class="mod-card" style="--card-color:#27d97e" onclick="openModule('buffet')">
+        <span class="mod-badge badge-new">NOVO</span>
+        <span class="mod-icon">&#127860;</span>
+        <div class="mod-name">Cardapio Buffet</div>
+        <div class="mod-desc">CMV do buffet, mix de proteinas e lucro por prato</div>
+      </div>
     </div>
 
     <div class="slbl">Em Desenvolvimento</div>
@@ -971,7 +977,7 @@ function checkCortex(){
 
 function openModule(mod){
   document.getElementById('user-menu').style.display='none';
-  const URLS={fichas:'/fichas',qc:'/qc',historico:'/historico',insights:'/insights',escala:'/escala',pop:'/pop',backup:'/fichas?tab=backup'};
+  const URLS={fichas:'/fichas',qc:'/qc',historico:'/historico',insights:'/insights',escala:'/escala',pop:'/pop',buffet:'/buffet',backup:'/fichas?tab=backup'};
   if(URLS[mod]){addActivity(`Modulo: ${mod}`,new Date().toLocaleTimeString('pt-BR'),'var(--bl)');window.location.href=URLS[mod];}
 }
 

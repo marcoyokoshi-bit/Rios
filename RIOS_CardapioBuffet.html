@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RIOS — Cardápio Buffet</title>
+<style>
+:root{--bg:#0a0a14;--sf:#111120;--cd:#161628;--bd:#222240;--bl:#2b8fff;--bld:#1a5fcc;
+--or:#ff8c00;--ord:#cc6a00;--tx:#e8eaf0;--sb:#7a7d9a;--gn:#27d97e;--rd:#ff4d6a;
+--yl:#ffd93d;--pu:#a855f7}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font-family:"Segoe UI",system-ui,sans-serif;min-height:100vh}
+.topbar{background:var(--sf);border-bottom:1px solid var(--bd);padding:11px 20px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:100}
+.back-home-ft{
+  width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:.2s;color:rgba(255,255,255,.25);font-size:18px;flex-shrink:0;
+  border:1px solid transparent;text-decoration:none;margin-right:4px;
+}
+.back-home-ft:hover{color:var(--bl);background:rgba(43,143,255,.1);border-color:rgba(43,143,255,.2);}
+.back-home-ft svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.logo{display:flex;align-items:center;gap:10px}
+.lbadge{background:linear-gradient(135deg,var(--bl),var(--or));width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:10px;color:#fff;text-align:center;line-height:1.15}
+.lname{font-size:18px;font-weight:800;letter-spacing:1px}.lname span{color:var(--bl)}
+.lsub{font-size:9px;color:var(--sb);letter-spacing:2px;text-transform:uppercase}
+.tr{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.tag{border:1px solid var(--bd);padding:4px 11px;border-radius:14px;font-size:11px;font-weight:600;background:var(--cd)}
+.tg{color:var(--gn);border-color:var(--gn)}.tr_{color:var(--rd);border-color:var(--rd)}.tb{color:var(--bl)}
+.bic{background:var(--cd);border:1px solid var(--bd);color:var(--sb);border-radius:7px;padding:6px 12px;cursor:pointer;font-size:11px;display:flex;align-items:center;gap:5px;transition:all .2s;font-weight:600}
+.bic:hover{border-color:var(--bl);color:var(--bl)}
+.main{max-width:1100px;margin:0 auto;padding:22px 16px}
+.tabs{display:flex;gap:3px;border-bottom:1px solid var(--bd);margin-bottom:22px;overflow-x:auto}
+.tab{padding:9px 16px;font-size:12px;font-weight:700;cursor:pointer;border-radius:7px 7px 0 0;color:var(--sb);border:1px solid transparent;border-bottom:none;transition:all .2s;white-space:nowrap}
+.tab.on{color:var(--bl);border-color:var(--bd);border-bottom-color:var(--cd);background:var(--cd);margin-bottom:-1px}
+.tab:hover:not(.on){color:var(--tx)}
+.tc{display:none}.tc.on{display:block}
+.sec{font-size:10px;font-weight:700;color:var(--bl);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.sec::after{content:"";flex:1;height:1px;background:var(--bd)}
+.card{background:var(--cd);border:1px solid var(--bd);border-radius:13px;padding:18px;margin-bottom:14px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:11px}
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:11px}
+.full{grid-column:1/-1}
+.fg{display:flex;flex-direction:column;gap:4px}
+label{font-size:9px;font-weight:700;color:var(--sb);letter-spacing:1px;text-transform:uppercase}
+input,select,textarea{background:var(--sf);border:1px solid var(--bd);border-radius:7px;color:var(--tx);font-size:13px;padding:8px 10px;outline:none;transition:border-color .2s;width:100%;font-family:inherit}
+input:focus,select:focus,textarea:focus{border-color:var(--bl)}
+textarea{resize:vertical;min-height:60px}
+select option{background:var(--cd)}
+.itw{overflow-x:auto}
+.it{width:100%;border-collapse:collapse;min-width:820px}
+.it thead th{font-size:9px;font-weight:700;color:var(--sb);letter-spacing:1px;text-transform:uppercase;padding:7px 6px;text-align:left;border-bottom:1px solid var(--bd);white-space:nowrap}
+.it tbody tr{border-bottom:1px solid rgba(255,255,255,.03)}
+.it tbody tr:hover{background:rgba(43,143,255,.04)}
+.it td{padding:5px 4px;vertical-align:middle}
+.it td input,.it td select{padding:5px 7px;font-size:12px;border-radius:5px}
+.it td.tc2{font-size:12px;font-weight:700;color:var(--or);text-align:right;padding:4px 8px;white-space:nowrap}
+.it td.plv{font-size:11px;padding:4px 7px;text-align:right;white-space:nowrap}
+.it td.nc{width:26px;text-align:center;font-size:10px;color:var(--sb);padding:4px 4px}
+.it tfoot td{padding:8px 8px;font-size:11px;color:var(--or);font-weight:800;text-align:right;border-top:1px solid var(--bd)}
+.bd2{background:none;border:1px solid var(--bd);color:var(--rd);border-radius:5px;width:26px;height:26px;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0}
+.bd2:hover{background:rgba(255,77,106,.15)}
+.badge-grupo{display:inline-block;border-radius:5px;font-size:10px;font-weight:700;padding:2px 8px;white-space:nowrap}
+.bg-bovina{background:rgba(255,77,106,.14);color:var(--rd);border:1px solid rgba(255,77,106,.3)}
+.bg-suina{background:rgba(255,140,0,.14);color:var(--or);border:1px solid rgba(255,140,0,.3)}
+.bg-ave{background:rgba(255,211,61,.14);color:var(--yl);border:1px solid rgba(255,211,61,.3)}
+.bg-peixe{background:rgba(43,143,255,.14);color:var(--bl);border:1px solid rgba(43,143,255,.3)}
+.bg-outros{background:rgba(168,85,247,.14);color:var(--pu);border:1px solid rgba(168,85,247,.3)}
+.bg-none{background:var(--sf);color:var(--sb);border:1px solid var(--bd)}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;border:none;transition:all .2s;letter-spacing:.3px}
+.bp{background:var(--bl);color:#fff}.bp:hover{background:var(--bld)}
+.bo{background:transparent;color:var(--bl);border:1px solid var(--bl)}.bo:hover{background:rgba(43,143,255,.1)}
+.bor{background:var(--or);color:#fff}.bor:hover{background:var(--ord)}
+.bg_{background:var(--sf);color:var(--tx);border:1px solid var(--bd)}.bg_:hover{border-color:var(--bl)}
+.bgn{background:var(--gn);color:#000;font-weight:800}.bgn:hover{opacity:.9}
+.brd{background:rgba(255,77,106,.15);color:var(--rd);border:1px solid rgba(255,77,106,.3)}.brd:hover{background:rgba(255,77,106,.25)}
+.br{display:flex;align-items:center;gap:8px;margin-top:12px;flex-wrap:wrap}
+.rg{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.rc{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:13px;text-align:center;transition:border-color .3s}
+.rc.hb{border-color:var(--bl);background:rgba(43,143,255,.06)}
+.rc.ho{border-color:var(--or);background:rgba(255,140,0,.06)}
+.rc.hg{border-color:var(--gn);background:rgba(39,217,126,.06)}
+.rc.hy{border-color:var(--yl);background:rgba(255,211,61,.06)}
+.rc.hp{border-color:var(--pu);background:rgba(168,85,247,.06)}
+.rl{font-size:9px;font-weight:700;color:var(--sb);letter-spacing:1.4px;text-transform:uppercase;margin-bottom:5px}
+.rv{font-size:20px;font-weight:800}
+.rs{font-size:10px;color:var(--sb);margin-top:2px}
+.al{border-radius:8px;padding:9px 13px;font-size:12px;display:flex;align-items:flex-start;gap:7px;margin-top:9px;line-height:1.5}
+.aw{background:rgba(255,211,61,.08);border:1px solid rgba(255,211,61,.3);color:var(--yl)}
+.ak{background:rgba(39,217,126,.08);border:1px solid rgba(39,217,126,.3);color:var(--gn)}
+.ab_{background:rgba(255,77,106,.08);border:1px solid rgba(255,77,106,.3);color:var(--rd)}
+.ai{background:rgba(43,143,255,.08);border:1px solid rgba(43,143,255,.3);color:var(--bl)}
+.mo{position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:500;display:none;align-items:center;justify-content:center;padding:14px;overflow-y:auto}
+.mo.open{display:flex}
+.mob{background:var(--cd);border:1px solid var(--bd);border-radius:15px;padding:24px;width:100%;max-width:580px;max-height:92vh;overflow-y:auto}
+.mob h2{font-size:16px;font-weight:800;margin-bottom:4px}
+.mob .sub{font-size:11px;color:var(--sb);margin-bottom:18px;line-height:1.6}
+.moa{display:flex;gap:8px;margin-top:18px;justify-content:flex-end}
+.lv{position:fixed;inset:0;background:rgba(0,0,0,.84);z-index:2000;display:none;align-items:center;justify-content:center;flex-direction:column;gap:12px}
+.lv.open{display:flex}
+.lsp{width:42px;height:42px;border:3px solid rgba(255,255,255,.15);border-top-color:var(--bl);border-radius:50%;animation:sp .7s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.lmsg{font-size:13px;font-weight:600;color:var(--tx)}.lsub2{font-size:11px;color:var(--sb)}
+.toast{position:fixed;bottom:22px;right:22px;background:var(--cd);border:1px solid var(--bd);border-radius:10px;padding:11px 16px;font-size:12px;font-weight:600;z-index:9999;display:none;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(0,0,0,.5);max-width:320px}
+.toast.open{display:flex}
+.fl2{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:11px;margin-top:8px}
+.fi{background:var(--sf);border:1px solid var(--bd);border-radius:11px;padding:14px;cursor:pointer;transition:border-color .2s,transform .15s;position:relative}
+.fi:hover{border-color:var(--bl);transform:translateY(-2px)}
+.fi h4{font-size:14px;font-weight:700;margin-bottom:4px}
+.fi p{font-size:11px;color:var(--sb);margin-bottom:7px}
+.fi .fbadge{display:inline-block;background:var(--bl);color:#fff;border-radius:5px;font-size:10px;font-weight:700;padding:2px 7px}
+.fi .fdel{position:absolute;top:10px;right:10px;background:none;border:1px solid var(--bd);color:var(--rd);border-radius:5px;width:26px;height:26px;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center}
+.fi .fdel:hover{background:rgba(255,77,106,.15)}
+.empty{text-align:center;padding:48px 22px;color:var(--sb)}
+.empty .eic{font-size:42px;margin-bottom:10px}
+.empty p{font-size:14px}
+.divider{height:1px;background:var(--bd);margin:16px 0}
+.addrow{display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap;margin-bottom:12px;background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:12px}
+.addrow .fg{flex:1;min-width:180px}
+.addrow .fg.sm{min-width:100px;max-width:130px;flex:none}
+.rankcol{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.rankitem{display:flex;justify-content:space-between;align-items:center;gap:8px;background:var(--sf);border:1px solid var(--bd);border-radius:8px;padding:8px 11px;margin-bottom:6px;font-size:12px}
+@media(max-width:700px){.rg,.g5{grid-template-columns:1fr 1fr}.g2,.g3,.g4{grid-template-columns:1fr}.rankcol{grid-template-columns:1fr}}
+#neuralBg{position:fixed;inset:0;z-index:0;pointer-events:none;}
+</style>
+</head>
+<body>
+<canvas id="neuralBg"></canvas>
+<div class="lv" id="lv">
+  <div class="lsp"></div>
+  <div class="lmsg" id="lmsg">Processando...</div>
+  <div class="lsub2" id="lsub"></div>
+</div>
+<div class="toast" id="toast"><span id="toast-ic"></span><span id="toast-msg"></span></div>
+
+<!-- Topbar -->
+<div class="topbar">
+  <a class="back-home-ft" href="/" title="Voltar à tela inicial">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+  </a>
+  <div class="logo">
+    <div class="lbadge">RI<br>OS</div>
+    <div>
+      <div class="lname"><span>R</span>IOS</div>
+      <div class="lsub">Cardápio Buffet</div>
+    </div>
+  </div>
+  <div class="tr">
+    <span class="tag" id="cliente-tag" style="color:var(--pu);border-color:var(--pu)" title="Empresa/cliente ativo — troque na Home">&#127970; &mdash;</span>
+    <span class="tag" id="ai-tag">&#9679; IA Offline</span>
+  </div>
+</div>
+
+<!-- Main -->
+<div class="main">
+  <div class="tabs">
+    <div class="tab on" onclick="showTab('nova')">&#127860; Nova Montagem</div>
+    <div class="tab" onclick="showTab('fixos')">&#128204; Itens Fixos</div>
+    <div class="tab" onclick="showTab('hist')">&#128337; Histórico</div>
+  </div>
+
+  <!-- TAB: Nova Montagem -->
+  <div id="tc-nova" class="tc on">
+
+    <div class="card">
+      <div class="sec">&#128203; Dados do Buffet</div>
+      <div class="g5">
+        <div class="fg"><label>Data Início</label><input id="m-inicio" type="date" oninput="marcarSujo()"></div>
+        <div class="fg"><label>Data Fim</label><input id="m-fim" type="date" oninput="marcarSujo()"></div>
+        <div class="fg"><label>Turno</label>
+          <select id="m-turno" onchange="marcarSujo()">
+            <option value="">— Não especificar —</option>
+            <option value="Almoço">Almoço</option>
+            <option value="Jantar">Jantar</option>
+            <option value="Dia todo">Dia todo</option>
+          </select>
+        </div>
+        <div class="fg"><label>Preço Cobrado (R$/Kg)</label><input id="m-preco" type="number" placeholder="59.90" min="0" step="0.10" oninput="recalcular()"></div>
+        <div class="fg"><label>% Venda Estimada</label><input id="m-percvenda" type="number" value="90" min="1" max="100" step="1" oninput="recalcular()" title="Usado para estimar quanto do que foi produzido é efetivamente vendido, até você preencher o Kg vendido real de cada prato"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="sec">&#127869; Itens do Buffet</div>
+      <div class="addrow">
+        <div class="fg">
+          <label>Ficha Técnica</label>
+          <select id="add-ficha-sel"></select>
+        </div>
+        <div class="fg sm">
+          <label>Kg Produzido</label>
+          <input id="add-ficha-kg" type="number" min="0" step="0.1" placeholder="5.0">
+        </div>
+        <button class="btn bp" onclick="adicionarItemMontagem()">&#43; Adicionar</button>
+        <button class="btn bg_" onclick="carregarItensFixos()" title="Preenche a lista com os itens marcados como fixos na aba Itens Fixos">&#128204; Carregar Fixos</button>
+      </div>
+      <div class="itw">
+        <table class="it">
+          <thead><tr>
+            <th>Prato</th><th>Grupo</th><th>Kg Produzido</th><th>Kg Vendido Real</th>
+            <th>Custo/Kg</th><th>Receita Est.</th><th>Lucro Est.</th><th>CMV Item</th><th></th>
+          </tr></thead>
+          <tbody id="m-itens-body"></tbody>
+        </table>
+      </div>
+      <div id="itens-empty" class="empty" style="display:none;padding:24px">
+        <div class="eic">&#127869;</div>
+        <p>Nenhum prato adicionado ainda. Escolha uma ficha técnica acima ou carregue os itens fixos.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="sec">&#128202; Resultado do Buffet</div>
+      <div class="rg" id="result-cards">
+        <div class="rc" id="rc-custo"><div class="rl">Custo Total Produção</div><div class="rv" id="rv-custo">—</div><div class="rs">tudo que foi produzido</div></div>
+        <div class="rc" id="rc-receita"><div class="rl">Receita Estimada</div><div class="rv" id="rv-receita">—</div><div class="rs">baseada no vendido/estimado</div></div>
+        <div class="rc" id="rc-lucro"><div class="rl">Lucro Estimado</div><div class="rv" id="rv-lucro">—</div><div class="rs"></div></div>
+        <div class="rc" id="rc-cmv"><div class="rl">CMV do Buffet</div><div class="rv" id="rv-cmv">—</div><div class="rs">custo / receita</div></div>
+        <div class="rc" id="rc-mediakg"><div class="rl">Custo Médio/Kg</div><div class="rv" id="rv-mediakg">—</div><div class="rs">ponderado pela produção</div></div>
+      </div>
+      <div id="alerts-box"></div>
+      <div class="br">
+        <button class="btn bgn" onclick="salvarMontagem()">&#128190; Salvar Montagem</button>
+        <button class="btn" style="background:linear-gradient(135deg,#6a0dad,#a855f7);color:#fff" onclick="analisarBuffetIA()">&#129504; Analisar Buffet com IA</button>
+        <button class="btn bg_" onclick="novaMontagem()">&#43; Nova Montagem</button>
+      </div>
+    </div>
+
+  </div><!-- /tc-nova -->
+
+  <!-- TAB: Itens Fixos -->
+  <div id="tc-fixos" class="tc">
+    <div class="card">
+      <div class="sec">&#128204; Itens Fixos do Buffet</div>
+      <p style="font-size:11px;color:var(--sb);margin-bottom:14px">Pratos que costumam estar sempre no buffet desta empresa/cliente. Ao criar uma nova montagem, clique em "Carregar Fixos" pra preencher automaticamente com estes itens e o Kg padrão — depois é só ajustar o que mudar no dia.</p>
+      <div class="addrow">
+        <div class="fg">
+          <label>Ficha Técnica</label>
+          <select id="add-fixo-sel"></select>
+        </div>
+        <div class="fg sm">
+          <label>Kg Padrão</label>
+          <input id="add-fixo-kg" type="number" min="0" step="0.1" placeholder="5.0">
+        </div>
+        <button class="btn bp" onclick="adicionarItemFixo()">&#43; Adicionar aos Fixos</button>
+      </div>
+      <div class="itw">
+        <table class="it" style="min-width:0">
+          <thead><tr><th>Prato</th><th>Grupo</th><th>Kg Padrão</th><th></th></tr></thead>
+          <tbody id="fixos-body"></tbody>
+        </table>
+      </div>
+      <div id="fixos-empty" class="empty" style="display:none;padding:24px">
+        <div class="eic">&#128204;</div>
+        <p>Nenhum item fixo cadastrado ainda para esta empresa/cliente.</p>
+      </div>
+    </div>
+  </div><!-- /tc-fixos -->
+
+  <!-- TAB: Histórico -->
+  <div id="tc-hist" class="tc">
+    <div class="card">
+      <div class="sec">&#128202; Ranking de Pratos (dados reais)</div>
+      <p style="font-size:11px;color:var(--sb);margin-bottom:12px" id="rank-info">Baseado nas montagens em que você já preencheu o Kg Vendido Real de cada prato. Sem isso, o ranking fica vazio — o sistema não estima a partir do produzido pra esta análise, só usa venda confirmada.</p>
+      <div class="rankcol">
+        <div>
+          <div class="sec" style="font-size:9px">&#128176; Mais lucrativos</div>
+          <div id="rank-lucro"></div>
+        </div>
+        <div>
+          <div class="sec" style="font-size:9px">&#128200; Mais vendidos (Kg)</div>
+          <div id="rank-vendidos"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="sec">&#128337; Montagens Salvas</div>
+      <div class="fl2" id="hist-grid"></div>
+      <div id="hist-empty" class="empty" style="display:none">
+        <div class="eic">&#128337;</div>
+        <p>Nenhuma montagem salva ainda para esta empresa/cliente.</p>
+      </div>
+    </div>
+  </div><!-- /tc-hist -->
+
+</div><!-- /main -->
+
+<!-- Modal: Resultado IA -->
+<div class="mo" id="mo-ai">
+  <div class="mob">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <h2>&#129504; Análise do Buffet — IA</h2>
+      <button class="bic" onclick="closeMo('mo-ai')">&#10005; Fechar</button>
+    </div>
+    <div id="ai-mo-body" style="font-size:13px;line-height:1.7"></div>
+    <div class="moa"><button class="btn bg_" onclick="closeMo('mo-ai')">Fechar</button></div>
+  </div>
+</div>
+
+<script>
+// ── Estado Global ────────────────────────────────────────────────────────────
+const UNITS = ['g','kg','ml','L','un','cx','dz','pct'];
+let fichas    = JSON.parse(localStorage.getItem('rios_fichas') || '[]');
+let fixos     = JSON.parse(localStorage.getItem('rios_buffet_fixos') || '[]');
+let montagens = JSON.parse(localStorage.getItem('rios_buffet_montagens') || '[]');
+
+// ── Sessão / Cliente Ativo (isolamento por consultoria) ─────────────────────
+function getActiveUser(){ try{ return JSON.parse(localStorage.getItem('rios_user')||'null'); }catch(e){ return null; } }
+const ACTIVE_USER = getActiveUser();
+const ACTIVE_CLIENTE = ACTIVE_USER && ACTIVE_USER.cliente ? ACTIVE_USER.cliente : null;
+if (!ACTIVE_CLIENTE){
+  window.location.href = '/';
+}
+function fichaVisivel(f){ return !f.clienteId || f.clienteId === ACTIVE_CLIENTE.id; }
+function registroVisivel(r){ return !r.clienteId || r.clienteId === ACTIVE_CLIENTE.id; }
+
+// ── Estado da montagem em edição ─────────────────────────────────────────────
+let currentMontagem = { id: null, itens: [] };
+
+// ── Utils ─────────────────────────────────────────────────────────────────────
+function v(id) { return (document.getElementById(id) || {}).value || ''; }
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function fmtR(x) { return 'R$ ' + (isFinite(x)?x:0).toFixed(2).replace('.',','); }
+function fmtP(x) { return (isFinite(x)?x:0).toFixed(1).replace('.',',') + '%'; }
+function fmtKg(x) { return (isFinite(x)?x:0).toFixed(2).replace('.',',') + ' Kg'; }
+function today() { return new Date().toISOString().slice(0,10); }
+
+function toast(msg, type='ok') {
+  const el  = document.getElementById('toast');
+  const ic  = document.getElementById('toast-ic');
+  const tx2 = document.getElementById('toast-msg');
+  const colors = { ok: 'var(--gn)', err: 'var(--rd)', warn: 'var(--yl)' };
+  const icons  = { ok: '✓', err: '✗', warn: '⚠' };
+  el.style.borderColor = colors[type] || 'var(--bd)';
+  ic.textContent = icons[type] || '';
+  ic.style.color = colors[type] || 'var(--tx)';
+  tx2.textContent = msg;
+  el.classList.add('open');
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(() => el.classList.remove('open'), 3800);
+}
+function showLoad(msg, sub='') {
+  document.getElementById('lmsg').textContent = msg;
+  document.getElementById('lsub').textContent = sub;
+  document.getElementById('lv').classList.add('open');
+}
+function hideLoad() { document.getElementById('lv').classList.remove('open'); }
+function openMo(id) { document.getElementById(id).classList.add('open'); }
+function closeMo(id) { document.getElementById(id).classList.remove('open'); }
+
+function showTab(t) {
+  document.querySelectorAll('.tab').forEach((el) => el.classList.toggle('on', el.getAttribute('onclick').includes(t)));
+  document.querySelectorAll('.tc').forEach(el => el.classList.remove('on'));
+  const tc = document.getElementById('tc-' + t);
+  if (tc) tc.classList.add('on');
+  if (t === 'fixos') renderFixos();
+  if (t === 'hist') { renderHistorico(); renderRanking(); }
+}
+
+function updateAITag() {
+  const el = document.getElementById('ai-tag');
+  if (!el) return;
+  fetch('/api/status').then(r => r.json()).then(d => {
+    if (d.key_configured) { el.textContent = '✦ RIOS Cortex Online'; el.className = 'tag tg'; }
+    else { el.textContent = '● IA sem chave'; el.className = 'tag tr_'; }
+  }).catch(() => { el.textContent = '● Servidor Offline'; el.className = 'tag tr_'; });
+}
+
+function marcarSujo(){ /* placeholder — mantém consistência com padrão de outros módulos */ }
+
+// ── Cálculo de custo/Kg a partir da Ficha Técnica ────────────────────────────
+function calcIngTotal(pb, un, custo) {
+  const q = parseFloat(pb) || 0;
+  const c = parseFloat(custo) || 0;
+  if (un === 'g')  return (q / 1000) * c;
+  if (un === 'kg') return q * c;
+  if (un === 'ml') return (q / 1000) * c;
+  if (un === 'L')  return q * c;
+  return q * c;
+}
+
+function custoPorKgFicha(f) {
+  // Reproduz a mesma fórmula da Ficha Técnica: custo ingrediente/porção + OH% + MO% + emb + out.
+  let totalIng = 0;
+  (f.ings || []).forEach(i => { totalIng += calcIngTotal(i.pb, i.un, i.custo); });
+  const rend = Math.max(1, parseFloat(f.rend) || 1);
+  const custoIngPorcao = totalIng / rend;
+  const oh  = (parseFloat(f.oh)  || 0) / 100;
+  const mo  = (parseFloat(f.mo)  || 0) / 100;
+  const emb = parseFloat(f.emb) || 0;
+  const out = parseFloat(f.out) || 0;
+  const custoTotalPorcao = custoIngPorcao + custoIngPorcao*oh + custoIngPorcao*mo + emb + out;
+
+  const pesoPorcaoKg = (parseFloat(f.pporcao) || 0) / 1000;
+  if (pesoPorcaoKg <= 0) {
+    return { ok: false, custoPorKg: 0, motivo: 'Ficha sem "Peso por Porção" preenchido — não dá pra calcular custo/Kg.' };
+  }
+  return { ok: true, custoPorKg: custoTotalPorcao / pesoPorcaoKg, motivo: '' };
+}
+
+function grupoBadge(grupo) {
+  const map = {
+    'Bovina': 'bg-bovina', 'Suína': 'bg-suina', 'Ave': 'bg-ave',
+    'Peixe': 'bg-peixe', 'Outros': 'bg-outros'
+  };
+  const cls = map[grupo] || 'bg-none';
+  const label = grupo || 'Sem grupo';
+  return `<span class="badge-grupo ${cls}">${esc(label)}</span>`;
+}
+
+// ── Popula os selects de "adicionar ficha" ───────────────────────────────────
+function popularSelectsFichas() {
+  const visiveis = fichas.filter(fichaVisivel).filter(f => f.nome);
+  const opts = '<option value="">— Escolher prato —</option>' +
+    visiveis.map(f => `<option value="${esc(f.num)}">${esc(f.nome)}${f.grupo ? ' · ' + esc(f.grupo) : ''}</option>`).join('');
+  const s1 = document.getElementById('add-ficha-sel');
+  const s2 = document.getElementById('add-fixo-sel');
+  if (s1) s1.innerHTML = opts;
+  if (s2) s2.innerHTML = opts;
+}
+
+function fichaPorNum(num) { return fichas.find(f => f.num === num); }
+
+// ── Itens Fixos ───────────────────────────────────────────────────────────────
+function adicionarItemFixo() {
+  const fichaId = v('add-fixo-sel');
+  const kg = parseFloat(v('add-fixo-kg')) || 0;
+  if (!fichaId) { toast('Escolha um prato.', 'err'); return; }
+  if (kg <= 0) { toast('Informe o Kg padrão produzido.', 'err'); return; }
+  fixos.push({
+    id: 'BFX-' + Date.now(),
+    fichaId, kgProduzidoPadrao: kg,
+    clienteId: ACTIVE_CLIENTE.id, clienteNome: ACTIVE_CLIENTE.nome
+  });
+  localStorage.setItem('rios_buffet_fixos', JSON.stringify(fixos));
+  document.getElementById('add-fixo-kg').value = '';
+  renderFixos();
+  toast('Item fixo adicionado.', 'ok');
+}
+
+function removerItemFixo(id) {
+  fixos = fixos.filter(x => x.id !== id);
+  localStorage.setItem('rios_buffet_fixos', JSON.stringify(fixos));
+  renderFixos();
+}
+
+function renderFixos() {
+  const visiveis = fixos.filter(registroVisivel);
+  const body = document.getElementById('fixos-body');
+  const empty = document.getElementById('fixos-empty');
+  if (!visiveis.length) {
+    body.innerHTML = '';
+    empty.style.display = '';
+    return;
+  }
+  empty.style.display = 'none';
+  body.innerHTML = visiveis.map(x => {
+    const f = fichaPorNum(x.fichaId);
+    const nome = f ? f.nome : '(ficha removida — ' + esc(x.fichaId) + ')';
+    const grupo = f ? f.grupo : '';
+    return `<tr>
+      <td>${esc(nome)}</td>
+      <td>${grupoBadge(grupo)}</td>
+      <td>${fmtKg(x.kgProduzidoPadrao)}</td>
+      <td><button class="bd2" onclick="removerItemFixo('${x.id}')" title="Remover">&#10005;</button></td>
+    </tr>`;
+  }).join('');
+}
+
+// ── Nova Montagem — itens ────────────────────────────────────────────────────
+function adicionarItemMontagem() {
+  const fichaId = v('add-ficha-sel');
+  const kg = parseFloat(v('add-ficha-kg')) || 0;
+  if (!fichaId) { toast('Escolha um prato.', 'err'); return; }
+  if (kg <= 0) { toast('Informe o Kg produzido.', 'err'); return; }
+  currentMontagem.itens.push({ fichaId, kgProduzido: kg, kgVendidoReal: null });
+  document.getElementById('add-ficha-kg').value = '';
+  renderItensMontagem();
+}
+
+function removerItemMontagem(idx) {
+  currentMontagem.itens.splice(idx, 1);
+  renderItensMontagem();
+}
+
+function carregarItensFixos() {
+  const visiveis = fixos.filter(registroVisivel);
+  if (!visiveis.length) { toast('Nenhum item fixo cadastrado ainda. Veja a aba Itens Fixos.', 'warn'); return; }
+  const existentes = new Set(currentMontagem.itens.map(i => i.fichaId));
+  let add = 0;
+  visiveis.forEach(x => {
+    if (existentes.has(x.fichaId)) return;
+    currentMontagem.itens.push({ fichaId: x.fichaId, kgProduzido: x.kgProduzidoPadrao, kgVendidoReal: null });
+    add++;
+  });
+  renderItensMontagem();
+  toast(add ? (add + ' item(ns) fixo(s) carregado(s).') : 'Os itens fixos já estavam na lista.', 'ok');
+}
+
+function atualizarKgProduzido(idx, val) {
+  currentMontagem.itens[idx].kgProduzido = parseFloat(val) || 0;
+  recalcular();
+}
+function atualizarKgVendidoReal(idx, val) {
+  const n = val === '' ? null : (parseFloat(val) || 0);
+  currentMontagem.itens[idx].kgVendidoReal = n;
+  recalcular();
+}
+
+// ── Cálculo central ───────────────────────────────────────────────────────────
+function computarTotais() {
+  const precoKg = parseFloat(v('m-preco')) || 0;
+  const percVenda = Math.min(100, Math.max(1, parseFloat(v('m-percvenda')) || 90));
+
+  let custoTotal = 0, receitaTotal = 0, kgProduzidoTotal = 0;
+  const itensCalc = currentMontagem.itens.map(item => {
+    const f = fichaPorNum(item.fichaId);
+    const nome = f ? f.nome : '(ficha removida)';
+    const grupo = f ? f.grupo : '';
+    const info = f ? custoPorKgFicha(f) : { ok: false, custoPorKg: 0, motivo: 'Ficha técnica não encontrada.' };
+    const kgProduzido = parseFloat(item.kgProduzido) || 0;
+    const kgVendido = (item.kgVendidoReal !== null && item.kgVendidoReal !== undefined && item.kgVendidoReal !== '')
+      ? parseFloat(item.kgVendidoReal) : kgProduzido * (percVenda / 100);
+    const custoProducao = info.ok ? info.custoPorKg * kgProduzido : 0;
+    const receita = precoKg > 0 ? kgVendido * precoKg : 0;
+    const lucro = receita - custoProducao;
+    const cmvItem = receita > 0 ? (custoProducao / receita) * 100 : null;
+
+    if (info.ok) { custoTotal += custoProducao; kgProduzidoTotal += kgProduzido; }
+    receitaTotal += receita;
+
+    return { ...item, nome, grupo, ok: info.ok, motivo: info.motivo, custoPorKg: info.custoPorKg,
+              kgVendido, custoProducao, receita, lucro, cmvItem };
+  });
+
+  const lucroTotal = receitaTotal - custoTotal;
+  const cmvBuffet = receitaTotal > 0 ? (custoTotal / receitaTotal) * 100 : null;
+  const custoMedioKg = kgProduzidoTotal > 0 ? custoTotal / kgProduzidoTotal : null;
+
+  // Alertas
+  const alertas = [];
+  const semPeso = itensCalc.filter(i => !i.ok);
+  if (semPeso.length) {
+    alertas.push(['warn', semPeso.length + ' prato(s) sem "Peso por Porção" na ficha técnica — não entraram no cálculo de custo: ' + semPeso.map(i=>i.nome).join(', ') + '.']);
+  }
+  if (precoKg <= 0 && currentMontagem.itens.length) {
+    alertas.push(['warn', 'Informe o preço cobrado por Kg para calcular receita e CMV do buffet.']);
+  }
+
+  // Proteína repetida (Bovina/Suína/Ave/Peixe — "Outros" não entra por ser um grupo genérico demais)
+  const grupos = {};
+  itensCalc.forEach(i => { if (['Bovina','Suína','Ave','Peixe'].includes(i.grupo)) grupos[i.grupo] = (grupos[i.grupo]||0) + 1; });
+  Object.entries(grupos).forEach(([g, n]) => {
+    if (n >= 2) alertas.push(['warn', n + ' pratos de proteína ' + g + ' no mesmo buffet — vale observar se não está desequilibrado.']);
+  });
+  const semGrupo = itensCalc.filter(i => !i.grupo).length;
+  if (semGrupo) {
+    alertas.push(['ai', semGrupo + ' prato(s) sem Grupo Proteico definido na ficha técnica — não entram na checagem de repetição.']);
+  }
+
+  // Fora da curva de custo
+  if (custoMedioKg) {
+    itensCalc.filter(i => i.ok && i.custoPorKg > custoMedioKg * 1.3).forEach(i => {
+      alertas.push(['err', `"${i.nome}" custa ${fmtR(i.custoPorKg)}/Kg — bem acima da média do buffet (${fmtR(custoMedioKg)}/Kg). Vale revisar.`]);
+    });
+  }
+  if (cmvBuffet !== null && cmvBuffet > 40) {
+    alertas.push(['err', `CMV do buffet em ${fmtP(cmvBuffet)} — alto para comida a Kg (referência usual: até ~35%).`]);
+  } else if (cmvBuffet !== null && cmvBuffet <= 35 && itensCalc.length) {
+    alertas.push(['ok', `CMV do buffet em ${fmtP(cmvBuffet)} — dentro da faixa saudável.`]);
+  }
+
+  return { precoKg, percVenda, itensCalc, custoTotal, receitaTotal, lucroTotal, cmvBuffet, custoMedioKg, alertas };
+}
+
+function recalcular() {
+  const t = computarTotais();
+  renderResultCards(t);
+  renderAlerts(t.alertas);
+  return t;
+}
+
+function renderResultCards(t) {
+  document.getElementById('rv-custo').textContent   = fmtR(t.custoTotal);
+  document.getElementById('rv-receita').textContent = fmtR(t.receitaTotal);
+  document.getElementById('rv-lucro').textContent   = t.itensCalc.length ? fmtR(t.lucroTotal) : '—';
+  document.getElementById('rc-lucro').className = 'rc' + (t.lucroTotal > 0 ? ' hg' : t.lucroTotal < 0 ? ' hp' : '');
+  document.getElementById('rv-cmv').textContent = t.cmvBuffet !== null ? fmtP(t.cmvBuffet) : '—';
+  document.getElementById('rc-cmv').className = 'rc' + (t.cmvBuffet !== null ? (t.cmvBuffet <= 35 ? ' hg' : ' hp') : '');
+  document.getElementById('rv-mediakg').textContent = t.custoMedioKg !== null ? fmtR(t.custoMedioKg) : '—';
+}
+
+function renderAlerts(alertas) {
+  const types = { warn: 'aw', err: 'ab_', ok: 'ak', ai: 'ai' };
+  const icons  = { warn: '⚠', err: '✗', ok: '✓', ai: 'ℹ' };
+  document.getElementById('alerts-box').innerHTML = alertas.map(([t, m]) =>
+    `<div class="al ${types[t]}">${icons[t]} ${esc(m)}</div>`
+  ).join('');
+}
+
+function renderItensMontagem() {
+  const body = document.getElementById('m-itens-body');
+  const empty = document.getElementById('itens-empty');
+  if (!currentMontagem.itens.length) {
+    body.innerHTML = '';
+    empty.style.display = '';
+    recalcular();
+    return;
+  }
+  empty.style.display = 'none';
+  const t = recalcular();
+  body.innerHTML = t.itensCalc.map((i, idx) => `
+    <tr>
+      <td>${esc(i.nome)}${!i.ok ? ' <span style="color:var(--yl);font-size:10px">⚠ sem peso/porção</span>' : ''}</td>
+      <td>${grupoBadge(i.grupo)}</td>
+      <td><input type="number" min="0" step="0.1" value="${i.kgProduzido}" style="width:85px" oninput="atualizarKgProduzido(${idx}, this.value)"></td>
+      <td><input type="number" min="0" step="0.1" value="${i.kgVendidoReal !== null && i.kgVendidoReal !== undefined ? i.kgVendidoReal : ''}" placeholder="est. ${fmtKg(i.kgVendido)}" style="width:95px" oninput="atualizarKgVendidoReal(${idx}, this.value)"></td>
+      <td class="plv">${i.ok ? fmtR(i.custoPorKg) : '—'}</td>
+      <td class="plv" style="color:var(--bl)">${fmtR(i.receita)}</td>
+      <td class="tc2" style="color:${i.lucro>=0?'var(--gn)':'var(--rd)'}">${fmtR(i.lucro)}</td>
+      <td class="plv">${i.cmvItem !== null ? fmtP(i.cmvItem) : '—'}</td>
+      <td><button class="bd2" onclick="removerItemMontagem(${idx})" title="Remover">&#10005;</button></td>
+    </tr>`).join('');
+}
+
+// ── Salvar / Nova / Carregar Montagem ────────────────────────────────────────
+function nextMontagemNum() {
+  const nums = montagens.map(m => parseInt((m.id || 'BF-0000').replace('BF-','')) || 0);
+  const last = nums.length ? Math.max(...nums) : 0;
+  return 'BF-' + String(last + 1).padStart(4, '0');
+}
+
+function novaMontagem() {
+  currentMontagem = { id: null, itens: [] };
+  document.getElementById('m-inicio').value = today();
+  document.getElementById('m-fim').value = today();
+  document.getElementById('m-turno').value = '';
+  document.getElementById('m-preco').value = '';
+  document.getElementById('m-percvenda').value = '90';
+  renderItensMontagem();
+  showTab('nova');
+  toast('Nova montagem iniciada.', 'ok');
+}
+
+function salvarMontagem() {
+  if (!currentMontagem.itens.length) { toast('Adicione pelo menos um prato antes de salvar.', 'err'); return; }
+  const precoKg = parseFloat(v('m-preco')) || 0;
+  if (precoKg <= 0) { toast('Informe o preço cobrado por Kg antes de salvar.', 'err'); return; }
+  const inicio = v('m-inicio') || today();
+  const fim = v('m-fim') || inicio;
+
+  const registro = {
+    id: currentMontagem.id || nextMontagemNum(),
+    dataInicio: inicio, dataFim: fim, turno: v('m-turno'),
+    precoKg, percVendaEstimado: parseFloat(v('m-percvenda')) || 90,
+    itens: currentMontagem.itens.map(i => ({ fichaId: i.fichaId, kgProduzido: i.kgProduzido, kgVendidoReal: i.kgVendidoReal })),
+    clienteId: ACTIVE_CLIENTE.id, clienteNome: ACTIVE_CLIENTE.nome,
+    atualizadoEm: new Date().toISOString()
+  };
+  const idx = montagens.findIndex(m => m.id === registro.id);
+  if (idx >= 0) montagens[idx] = { ...montagens[idx], ...registro };
+  else { registro.criadoEm = registro.atualizadoEm; montagens.unshift(registro); }
+  localStorage.setItem('rios_buffet_montagens', JSON.stringify(montagens));
+  currentMontagem.id = registro.id;
+  toast('Montagem ' + registro.id + ' salva!', 'ok');
+}
+
+function carregarMontagem(id) {
+  const m = montagens.find(x => x.id === id);
+  if (!m) return;
+  currentMontagem = { id: m.id, itens: (m.itens || []).map(i => ({ ...i })) };
+  document.getElementById('m-inicio').value = m.dataInicio || today();
+  document.getElementById('m-fim').value = m.dataFim || m.dataInicio || today();
+  document.getElementById('m-turno').value = m.turno || '';
+  document.getElementById('m-preco').value = m.precoKg || '';
+  document.getElementById('m-percvenda').value = m.percVendaEstimado || 90;
+  renderItensMontagem();
+  showTab('nova');
+  toast('Montagem ' + m.id + ' carregada — preencha o Kg Vendido Real se já souber.', 'ok');
+}
+
+function excluirMontagem(id, ev) {
+  if (ev) ev.stopPropagation();
+  if (!confirm('Excluir a montagem ' + id + '?')) return;
+  montagens = montagens.filter(x => x.id !== id);
+  localStorage.setItem('rios_buffet_montagens', JSON.stringify(montagens));
+  renderHistorico();
+  renderRanking();
+  toast('Montagem excluída.', 'warn');
+}
+
+// ── Histórico ─────────────────────────────────────────────────────────────────
+function renderHistorico() {
+  const visiveis = montagens.filter(registroVisivel);
+  const grid = document.getElementById('hist-grid');
+  const empty = document.getElementById('hist-empty');
+  if (!visiveis.length) { grid.innerHTML = ''; empty.style.display = ''; return; }
+  empty.style.display = 'none';
+
+  grid.innerHTML = visiveis.map(m => {
+    // Recalcula totais dessa montagem usando os dados atuais das fichas (custo pode ter mudado desde então)
+    const percVenda = m.percVendaEstimado || 90;
+    let custoTotal = 0, receitaTotal = 0;
+    (m.itens || []).forEach(item => {
+      const f = fichaPorNum(item.fichaId);
+      if (!f) return;
+      const info = custoPorKgFicha(f);
+      const kgProduzido = parseFloat(item.kgProduzido) || 0;
+      const kgVendido = (item.kgVendidoReal !== null && item.kgVendidoReal !== undefined && item.kgVendidoReal !== '')
+        ? parseFloat(item.kgVendidoReal) : kgProduzido * (percVenda / 100);
+      if (info.ok) custoTotal += info.custoPorKg * kgProduzido;
+      receitaTotal += kgVendido * (m.precoKg || 0);
+    });
+    const cmv = receitaTotal > 0 ? (custoTotal / receitaTotal) * 100 : null;
+    const lucro = receitaTotal - custoTotal;
+    const periodo = m.dataInicio === m.dataFim || !m.dataFim
+      ? new Date(m.dataInicio + 'T00:00:00').toLocaleDateString('pt-BR')
+      : new Date(m.dataInicio + 'T00:00:00').toLocaleDateString('pt-BR') + ' a ' + new Date(m.dataFim + 'T00:00:00').toLocaleDateString('pt-BR');
+    const temReal = (m.itens || []).some(i => i.kgVendidoReal !== null && i.kgVendidoReal !== undefined && i.kgVendidoReal !== '');
+
+    return `
+    <div class="fi" onclick="carregarMontagem('${m.id}')">
+      <button class="fdel" onclick="excluirMontagem('${m.id}', event)" title="Excluir">✕</button>
+      <span class="fbadge">${esc(m.id)}</span>
+      <h4 style="margin-top:6px">${esc(periodo)}${m.turno ? ' · ' + esc(m.turno) : ''}</h4>
+      <p>${(m.itens||[]).length} prato(s) · ${fmtR(m.precoKg||0)}/Kg${temReal ? ' · <span style="color:var(--gn)">dados reais</span>' : ' · <span style="color:var(--sb)">estimado</span>'}</p>
+      <div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-top:5px">
+        <span style="font-size:12px;font-weight:800;color:${lucro>=0?'var(--gn)':'var(--rd)'}">${fmtR(lucro)} lucro</span>
+        ${cmv !== null ? `<span style="font-size:11px;color:var(--sb)">CMV ${fmtP(cmv)}</span>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── Ranking (só com Kg Vendido Real preenchido) ──────────────────────────────
+function renderRanking() {
+  const visiveis = montagens.filter(registroVisivel);
+  const agg = {}; // fichaId -> {nome, kgVendido, lucro, aparicoes}
+  visiveis.forEach(m => {
+    (m.itens || []).forEach(item => {
+      if (item.kgVendidoReal === null || item.kgVendidoReal === undefined || item.kgVendidoReal === '') return;
+      const f = fichaPorNum(item.fichaId);
+      if (!f) return;
+      const info = custoPorKgFicha(f);
+      const kgVendido = parseFloat(item.kgVendidoReal) || 0;
+      const receita = kgVendido * (m.precoKg || 0);
+      const custo = info.ok ? info.custoPorKg * kgVendido : 0;
+      const lucro = receita - custo;
+      if (!agg[item.fichaId]) agg[item.fichaId] = { nome: f.nome, kgVendido: 0, lucro: 0, aparicoes: 0 };
+      agg[item.fichaId].kgVendido += kgVendido;
+      agg[item.fichaId].lucro += lucro;
+      agg[item.fichaId].aparicoes += 1;
+    });
+  });
+  const lista = Object.values(agg);
+  const rankLucro = document.getElementById('rank-lucro');
+  const rankVend  = document.getElementById('rank-vendidos');
+
+  if (!lista.length) {
+    const msg = '<div style="font-size:12px;color:var(--sb);padding:10px 0">Ainda sem dados reais suficientes.</div>';
+    rankLucro.innerHTML = msg;
+    rankVend.innerHTML = msg;
+    return;
+  }
+
+  const porLucro = [...lista].sort((a,b) => b.lucro - a.lucro).slice(0,5);
+  const porVenda = [...lista].sort((a,b) => b.kgVendido - a.kgVendido).slice(0,5);
+
+  rankLucro.innerHTML = porLucro.map(x => `
+    <div class="rankitem"><span>${esc(x.nome)}</span><strong style="color:${x.lucro>=0?'var(--gn)':'var(--rd)'}">${fmtR(x.lucro)}</strong></div>
+  `).join('');
+  rankVend.innerHTML = porVenda.map(x => `
+    <div class="rankitem"><span>${esc(x.nome)}</span><strong style="color:var(--bl)">${fmtKg(x.kgVendido)}</strong></div>
+  `).join('');
+}
+
+// ── Análise com IA ────────────────────────────────────────────────────────────
+function buildResumoBuffet(t) {
+  const linhas = [];
+  linhas.push('COMPOSIÇÃO DO BUFFET:');
+  t.itensCalc.forEach(i => {
+    linhas.push(`- ${i.nome} | grupo: ${i.grupo || 'não definido'} | Kg produzido: ${i.kgProduzido} | custo/Kg: ${i.ok ? fmtR(i.custoPorKg) : 'indisponível'} | CMV item: ${i.cmvItem !== null ? fmtP(i.cmvItem) : '—'}`);
+  });
+  linhas.push('');
+  linhas.push(`Preço cobrado: ${fmtR(t.precoKg)}/Kg`);
+  linhas.push(`CMV geral do buffet: ${t.cmvBuffet !== null ? fmtP(t.cmvBuffet) : 'indisponível'}`);
+  linhas.push(`Custo médio ponderado/Kg: ${t.custoMedioKg !== null ? fmtR(t.custoMedioKg) : 'indisponível'}`);
+  linhas.push(`Lucro estimado do período: ${fmtR(t.lucroTotal)}`);
+  if (t.alertas.length) {
+    linhas.push('');
+    linhas.push('ALERTAS JÁ IDENTIFICADOS PELO SISTEMA:');
+    t.alertas.forEach(([, m]) => linhas.push('- ' + m));
+  }
+  return linhas.join('\n');
+}
+
+async function analisarBuffetIA() {
+  if (!currentMontagem.itens.length) { toast('Monte o buffet antes de pedir a análise.', 'err'); return; }
+  const t = recalcular();
+  showLoad('🧠 Analisando o buffet...', 'Claude está avaliando o mix de pratos');
+  try {
+    const resumo = buildResumoBuffet(t);
+    const resp = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ task: 'buffet_analise', context: { resumo } })
+    });
+    const result = await resp.json();
+    if (!resp.ok || result.error) throw new Error(result.error || 'Erro desconhecido');
+    if (!result.success) throw new Error(result.error || 'Resposta inválida da IA');
+    hideLoad();
+    mostrarResultadoIA(result.data);
+  } catch(e) {
+    hideLoad();
+    toast('Erro IA: ' + e.message, 'err');
+  }
+}
+
+function mostrarResultadoIA(data) {
+  const nota = parseFloat(data.nota_equilibrio) || 0;
+  const cor = nota >= 8 ? 'var(--gn)' : nota >= 6 ? 'var(--yl)' : 'var(--rd)';
+  let body = `
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px">
+      <div style="width:60px;height:60px;border-radius:50%;border:3px solid ${cor};display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:${cor};flex-shrink:0">${nota.toFixed(1)}</div>
+      <div style="font-size:12px;color:var(--sb)">Nota de equilíbrio do buffet, segundo o Chef Marco IA</div>
+    </div>`;
+  if (data.pontos_fortes?.length) body += `<div style="margin-bottom:12px"><div style="font-size:10px;font-weight:700;color:var(--gn);letter-spacing:1px;margin-bottom:6px">✓ PONTOS FORTES</div>${data.pontos_fortes.map(p=>`<div class="al ak" style="margin-top:5px">✓ ${esc(p)}</div>`).join('')}</div>`;
+  if (data.pontos_atencao?.length) body += `<div style="margin-bottom:12px"><div style="font-size:10px;font-weight:700;color:var(--yl);letter-spacing:1px;margin-bottom:6px">↑ PONTOS DE ATENÇÃO</div>${data.pontos_atencao.map(p=>`<div class="al aw" style="margin-top:5px">↑ ${esc(p)}</div>`).join('')}</div>`;
+  if (data.sugestoes_combinacao?.length) body += `<div style="margin-bottom:12px"><div style="font-size:10px;font-weight:700;color:var(--bl);letter-spacing:1px;margin-bottom:6px">🔀 SUGESTÕES DE COMBINAÇÃO</div>${data.sugestoes_combinacao.map(p=>`<div class="al ai" style="margin-top:5px">🔀 ${esc(p)}</div>`).join('')}</div>`;
+  if (data.recomendacao_final) body += `<div class="al ak">⭐ ${esc(data.recomendacao_final)}</div>`;
+  document.getElementById('ai-mo-body').innerHTML = body;
+  openMo('mo-ai');
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+window.onload = function() {
+  const ct = document.getElementById('cliente-tag');
+  if (ct && ACTIVE_CLIENTE) ct.innerHTML = '&#127970; ' + esc(ACTIVE_CLIENTE.nome);
+  updateAITag();
+  popularSelectsFichas();
+  document.getElementById('m-inicio').value = today();
+  document.getElementById('m-fim').value = today();
+  renderItensMontagem();
+};
+
+// ── Ambient Neural Background (mesmo padrão dos outros módulos) ─────────────
+(function(){
+  const cv=document.getElementById('neuralBg'); if(!cv) return;
+  const cx=cv.getContext('2d');
+  let W,H,nd=[],cn=[],tm=0;
+  function resize(){
+    W=cv.width=window.innerWidth; H=cv.height=window.innerHeight;
+    nd=Array.from({length:40},()=>({
+      x:Math.random()*W, y:Math.random()*H,
+      vx:(Math.random()-.5)*.18, vy:(Math.random()-.5)*.14,
+    }));
+  }
+  window.addEventListener('resize', resize); resize();
+  function spawn(){
+    if(nd.length<2) return;
+    const a=nd[Math.floor(Math.random()*nd.length)];
+    const b=nd[Math.floor(Math.random()*nd.length)];
+    if(a===b) return;
+    cn.push({a,b,p:0,s:0.01+Math.random()*0.02,w:Math.random()<0.5});
+  }
+  function tick(){
+    cx.clearRect(0,0,W,H);
+    nd.forEach(n=>{
+      n.x+=n.vx; n.y+=n.vy;
+      if(n.x<0||n.x>W) n.vx*=-1;
+      if(n.y<0||n.y>H) n.vy*=-1;
+      cx.beginPath(); cx.arc(n.x,n.y,.8,0,Math.PI*2);
+      cx.fillStyle=`rgba(160,185,255,0.04)`; cx.fill();
+    });
+    if(++tm>=30){spawn();tm=0;}
+    const dead=[];
+    cn.forEach((c,i)=>{
+      const na=c.a, nb=c.b;
+      const px=na.x+(nb.x-na.x)*c.p, py=na.y+(nb.y-na.y)*c.p;
+      const col=c.w?`rgba(255,140,0,${c.al||.4})`:`rgba(43,143,255,${c.al||.4})`;
+      cx.beginPath(); cx.moveTo(na.x,na.y); cx.lineTo(px,py);
+      cx.strokeStyle=col; cx.lineWidth=.6; cx.stroke();
+      c.p+=c.s; if(c.p>=1) dead.push(i);
+    });
+    for(let i=dead.length-1;i>=0;i--) cn.splice(dead[i],1);
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+</script>
+</body></html>

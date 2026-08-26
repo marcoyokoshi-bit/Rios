@@ -1,5 +1,5 @@
 """
-RIOS v1.11.0 - Restaurant Intelligence OS
+RIOS v1.12.0 - Restaurant Intelligence OS
 """
 import json, re, os, sys, glob, base64, tempfile, shutil
 from datetime import datetime
@@ -70,6 +70,7 @@ TASK_MODELS = {
     "escala":     "claude-sonnet-4-6",
     "importar_receita":  "claude-sonnet-4-6",
     "estimar_pendencia": "claude-haiku-4-5-20251001",
+    "buffet_analise":    "claude-sonnet-4-6",
     "default":    "claude-sonnet-4-6",
 }
 
@@ -140,6 +141,20 @@ ESTIMAR_PENDENCIA_SYSTEM = (
     "para um dado especifico que a receita original nao deixou claro. De sua melhor estimativa profissional, "
     "curta e objetiva, e deixe explicito que e uma ESTIMATIVA — nao um dado confirmado pela receita original.\n\n"
     'Retorne SOMENTE JSON: {"valor_estimado":"...","justificativa":"..."}'
+)
+
+BUFFET_ANALISE_SYSTEM = (
+    "Voce e o Chef Marco A Souza, chef e consultor gastronomico especializado em engenharia de cardapio "
+    "para restaurantes de comida a Kg (buffet por peso). Voce recebe a composicao de um buffet montado "
+    "(pratos, grupo proteico de cada um, Kg produzido, custo por Kg, CMV individual e geral, e os alertas "
+    "automaticos ja calculados pelo sistema — repeticao de proteina e pratos com custo acima da media). "
+    "Sua tarefa e dar um parecer estrategico curto e pratico: avaliar o equilibrio do mix (variedade de "
+    "proteinas, cores, texturas, guarnicoes), comentar se o CMV geral esta saudavel, e sugerir combinacoes "
+    "ou trocas concretas quando fizer sentido (ex: trocar uma proteina bovina repetida por uma opcao de "
+    "ave ou peixe, ajustar Kg produzido de um prato caro, etc). Seja direto, sem promessas magicas e sem "
+    "recalcular numeros — use os numeros que ja foram enviados.\n\n"
+    'Retorne SOMENTE JSON: {"nota_equilibrio":7.5,"pontos_fortes":["..."],"pontos_atencao":["..."],'
+    '"sugestoes_combinacao":["..."],"recomendacao_final":"..."}'
 )
 
 INSIGHTS_SYSTEM = (
@@ -263,10 +278,14 @@ def escala_page():
 def pop_page():
     return serve_html("RIOS_POP.html")
 
+@app.route("/buffet")
+def buffet_page():
+    return serve_html("RIOS_CardapioBuffet.html")
+
 @app.route("/api/status")
 def api_status():
     key_ok = bool(API_KEY and API_KEY.startswith("sk-ant"))
-    return jsonify({"status":"ok","version":"1.11.0","key_configured":key_ok,"ai_provider":AI_PROVIDER,
+    return jsonify({"status":"ok","version":"1.12.0","key_configured":key_ok,"ai_provider":AI_PROVIDER,
                      "database_configured": bool(DATABASE_URL)})
 
 @app.route("/api/pop/docx", methods=["POST"])
@@ -443,6 +462,13 @@ def chat():
             resp = client.messages.create(model=model, max_tokens=500,
                 system=ESTIMAR_PENDENCIA_SYSTEM, messages=[{"role":"user","content":user_msg}])
             return parse_json(resp.content[0].text, task)
+        if task == "buffet_analise":
+            resumo = context.get("resumo","")
+            if not resumo:
+                return jsonify({"error": "Monte o buffet antes de pedir a análise da IA."}), 400
+            resp = client.messages.create(model=model, max_tokens=1500,
+                system=BUFFET_ANALISE_SYSTEM, messages=[{"role":"user","content":resumo}])
+            return parse_json(resp.content[0].text, task)
         if task not in CHAT_PROMPTS:
             return jsonify({"error":f"Tarefa desconhecida: {task}"}), 400
         user_msg = f"DADOS DA FICHA TECNICA:\n{build_context_text(context)}\n\nGere o resultado solicitado."
@@ -559,7 +585,7 @@ def insights_daily():
 
 if __name__ == "__main__":
     print("\n" + "="*56)
-    print("  RIOS v1.11.0 - Restaurant Intelligence OS")
+    print("  RIOS v1.12.0 - Restaurant Intelligence OS")
     print(f"  AI Provider: {AI_PROVIDER.upper()}")
     print("="*56)
     if API_KEY:
@@ -576,6 +602,6 @@ if __name__ == "__main__":
         print(f"  http://{ip}:{PORT}  (Wi-Fi)")
     except Exception:
         print(f"\n  http://localhost:{PORT}")
-    print("\n  / | /fichas | /qc | /historico | /insights | /escala | /pop")
+    print("\n  / | /fichas | /qc | /historico | /insights | /escala | /pop | /buffet")
     print("\n  Ctrl+C para encerrar.\n" + "="*56 + "\n")
     app.run(host="0.0.0.0", port=PORT, debug=False)
