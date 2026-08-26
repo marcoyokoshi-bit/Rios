@@ -1,0 +1,635 @@
+{
+  "fichas": [
+    {
+      "num": "FT-IMP-001",
+      "nome": "Vatapá",
+      "cat": "Almoço Executivo",
+      "grupo": "Outros",
+      "ver": "1.0",
+      "data": "2026-08-26",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Leite (leite e leite de coco), Crustáceos (camarão)",
+      "desc": "Prato à base de camarão, dendê e pão hidratado no leite, servido no buffet de almoço.",
+      "obs": "── Importado de \"Fichas Técnicas de Produção — Almoço (Mestre do Pão)\" em 2026-08-26 ──\n⚠ PONTO CRÍTICO (do documento original): Confirmar se o camarão é seco, fresco ou salgado e se o peso informado (190g) é peso líquido.\n⚠ A CONFIRMAR — Rendimento, porção padrão, tempo total, equipamento, responsável e data de validação: nenhum informado no documento original.\n⚠ A CONFIRMAR — Custo total e por porção: não informados; nenhum ingrediente tem preço no documento original — necessário cotar cada item.\n⚠ A CONFIRMAR — Tipo e peso do pão\n⚠ A CONFIRMAR — Volume dos \"copos\" de leite e leite de coco\n⚠ A CONFIRMAR — Medida da colher de serviço (alho e dendê)\nℹ O modo de preparo é uma proposta provisória do próprio documento original, ainda não validada em operação pela equipe.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Hidratar os pães no leite e no leite de coco.",
+        "Processar ou amassar os pães hidratados com cebola, pimentão e alho até obter mistura uniforme.",
+        "Levar ao fogo, mexendo continuamente; incorporar o camarão, o sal, a pimenta-do-reino e o dendê.",
+        "Cozinhar até atingir a textura padrão definida pela cozinha e registrar tempo e temperatura finais."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Pão (tipo e peso a confirmar)",
+          "pb": "3",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Leite (1 copo — volume a confirmar)",
+          "pb": "",
+          "un": "ml",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Leite de coco (1 copo — volume a confirmar)",
+          "pb": "",
+          "un": "ml",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Cebola média",
+          "pb": "1",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Pimentão (cor/tamanho a confirmar)",
+          "pb": "1",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Alho triturado (1/2 colher de serviço — medida a confirmar)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Pimenta-do-reino",
+          "pb": "2",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Camarão (tipo/limpeza a confirmar)",
+          "pb": "190",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Sal (a gosto — quantidade a padronizar)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Azeite de dendê (1 colher de serviço — volume a confirmar)",
+          "pb": "",
+          "un": "ml",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": null,
+      "clienteNome": null,
+      "savedAt": "2026-08-26T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-002",
+      "nome": "Feijão",
+      "cat": "Almoço Executivo",
+      "grupo": "Outros",
+      "ver": "1.0",
+      "data": "2026-08-26",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "",
+      "desc": "Feijão refogado com legumes de época (maxixe, quiabo e/ou couve, conforme disponibilidade).",
+      "obs": "── Importado de \"Fichas Técnicas de Produção — Almoço (Mestre do Pão)\" em 2026-08-26 ──\n⚠ PONTO CRÍTICO (do documento original): Os vegetais opcionais (maxixe, quiabo, couve) alteram rendimento, custo e identidade do prato — registrar cada variação separadamente.\n⚠ A CONFIRMAR — Rendimento, porção padrão, tempo total, equipamento, responsável e data de validação: nenhum informado no documento original.\n⚠ A CONFIRMAR — Custo total e por porção: não informados; nenhum ingrediente tem preço no documento original — necessário cotar cada item.\n⚠ A CONFIRMAR — Tipo do feijão\n⚠ A CONFIRMAR — Significado e medida da unidade \"sp\" (caldo de galinha)\n⚠ A CONFIRMAR — Medida da colher de serviço (colorau, alho)\nℹ O modo de preparo é uma proposta provisória do próprio documento original, ainda não validada em operação pela equipe.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Selecionar e higienizar os ingredientes; deixar o feijão de remolho conforme o padrão da unidade.",
+        "Cozinhar o feijão com água e louro até ficar macio; registrar volume de água, tempo e pressão utilizados.",
+        "Preparar o refogado com óleo de alho, alho, cebola, pimentão, tomate, colorau e pimenta-do-reino.",
+        "Juntar o refogado ao feijão; acrescentar maxixe, quiabo e/ou couve quando disponíveis, respeitando o ponto de cada vegetal.",
+        "Ajustar sal e caldo; finalizar no ponto padrão e registrar rendimento e temperatura."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Feijão (tipo a confirmar)",
+          "pb": "2",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Cebola (tamanho a confirmar)",
+          "pb": "1",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Pimentão",
+          "pb": "1",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Tomate",
+          "pb": "1",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Maxixe (quando disponível)",
+          "pb": "130",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Quiabo (quando disponível)",
+          "pb": "70",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Couve (quantidade a levantar — quando disponível)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Colorau (1 colher de serviço — volume/peso a confirmar)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Pimenta-do-reino",
+          "pb": "4",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Sal (a gosto — quantidade a padronizar)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Caldo de galinha (1 \"sp\" — unidade não identificada, confirmar)",
+          "pb": "",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Louro (2 a 3 folhas)",
+          "pb": "",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Alho (1 colher de serviço — volume/peso a confirmar)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Óleo de alho (1 colher de serviço — composição e volume a confirmar)",
+          "pb": "",
+          "un": "ml",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": null,
+      "clienteNome": null,
+      "savedAt": "2026-08-26T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-003",
+      "nome": "Macarrão",
+      "cat": "Almoço Executivo",
+      "grupo": "Outros",
+      "ver": "1.0",
+      "data": "2026-08-26",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Glúten (presumindo macarrão de trigo comum — confirmar tipo exato)",
+      "desc": "Macarrão cozido e finalizado com açafrão-da-terra/cúrcuma.",
+      "obs": "── Importado de \"Fichas Técnicas de Produção — Almoço (Mestre do Pão)\" em 2026-08-26 ──\n⚠ PONTO CRÍTICO (do documento original): Receita incompleta: a quantidade e o tipo de macarrão são indispensáveis para calcular rendimento e custo.\n⚠ A CONFIRMAR — Rendimento, porção padrão, tempo total, equipamento, responsável e data de validação: nenhum informado no documento original.\n⚠ A CONFIRMAR — Custo total e por porção: não informados; nenhum ingrediente tem preço no documento original — necessário cotar cada item.\n⚠ A CONFIRMAR — Tipo e quantidade de macarrão (não informados)\n⚠ A CONFIRMAR — Volume de água usado no cozimento\nℹ O modo de preparo é uma proposta provisória do próprio documento original, ainda não validada em operação pela equipe.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Ferver a água e adicionar o sal conforme padrão definido.",
+        "Cozinhar o macarrão até o ponto estabelecido pela cozinha.",
+        "Escorrer e finalizar com o açafrão-da-terra/cúrcuma, garantindo distribuição uniforme.",
+        "Registrar quantidade de massa crua, tempo de cozimento, rendimento e forma de conservação no buffet."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Macarrão (tipo e quantidade não informados no documento original)",
+          "pb": "",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Açafrão-da-terra/cúrcuma (2 colheres de sopa — confirmar ingrediente e peso)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Sal (a gosto — quantidade a padronizar)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Água (quantidade não informada — necessária ao cozimento)",
+          "pb": "",
+          "un": "L",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Óleo ou molho de finalização (quantidade não informada — se utilizado)",
+          "pb": "",
+          "un": "ml",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": null,
+      "clienteNome": null,
+      "savedAt": "2026-08-26T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-004",
+      "nome": "Purê de Batata",
+      "cat": "Almoço Executivo",
+      "grupo": "Outros",
+      "ver": "1.0",
+      "data": "2026-08-26",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Leite/Derivados (requeijão, manteiga, leite em pó, leite líquido, creme de leite, queijo)",
+      "desc": "Purê de batata cremoso, finalizado com queijo.",
+      "obs": "── Importado de \"Fichas Técnicas de Produção — Almoço (Mestre do Pão)\" em 2026-08-26 ──\n⚠ PONTO CRÍTICO (do documento original): A contagem de batatas (5 unid.) deve ser substituída por peso bruto e peso líquido para assegurar repetibilidade.\n⚠ A CONFIRMAR — Rendimento, porção padrão, tempo total, equipamento, responsável e data de validação: nenhum informado no documento original.\n⚠ A CONFIRMAR — Custo total e por porção: não informados; nenhum ingrediente tem preço no documento original — necessário cotar cada item.\n⚠ A CONFIRMAR — Significado e medida da unidade \"sp\" (leite em pó)\n⚠ A CONFIRMAR — Tipo de queijo usado\n⚠ A CONFIRMAR — Volume da xícara (leite líquido, creme de leite)\nℹ O modo de preparo é uma proposta provisória do próprio documento original, ainda não validada em operação pela equipe.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Higienizar, descascar, cortar e cozinhar as batatas até ficarem macias.",
+        "Escorrer completamente e amassar ainda quentes.",
+        "Incorporar manteiga, leite líquido, leite em pó, creme de leite e requeijão, misturando até uniformizar.",
+        "Adicionar o queijo e mexer até derreter; ajustar sal, se utilizado.",
+        "Registrar peso das batatas, tempo, rendimento, textura e temperatura de serviço."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Batata (peso líquido a levantar)",
+          "pb": "5",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Requeijão",
+          "pb": "70",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Manteiga",
+          "pb": "110",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Leite em pó (2 \"sp\" — unidade não identificada, confirmar)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Leite líquido (1 xícara — volume a confirmar)",
+          "pb": "",
+          "un": "ml",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Creme de leite (1/2 xícara — volume a confirmar)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Queijo fatiado (4 fatias — tipo de queijo a confirmar)",
+          "pb": "120",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Sal (quantidade a levantar — se utilizado)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": null,
+      "clienteNome": null,
+      "savedAt": "2026-08-26T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-005",
+      "nome": "Arroz Branco",
+      "cat": "Almoço Executivo",
+      "grupo": "Outros",
+      "ver": "1.0",
+      "data": "2026-08-26",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "",
+      "desc": "Arroz branco refogado, preparo padrão de buffet.",
+      "obs": "── Importado de \"Fichas Técnicas de Produção — Almoço (Mestre do Pão)\" em 2026-08-26 ──\n⚠ PONTO CRÍTICO (do documento original): Receita incompleta: faltam as quantidades de alho, sal, água e possível gordura.\n⚠ A CONFIRMAR — Rendimento, porção padrão, tempo total, equipamento, responsável e data de validação: nenhum informado no documento original.\n⚠ A CONFIRMAR — Custo total e por porção: não informados; nenhum ingrediente tem preço no documento original — necessário cotar cada item.\n⚠ A CONFIRMAR — Se o peso do arroz (6 kg) é peso cru\nℹ O modo de preparo é uma proposta provisória do próprio documento original, ainda não validada em operação pela equipe.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Selecionar o arroz e seguir o procedimento de lavagem adotado pela unidade.",
+        "Refogar o alho e o arroz na gordura, se utilizada.",
+        "Adicionar água e sal nas quantidades padronizadas.",
+        "Cozinhar até absorção e ponto definidos; repousar e soltar os grãos.",
+        "Registrar quantidade de água, tempo, rendimento, perda e temperatura de serviço."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Arroz (confirmar se o peso é cru)",
+          "pb": "6",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Alho (quantidade não informada)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Sal (quantidade não informada)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Água (quantidade não informada)",
+          "pb": "",
+          "un": "L",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Óleo/gordura (confirmar se é utilizado)",
+          "pb": "",
+          "un": "ml",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": null,
+      "clienteNome": null,
+      "savedAt": "2026-08-26T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-006",
+      "nome": "Carne Assada de Panela",
+      "cat": "Almoço Executivo",
+      "grupo": "Bovina",
+      "ver": "1.0",
+      "data": "2026-08-26",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Soja, Glúten (molho shoyu — tipicamente contém trigo e soja; confirmar marca/composição)",
+      "desc": "Coxão duro cozido em panela com tempero de shoyu, colorau e caldos.",
+      "obs": "── Importado de \"Fichas Técnicas de Produção — Almoço (Mestre do Pão)\" em 2026-08-26 ──\n⚠ PONTO CRÍTICO (do documento original): Definir corte por porção e rendimento do molho. Caldos industrializados e shoyu exigem controle de sal.\n⚠ A CONFIRMAR — Rendimento, porção padrão, tempo total, equipamento, responsável e data de validação: nenhum informado no documento original.\n⚠ A CONFIRMAR — Custo total e por porção: não informados; nenhum ingrediente tem preço no documento original — necessário cotar cada item.\n⚠ A CONFIRMAR — Peso bruto do coxão duro (13,5kg) e limpeza aplicada\n⚠ A CONFIRMAR — Peso das cebolas e pimentões\n⚠ A CONFIRMAR — Marca e medida exatas dos caldos de carne e frango\nℹ O modo de preparo é uma proposta provisória do próprio documento original, ainda não validada em operação pela equipe.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Limpar e porcionar a carne conforme padrão, registrando peso bruto, aparas e peso líquido.",
+        "Temperar com alho, pimenta-do-reino, shoyu, colorau e caldos; registrar tempo de marinada, se houver.",
+        "Selar a carne em lotes, se este for o método adotado, e adicionar cebola e pimentão.",
+        "Adicionar água ou caldo e cozinhar em panela comum ou de pressão até maciez; registrar equipamento, tempo e volume de líquido.",
+        "Finalizar o molho, ajustar o sal com cautela, fatiar/porcionar e registrar rendimento e temperatura."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Coxão duro (peso bruto; confirmar limpeza)",
+          "pb": "13.5",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Cebola grande (peso a levantar)",
+          "pb": "2",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Pimentão verde (peso a levantar)",
+          "pb": "2",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Caldo de carne (1 colher de serviço — peso/volume e marca a confirmar)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Colorau (1 colher de serviço — peso a confirmar)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Caldo de frango (1/2 colher de serviço — peso/volume e marca a confirmar)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Alho triturado (2 colheres — tipo de colher a confirmar)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Molho shoyu",
+          "pb": "200",
+          "un": "ml",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Pimenta-do-reino (1/2 colher de serviço — peso a confirmar)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Água/caldo (quantidade não informada — necessário ao cozimento)",
+          "pb": "",
+          "un": "L",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Óleo/gordura (confirmar se utilizado)",
+          "pb": "",
+          "un": "ml",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Sal (quantidade não informada — considerar sódio do shoyu e caldos)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": null,
+      "clienteNome": null,
+      "savedAt": "2026-08-26T00:00:00.000Z"
+    }
+  ],
+  "restaurante": "Importação — Mestre do Pão (almoço)",
+  "exportado_em": "2026-08-26T00:00:00.000Z",
+  "origem": "Importado pela Coruja das Sombras a partir de Fichas_Tecnicas_Almoco_Mestre_do_Pao.docx"
+}
