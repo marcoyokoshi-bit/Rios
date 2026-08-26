@@ -1,5 +1,5 @@
 """
-RIOS v1.10.0 - Restaurant Intelligence OS
+RIOS v1.11.0 - Restaurant Intelligence OS
 """
 import json, re, os, sys, glob, base64, tempfile, shutil
 from datetime import datetime
@@ -68,6 +68,8 @@ TASK_MODELS = {
     "insights":   "claude-sonnet-4-6",
     "qc_visual":  "claude-sonnet-4-6",
     "escala":     "claude-sonnet-4-6",
+    "importar_receita":  "claude-sonnet-4-6",
+    "estimar_pendencia": "claude-haiku-4-5-20251001",
     "default":    "claude-sonnet-4-6",
 }
 
@@ -108,6 +110,37 @@ CHAT_PROMPTS = {
         'Retorne SOMENTE JSON: {"nota":8.5,"pontos_fortes":["..."],"pontos_melhoria":["..."],"alerta_financeiro":"...","recomendacao":"..."}'
     ),
 }
+
+# ── Importar Receita (texto bruto -> ficha(s) tecnica(s) estruturada(s)) ─────
+# Nao usa CHAT_PROMPTS/build_context_text porque o contexto de entrada aqui e'
+# texto livre colado pelo usuario, nao os campos de uma ficha ja preenchida.
+IMPORT_RECEITA_SYSTEM = (
+    "Voce e o Chef Marco A Souza, chef e consultor gastronomico especializado em fichas tecnicas de producao. "
+    "Voce recebe um texto bruto colado pelo usuario, que pode conter uma ou varias receitas em formato informal "
+    "(lista de caderno, ficha antiga, anotacao solta, cardapio, receita de familia, etc). Transforme CADA receita "
+    "encontrada no texto em uma ficha tecnica estruturada, no padrao profissional de fichas tecnicas de producao.\n\n"
+    "REGRA CRITICA: nunca invente um valor numerico (peso, rendimento, tempo de preparo/coccao, fator de correcao, "
+    "quantidade de ingrediente) que nao esteja no texto original e que nao possa ser deduzido com confianca "
+    "razoavel a partir de uma conversao padrao de medida caseira (ex.: '1 xicara de arroz' pode virar gramas; "
+    "'tempero a gosto' NAO deve virar um peso em gramas). Quando um dado nao estiver claro ou ausente no texto, "
+    "NAO chute — deixe o campo vazio (string vazia ou 0) e registre uma pendencia em pendencias explicando "
+    "exatamente o que falta e por que. Isso vale tanto para campos gerais da ficha (rendimento, tempo, peso da "
+    "porcao, categoria) quanto para ingredientes especificos (cite o nome do ingrediente na pendencia).\n\n"
+    "Categorias validas para o campo cat: Entrada, Prato Principal, Guarnicao, Sobremesa, Bebida, Molho, Outro.\n\n"
+    "Retorne SOMENTE JSON no formato: "
+    '{"fichas":[{"nome":"...","cat":"...","rend":"...","pporcao":"...","tprep":"...","tcook":"...","equip":"...",'
+    '"alerg":"...","desc":"...","mise":"...","final":"...","steps":["..."],'
+    '"ings":[{"nome":"...","pb":"...","un":"g|kg|ml|L|un|cx|dz|pct","fc":"1.000"}],'
+    '"pendencias":[{"campo":"...","descricao":"..."}]}]}'
+)
+
+ESTIMAR_PENDENCIA_SYSTEM = (
+    "Voce e o Chef Marco A Souza, chef e consultor gastronomico. O usuario esta preenchendo uma ficha tecnica "
+    "importada de uma receita e pediu para voce estimar, com sua experiencia profissional, um valor razoavel "
+    "para um dado especifico que a receita original nao deixou claro. De sua melhor estimativa profissional, "
+    "curta e objetiva, e deixe explicito que e uma ESTIMATIVA — nao um dado confirmado pela receita original.\n\n"
+    'Retorne SOMENTE JSON: {"valor_estimado":"...","justificativa":"..."}'
+)
 
 INSIGHTS_SYSTEM = (
     "Voce e o RIOS Cortex, sistema de inteligencia gastronomica. "
@@ -233,7 +266,7 @@ def pop_page():
 @app.route("/api/status")
 def api_status():
     key_ok = bool(API_KEY and API_KEY.startswith("sk-ant"))
-    return jsonify({"status":"ok","version":"1.10.0","key_configured":key_ok,"ai_provider":AI_PROVIDER,
+    return jsonify({"status":"ok","version":"1.11.0","key_configured":key_ok,"ai_provider":AI_PROVIDER,
                      "database_configured": bool(DATABASE_URL)})
 
 @app.route("/api/pop/docx", methods=["POST"])
@@ -391,6 +424,25 @@ def chat():
                 # content como string simples (texto puro) e' valido e nao precisa de checagem de imagem
             resp = client.messages.create(model=model, max_tokens=2048, messages=messages)
             return jsonify({"content":[{"text":resp.content[0].text}],"task":task})
+        if task == "importar_receita":
+            texto = (context.get("texto") or "").strip()
+            if not texto:
+                return jsonify({"error": "Cole o texto da receita antes de importar."}), 400
+            user_msg = (f"TEXTO COLADO PELO USUARIO:\n\n{texto}\n\n"
+                        "Transforme em ficha(s) tecnica(s) estruturada(s) conforme instruido.")
+            resp = client.messages.create(model=model, max_tokens=4096,
+                system=IMPORT_RECEITA_SYSTEM, messages=[{"role":"user","content":user_msg}])
+            return parse_json(resp.content[0].text, task)
+        if task == "estimar_pendencia":
+            campo    = context.get("campo","")
+            motivo   = context.get("descricao","")
+            fichaCtx = context.get("ficha_contexto","")
+            user_msg = (f"Prato/contexto conhecido:\n{fichaCtx}\n\n"
+                        f"Campo pendente: {campo}\nMotivo da pendencia: {motivo}\n\n"
+                        "De sua melhor estimativa profissional para este campo.")
+            resp = client.messages.create(model=model, max_tokens=500,
+                system=ESTIMAR_PENDENCIA_SYSTEM, messages=[{"role":"user","content":user_msg}])
+            return parse_json(resp.content[0].text, task)
         if task not in CHAT_PROMPTS:
             return jsonify({"error":f"Tarefa desconhecida: {task}"}), 400
         user_msg = f"DADOS DA FICHA TECNICA:\n{build_context_text(context)}\n\nGere o resultado solicitado."
@@ -507,7 +559,7 @@ def insights_daily():
 
 if __name__ == "__main__":
     print("\n" + "="*56)
-    print("  RIOS v1.10.0 - Restaurant Intelligence OS")
+    print("  RIOS v1.11.0 - Restaurant Intelligence OS")
     print(f"  AI Provider: {AI_PROVIDER.upper()}")
     print("="*56)
     if API_KEY:

@@ -390,6 +390,9 @@ select option{background:var(--cd)}
         <button class="btn" style="background:linear-gradient(135deg,#7a5a00,#ffd93d);color:#000;font-weight:800;justify-content:center" onclick="aiAction('analise')" title="Avaliação crítica completa da ficha">
           🔍 Analisar Ficha
         </button>
+        <button class="btn" style="background:linear-gradient(135deg,#0d7377,#14ffec);color:#000;font-weight:800;justify-content:center" onclick="openImportModal()" title="Cole o texto de uma ou mais receitas e a IA estrutura em ficha(s) técnica(s)">
+          📥 Importar Receita
+        </button>
       </div>
     </div>
 
@@ -1656,6 +1659,202 @@ function verAnalise(idx, ev) {
   showAIResult('analise', f.analise_ia);
 }
 
+// ── Importar Receita (texto colado -> ficha(s) técnica(s)) ─────────────────────
+function openImportModal() {
+  document.getElementById('import-step-paste').style.display = '';
+  document.getElementById('import-step-review').style.display = 'none';
+  document.getElementById('import-texto').value = '';
+  window._importFichas = null;
+  openMo('mo-import');
+}
+
+async function importarReceitaIA() {
+  const texto = document.getElementById('import-texto').value.trim();
+  if (!texto) { toast('Cole o texto da receita antes de continuar.', 'err'); return; }
+  const modo = (document.querySelector('input[name="import-mode"]:checked') || {}).value || 'atual';
+
+  showLoad('📥 Lendo receita(s)...', 'Claude está estruturando a ficha técnica');
+  try {
+    const resp = await fetch(SERVER + '/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ task: 'importar_receita', context: { texto } })
+    });
+    const result = await resp.json();
+    if (!resp.ok || result.error) throw new Error(result.error || 'Erro desconhecido');
+    if (!result.success) throw new Error(result.error || 'Resposta inválida da IA');
+
+    hideLoad();
+    const fichasIA = (result.data && result.data.fichas) || [];
+    if (!fichasIA.length) throw new Error('A IA não identificou nenhuma receita reconhecível no texto colado.');
+    window._importFichas = fichasIA;
+    window._importModo = modo;
+    renderImportReview(fichasIA, modo);
+  } catch(e) {
+    hideLoad();
+    toast('Erro IA: ' + e.message, 'err');
+  }
+}
+
+function renderImportReview(fichasIA, modo) {
+  document.getElementById('import-step-paste').style.display = 'none';
+  document.getElementById('import-step-review').style.display = '';
+
+  const cards = fichasIA.map((f, i) => {
+    const pend = f.pendencias || [];
+    const nIng = (f.ings || []).length;
+    return `
+    <div style="background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:12px;margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
+        <div>
+          <div style="font-weight:800;font-size:14px">${esc(f.nome || '(sem nome — verifique o texto original)')}</div>
+          <div style="font-size:11px;color:var(--sb);margin-top:2px">${esc(f.cat || '—')} · ${nIng} ingrediente${nIng !== 1 ? 's' : ''} · rend. ${esc(f.rend || '?')}</div>
+        </div>
+        ${pend.length
+          ? `<span style="font-size:10px;font-weight:800;color:var(--yl);border:1px solid var(--yl);border-radius:6px;padding:2px 8px;white-space:nowrap">⚠ ${pend.length} a confirmar</span>`
+          : `<span style="font-size:10px;font-weight:800;color:var(--gn);border:1px solid var(--gn);border-radius:6px;padding:2px 8px;white-space:nowrap">✓ completo</span>`}
+      </div>
+      ${pend.length ? `
+      <div style="margin-top:10px;display:flex;flex-direction:column;gap:6px">
+        ${pend.map((p, pi) => `
+          <div id="pend-${i}-${pi}" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;background:rgba(255,193,7,.08);border:1px solid rgba(255,193,7,.25);border-radius:7px;padding:6px 9px">
+            <div style="font-size:11px;line-height:1.5;flex:1;min-width:180px"><strong>${esc(p.campo || 'campo')}:</strong> ${esc(p.descricao || 'a confirmar')}</div>
+            <button class="btn" style="font-size:10px;padding:3px 9px;background:var(--bl20);white-space:nowrap;flex-shrink:0" onclick="estimarPendencia(${i},${pi},this)">✨ Estimar c/ IA</button>
+          </div>
+        `).join('')}
+      </div>` : ''}
+    </div>`;
+  }).join('');
+
+  document.getElementById('import-review-body').innerHTML = `
+    <p style="font-size:11px;color:var(--sb);margin-bottom:10px">${fichasIA.length} receita${fichasIA.length !== 1 ? 's' : ''} identificada${fichasIA.length !== 1 ? 's' : ''}. Itens marcados "a confirmar" não foram inventados pela IA — revise manualmente ou peça uma estimativa antes de salvar.</p>
+    ${cards}`;
+
+  const actions = modo === 'atual'
+    ? `<button class="btn bp" onclick="aplicarImportUnica()">✓ Preencher Ficha Atual</button>
+       <button class="btn bg_" onclick="closeMo('mo-import')">Cancelar</button>`
+    : `<button class="btn bgn" onclick="aplicarImportLote()">✓ Criar ${fichasIA.length} Ficha${fichasIA.length !== 1 ? 's' : ''} Nova${fichasIA.length !== 1 ? 's' : ''}</button>
+       <button class="btn bg_" onclick="closeMo('mo-import')">Cancelar</button>`;
+  document.getElementById('import-review-actions').innerHTML = actions;
+}
+
+async function estimarPendencia(fIdx, pIdx, btnEl) {
+  const f = (window._importFichas || [])[fIdx];
+  const p = f && f.pendencias && f.pendencias[pIdx];
+  if (!p) return;
+  const original = btnEl.textContent;
+  btnEl.textContent = '...'; btnEl.disabled = true;
+  try {
+    const ficha_contexto = `Prato: ${f.nome || '?'} · Categoria: ${f.cat || '?'} · Rendimento: ${f.rend || '?'}`;
+    const resp = await fetch(SERVER + '/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ task: 'estimar_pendencia', context: { campo: p.campo, descricao: p.descricao, ficha_contexto } })
+    });
+    const result = await resp.json();
+    if (!resp.ok || result.error || !result.success) throw new Error(result.error || 'Erro ao estimar');
+    const val  = result.data.valor_estimado  || '';
+    const just = result.data.justificativa   || '';
+    p.valorEstimado = val;
+    p.justificativaEstimativa = just;
+    const container = document.getElementById(`pend-${fIdx}-${pIdx}`);
+    if (container) container.insertAdjacentHTML('beforeend',
+      `<div style="width:100%;font-size:11px;background:rgba(43,143,255,.08);border-left:2px solid var(--bl);border-radius:5px;padding:5px 8px">✨ Estimativa da IA: <strong>${esc(val)}</strong> — ${esc(just)}</div>`);
+    btnEl.remove();
+  } catch(e) {
+    toast('Erro ao estimar: ' + e.message, 'err');
+    btnEl.textContent = original; btnEl.disabled = false;
+  }
+}
+
+function pendObsText(f) {
+  const pend = f.pendencias || [];
+  if (!pend.length) return '';
+  const linhas = pend.map(p => {
+    let linha = `⚠ A CONFIRMAR — ${p.campo || 'campo'}: ${p.descricao || ''}`;
+    if (p.valorEstimado) linha += ` [Estimativa IA: ${p.valorEstimado} — ${p.justificativaEstimativa || ''}]`;
+    return linha;
+  }).join('\n');
+  return '── Importado via IA em ' + today() + ' ──\n' + linhas;
+}
+
+function preencherFormComImport(f) {
+  const campos = {
+    'f-nome': f.nome, 'f-cat': f.cat, 'f-rend': f.rend, 'f-pporcao': f.pporcao,
+    'f-tprep': f.tprep, 'f-tcook': f.tcook, 'f-equip': f.equip, 'f-alerg': f.alerg,
+    'f-desc': f.desc, 'f-mise': f.mise, 'f-final': f.final
+  };
+  Object.entries(campos).forEach(([id, val]) => {
+    if (!val) return;
+    const el = document.getElementById(id);
+    if (el) el.value = val;
+  });
+
+  if (f.ings && f.ings.length) {
+    if (document.querySelectorAll('#ing-body tr').length === 0 || confirm('Substituir os ingredientes atuais pelos importados da receita?')) {
+      document.getElementById('ing-body').innerHTML = '';
+      ING = 0;
+      f.ings.forEach(i => addIng(i.nome || '', i.pb || '', i.un || 'g', i.fc || '1.000', ''));
+    }
+  }
+  if (f.steps && f.steps.length) {
+    if (document.querySelectorAll('#step-list .si').length === 0 || confirm('Substituir os passos de preparo atuais pelos importados?')) {
+      document.getElementById('step-list').innerHTML = '';
+      STEP = 0;
+      f.steps.forEach(s => addStep(s));
+    }
+  }
+
+  const pendTxt = pendObsText(f);
+  if (pendTxt) {
+    const obsEl = document.getElementById('f-obs');
+    if (obsEl) obsEl.value = (obsEl.value ? obsEl.value + '\n\n' : '') + pendTxt;
+  }
+}
+
+function aplicarImportUnica() {
+  const f = (window._importFichas || [])[0];
+  if (!f) return;
+  preencherFormComImport(f);
+  closeMo('mo-import');
+  showTab('nova');
+  calc();
+  toast('Ficha preenchida a partir da receita importada!' + ((f.pendencias||[]).length ? ' Confira os itens "a confirmar" nas Observações.' : ''), 'ok');
+}
+
+function aplicarImportLote() {
+  const list = (window._importFichas || []).filter(f => f.nome);
+  if (!list.length) { toast('Nenhuma receita com nome válido para criar ficha.', 'err'); return; }
+
+  const cfg  = getCfg();
+  let base = parseInt((nextNum() || 'FT-0000').replace('FT-','')) || 1;
+
+  list.forEach((f, idx) => {
+    const num = 'FT-' + String(base + idx).padStart(4, '0');
+    const novaF = {
+      num, nome: f.nome || '', cat: f.cat || '', ver: '1', data: today(), elab: '',
+      rend: f.rend || '1', pporcao: f.pporcao || '', temp: '', valid: '', diff: 0,
+      tprep: f.tprep || '', tcook: f.tcook || '', equip: f.equip || '', alerg: f.alerg || '',
+      desc: f.desc || '', obs: pendObsText(f), dishPhoto: null,
+      oh: cfg.oh || '15', mo: cfg.mo || '10', emb: '0', out: '0',
+      mise: f.mise || '', final: f.final || '',
+      steps: f.steps || [],
+      preco: '', cmv: '30', vend: '',
+      ings: (f.ings || []).map(i => ({ nome: i.nome || '', pb: i.pb || '', un: i.un || 'g', fc: i.fc || '1.000', custo: '' })),
+      clienteId:   ACTIVE_CLIENTE ? ACTIVE_CLIENTE.id : null,
+      clienteNome: ACTIVE_CLIENTE ? ACTIVE_CLIENTE.nome : null,
+      savedAt: new Date().toISOString()
+    };
+    fichas.unshift(novaF);
+  });
+
+  localStorage.setItem('rios_fichas', JSON.stringify(fichas));
+  closeMo('mo-import');
+  showTab('salvas');
+  autoBackupServidor().catch(()=>{});
+  toast(list.length + ' ficha(s) criada(s) a partir da importação!', 'ok');
+}
+
 
 // ── Backup e Restauração ──────────────────────────────────────────────────────
 function coletarDadosBackup() {
@@ -1880,6 +2079,34 @@ window.onload = function() {
     </div>
     <div id="ai-mo-body" style="font-size:13px;line-height:1.7"></div>
     <div class="moa" id="ai-mo-actions" style="margin-top:14px"></div>
+  </div>
+</div>
+
+<!-- Modal: Importar Receita -->
+<div class="mo" id="mo-import">
+  <div class="mob" style="max-width:680px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <h2>📥 Importar Receita</h2>
+      <button class="bic" onclick="closeMo('mo-import')">✕ Fechar</button>
+    </div>
+
+    <div id="import-step-paste">
+      <p style="font-size:12px;color:var(--sb);margin-bottom:10px">Cole o texto de uma receita — ou várias de uma vez (lista de caderno, ficha antiga, receita de família etc). A IA estrutura automaticamente em ficha técnica. O que não estiver claro no texto fica marcado como <strong>"a confirmar"</strong> (nada é inventado) — você ajusta manualmente depois ou pede uma estimativa da IA.</p>
+      <div style="display:flex;gap:16px;margin-bottom:10px;font-size:12px;flex-wrap:wrap">
+        <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="radio" name="import-mode" value="atual" checked> Preencher a ficha atual (1 receita)</label>
+        <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="radio" name="import-mode" value="lote"> Criar várias fichas novas (colei mais de uma receita)</label>
+      </div>
+      <textarea id="import-texto" placeholder="Cole aqui o texto da(s) receita(s)..." style="width:100%;min-height:220px;background:var(--sf);border:1px solid var(--bd);border-radius:8px;padding:10px;font-size:13px;color:var(--tx);font-family:inherit;resize:vertical"></textarea>
+      <div class="moa" style="margin-top:14px">
+        <button class="btn bp" onclick="importarReceitaIA()">🧠 Analisar com IA</button>
+        <button class="btn bg_" onclick="closeMo('mo-import')">Cancelar</button>
+      </div>
+    </div>
+
+    <div id="import-step-review" style="display:none">
+      <div id="import-review-body"></div>
+      <div class="moa" id="import-review-actions" style="margin-top:14px"></div>
+    </div>
   </div>
 </div>
 
