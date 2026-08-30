@@ -1,0 +1,2641 @@
+{
+  "fichas": [
+    {
+      "num": "FT-IMP-034",
+      "nome": "Cenoura",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Glúten (trigo), Ovo",
+      "desc": "Bolo de cenoura (confeitaria) — transcrito do caderno manuscrito.",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Cenoura",
+          "pb": "200",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Açúcar",
+          "pb": "220",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Óleo",
+          "pb": "100",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Ovos",
+          "pb": "4",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Trigo",
+          "pb": "200",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Claras",
+          "pb": "4",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Fermento",
+          "pb": "20",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-035",
+      "nome": "Bolo Mousse",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "3",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Ovo, Leite",
+      "desc": "Bolo mousse — transcrito do caderno manuscrito. Existe uma segunda fórmula registrada separadamente (ver 'Bolo Mousse (fórmula adicional)').",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).\n⚠ A CONFIRMAR — Rendimento anotado no manuscrito: 3 unidades — usado como referência de porções nesta ficha\nℹ Há uma segunda fórmula deste bolo registrada separadamente no caderno — ver ficha \"Bolo Mousse (fórmula adicional)\".",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Massa",
+          "pb": "2",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Ovos",
+          "pb": "15",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Leite líquido",
+          "pb": "1",
+          "un": "L",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-036",
+      "nome": "Bolo Amanteigado",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Ovo, Leite (manteiga), Glúten (trigo)",
+      "desc": "Bolo amanteigado — transcrito do caderno manuscrito.",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Gemas",
+          "pb": "7",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Açúcar refinado",
+          "pb": "400",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Manteiga",
+          "pb": "500",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Claras",
+          "pb": "7",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Trigo",
+          "pb": "550",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Amido de milho",
+          "pb": "50",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Fermento",
+          "pb": "10",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-037",
+      "nome": "Red Velvet",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Ovo, Leite, Glúten (trigo)",
+      "desc": "Bolo Red Velvet — transcrito do caderno manuscrito.",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).\n⚠ A CONFIRMAR — Unidade do leite líquido (g ou ml — manuscrito ambíguo)\n⚠ A CONFIRMAR — Peso da \"colher\" de vinagre e de corante vermelho",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Ovos",
+          "pb": "12",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Açúcar",
+          "pb": "550",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Chocolate em pó",
+          "pb": "50",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Margarina",
+          "pb": "90",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Leite líquido (250 — unidade ambígua no manuscrito: g ou ml)",
+          "pb": "250",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Vinagre (1 colher — medida a padronizar)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Corante vermelho (2 colheres — medida a padronizar)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Trigo",
+          "pb": "550",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Fermento",
+          "pb": "25",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-038",
+      "nome": "Cookies Baunilha",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "18",
+      "equip": "Forno",
+      "alerg": "Glúten (trigo), Ovo, Castanha (fruto de casca rígida)",
+      "desc": "Cookies de baunilha com castanha e gotas de chocolate — transcrito do caderno manuscrito.",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).\n⚠ A CONFIRMAR — Peso da \"pitada\" de sal\nℹ Forno anotado: 160°C, aproximadamente 18 minutos (tempo aproximado — usado como referência no campo \"Tempo de Cozimento\").",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Trigo",
+          "pb": "1000",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Margarina",
+          "pb": "400",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Açúcar",
+          "pb": "200",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Ovos",
+          "pb": "5",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Açúcar mascavo",
+          "pb": "400",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Castanha",
+          "pb": "150",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Sal (1 pitada — medida a padronizar)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Gotas de chocolate",
+          "pb": "250",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Fermento",
+          "pb": "35",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-039",
+      "nome": "Cookies Chocolate",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "18",
+      "equip": "Forno",
+      "alerg": "Glúten (trigo), Ovo, Castanha (fruto de casca rígida)",
+      "desc": "Cookies de chocolate com castanha e gotas de chocolate — transcrito do caderno manuscrito.",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).\n⚠ A CONFIRMAR — Peso da \"pitada\" de sal\nℹ Forno anotado: 160°C, aproximadamente 18 minutos (tempo aproximado — usado como referência no campo \"Tempo de Cozimento\").",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Trigo",
+          "pb": "700",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Chocolate em pó",
+          "pb": "300",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Margarina",
+          "pb": "400",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Açúcar",
+          "pb": "200",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Ovos",
+          "pb": "5",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Açúcar mascavo",
+          "pb": "400",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Castanha",
+          "pb": "150",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Sal (1 pitada — medida a padronizar)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Gotas de chocolate",
+          "pb": "250",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Fermento",
+          "pb": "35",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-040",
+      "nome": "Beijinho",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Leite, Glúten (trigo)",
+      "desc": "Doce de beijinho (base de leite em pó e leite condensado) — transcrito do caderno manuscrito. Ficha praticamente idêntica em composição à 'Biscoitinho' desta mesma leva — vale o Chef conferir se são de fato receitas diferentes ou duplicidade de registro no caderno original.",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).\nℹ Composição praticamente idêntica à ficha \"Biscoitinho\" (mesmas quantidades) — possível duplicidade no caderno original, vale conferir com o Chef antes de manter as duas.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Leite em pó",
+          "pb": "600",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Creme de leite",
+          "pb": "6",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Leite condensado",
+          "pb": "10",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Trigo",
+          "pb": "100",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Margarina",
+          "pb": "100",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-041",
+      "nome": "Brigadeiro",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "40",
+      "equip": "",
+      "alerg": "Leite, Glúten (trigo)",
+      "desc": "Brigadeiro — transcrito do caderno manuscrito.",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Leite condensado",
+          "pb": "10",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Creme de leite",
+          "pb": "500",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Chocolate",
+          "pb": "500",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Margarina",
+          "pb": "100",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Trigo",
+          "pb": "100",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-042",
+      "nome": "Mousse de Maracujá",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Leite",
+      "desc": "Mousse de maracujá — transcrito do caderno manuscrito.",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Polpa de maracujá",
+          "pb": "110",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Leite condensado",
+          "pb": "2",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Creme de leite",
+          "pb": "2",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-043",
+      "nome": "Pudim de Leite",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Leite, Ovo",
+      "desc": "Pudim de leite condensado — transcrito do caderno manuscrito.",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).\n⚠ A CONFIRMAR — Se o 1 kg de açúcar da calda é por lote de produção ou por receita individual",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Leite condensado",
+          "pb": "3",
+          "un": "cx",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Creme de leite",
+          "pb": "1",
+          "un": "cx",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Ovos",
+          "pb": "7",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Leite líquido",
+          "pb": "1",
+          "un": "L",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Açúcar (1 kg — anotação para calda/lote, não necessariamente por receita)",
+          "pb": "1",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-044",
+      "nome": "Bolo Mousse (fórmula adicional)",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Leite, Ovo, Glúten (trigo)",
+      "desc": "Segunda fórmula de bolo mousse, registrada separadamente no caderno manuscrito (ver também a ficha 'Bolo Mousse').",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).\n⚠ A CONFIRMAR — Quantidade de leite líquido — anotada no caderno mas não transcrita com clareza\nℹ Registro adicional encontrado no caderno — fórmula distinta da ficha \"Bolo Mousse\" (FT-IMP-035), mesmo nome de prato.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Leite condensado",
+          "pb": "5",
+          "un": "cx",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Creme de leite",
+          "pb": "5",
+          "un": "cx",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Chocolate em pó",
+          "pb": "260",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Margarina",
+          "pb": "100",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Trigo",
+          "pb": "30",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Ovos",
+          "pb": "12",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Leite líquido (quantidade anotada no caderno, não transcrita)",
+          "pb": "",
+          "un": "L",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-045",
+      "nome": "Bolo de Leite",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Leite, Ovo, Glúten (trigo)",
+      "desc": "Bolo de leite — transcrito do caderno manuscrito. Nenhuma quantidade foi transcrita com clareza; apenas os ingredientes foram identificados.",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).\n⚠ A CONFIRMAR — Todas as quantidades — nenhuma foi transcrita com clareza do manuscrito original",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Leite (quantidade conforme manuscrito, não transcrita)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Açúcar (quantidade conforme manuscrito, não transcrita)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Margarina (quantidade conforme manuscrito, não transcrita)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Ovos (quantidade conforme manuscrito, não transcrita)",
+          "pb": "",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Trigo (quantidade conforme manuscrito, não transcrita)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-046",
+      "nome": "Bolo Mesclado",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "",
+      "desc": "Bolo mesclado — receita identificada apenas pelo nome no caderno manuscrito; ingredientes não transcritos.",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ SEM DADOS LEGÍVEIS — o documento de origem não trouxe ingredientes/quantidades para esta receita (só o nome, no índice). Ficha criada como placeholder para não perder o registro; precisa de nova consulta ao caderno original ou reformulação com o Chef antes de qualquer uso em produção.\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-047",
+      "nome": "Bolo Formigueiro",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "",
+      "desc": "Bolo formigueiro — receita identificada apenas pelo nome no caderno manuscrito; ingredientes não transcritos. Há uma fórmula com dados no mesmo caderno, registrada como 'Bolo Formigueiro (fórmula adicional)'.",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ SEM DADOS LEGÍVEIS — o documento de origem não trouxe ingredientes/quantidades para esta receita (só o nome, no índice). Ficha criada como placeholder para não perder o registro; precisa de nova consulta ao caderno original ou reformulação com o Chef antes de qualquer uso em produção.\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).\nℹ Há uma segunda entrada com dados de ingredientes no caderno — ver ficha \"Bolo Formigueiro (fórmula adicional)\".",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-048",
+      "nome": "Bolo de Chocolate",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "",
+      "desc": "Bolo de chocolate — receita identificada apenas pelo nome no caderno manuscrito; ingredientes não transcritos.",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ SEM DADOS LEGÍVEIS — o documento de origem não trouxe ingredientes/quantidades para esta receita (só o nome, no índice). Ficha criada como placeholder para não perder o registro; precisa de nova consulta ao caderno original ou reformulação com o Chef antes de qualquer uso em produção.\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-049",
+      "nome": "Bolo de Laranja",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "",
+      "desc": "Bolo de laranja — receita identificada apenas pelo nome no caderno manuscrito; ingredientes não transcritos.",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ SEM DADOS LEGÍVEIS — o documento de origem não trouxe ingredientes/quantidades para esta receita (só o nome, no índice). Ficha criada como placeholder para não perder o registro; precisa de nova consulta ao caderno original ou reformulação com o Chef antes de qualquer uso em produção.\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-050",
+      "nome": "Bolo de Milho",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "20",
+      "equip": "Forno",
+      "alerg": "Ovo, Leite, Glúten (trigo)",
+      "desc": "Bolo de milho — transcrito do caderno manuscrito.",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).\n⚠ A CONFIRMAR — Unidade do leite (g ou ml — manuscrito ambíguo)\nℹ Forno anotado: 150°C, aproximadamente 20 minutos (tempo aproximado — usado como referência no campo \"Tempo de Cozimento\").",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Trigo",
+          "pb": "1000",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Leite (1000 — unidade ambígua no manuscrito: g ou ml)",
+          "pb": "1000",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Açúcar",
+          "pb": "1000",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Margarina",
+          "pb": "150",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Ovos",
+          "pb": "8",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Leite de coco",
+          "pb": "1",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Fermento",
+          "pb": "45",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-051",
+      "nome": "Bolo de Tapioca",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Leite",
+      "desc": "Bolo de tapioca — transcrito do caderno manuscrito.",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Tapioca",
+          "pb": "700",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Açúcar",
+          "pb": "200",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Leite líquido",
+          "pb": "1",
+          "un": "L",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Leite de coco",
+          "pb": "1",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Margarina",
+          "pb": "70",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-052",
+      "nome": "Bolo Milho Cremoso",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Ovo, Leite",
+      "desc": "Bolo cremoso de milho — transcrito do caderno manuscrito.",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Milho",
+          "pb": "3",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Ovos",
+          "pb": "3",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Margarina",
+          "pb": "250",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Leite condensado",
+          "pb": "1",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Leite líquido",
+          "pb": "1",
+          "un": "L",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Fermento",
+          "pb": "20",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-053",
+      "nome": "Recheio de Maracujá",
+      "cat": "Outro",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Leite",
+      "desc": "Recheio de maracujá (componente, não prato final) — transcrito do caderno manuscrito.",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).\n⚠ A CONFIRMAR — Identidade exata do item \"Milho/amido\" (350 g) — o manuscrito não deixa claro se é amido de milho ou milho em grão\nℹ O próprio documento sinaliza itens de difícil leitura nesta receita.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Polpa de maracujá",
+          "pb": "400",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Creme de leite",
+          "pb": "200",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Chocolate em pó",
+          "pb": "50",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Milho/amido (identidade do ingrediente incerta — 350 g, conferir se é amido de milho)",
+          "pb": "350",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-054",
+      "nome": "Mousse de Cupuaçu",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Leite",
+      "desc": "Mousse de cupuaçu — transcrito do caderno manuscrito.",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Cupuaçu",
+          "pb": "300",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Leite condensado",
+          "pb": "1",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Creme de leite",
+          "pb": "2",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Gelatina",
+          "pb": "12",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-055",
+      "nome": "Sequilhos",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "15",
+      "equip": "Forno",
+      "alerg": "Leite, Glúten (trigo)",
+      "desc": "Sequilhos — transcrito do caderno manuscrito (quantidades em escala grande, aproximadas).",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).\n⚠ A CONFIRMAR — Quantidades de margarina, açúcar e leite — anotadas como aproximadas no manuscrito, conferir no original\n⚠ A CONFIRMAR — Unidade do leite (g ou ml)\nℹ Forno anotado: 150°C, aproximadamente 15 minutos (tempo aproximado — usado como referência no campo \"Tempo de Cozimento\").",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Margarina (aprox. 2200 g — conferir no original)",
+          "pb": "2200",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Açúcar (aprox. 1200 g — conferir no original)",
+          "pb": "1200",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Leite (800 — unidade ambígua no manuscrito: g ou ml — conferir)",
+          "pb": "800",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Amido",
+          "pb": "2400",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Trigo",
+          "pb": "1200",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Essência de leite",
+          "pb": "17",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-056",
+      "nome": "Broa de Milho",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "20",
+      "equip": "Forno",
+      "alerg": "Ovo, Leite, Glúten (trigo)",
+      "desc": "Broa de milho — transcrito do caderno manuscrito.",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).\nℹ Forno anotado: 150°C, aproximadamente 20 minutos (tempo aproximado — usado como referência no campo \"Tempo de Cozimento\").",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Trigo",
+          "pb": "1000",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Milho/fubá",
+          "pb": "1000",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Açúcar",
+          "pb": "1000",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Margarina",
+          "pb": "1500",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Ovos",
+          "pb": "8",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Leite de coco",
+          "pb": "1",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Fermento",
+          "pb": "45",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-057",
+      "nome": "Suspiro",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "Forno",
+      "alerg": "Ovo",
+      "desc": "Suspiro — transcrito do caderno manuscrito.",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).\n⚠ A CONFIRMAR — Tempo de forno anotado como faixa larga (20 a 70 minutos) — conferir tempo real usado na produção\nℹ Forno anotado: 120°C; tempo entre 20 e 70 minutos conforme anotação (faixa ampla demais para preencher um único valor no campo \"Tempo de Cozimento\" — deixado em branco).",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Claras",
+          "pb": "500",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Açúcar cristal",
+          "pb": "500",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Açúcar confeiteiro",
+          "pb": "1000",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-058",
+      "nome": "Casadinho",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "15",
+      "equip": "Forno",
+      "alerg": "Leite",
+      "desc": "Casadinho — transcrito do caderno manuscrito.",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).\n⚠ A CONFIRMAR — Identidade exata do item \"Massa/maisena\" (2000 g)\nℹ Forno anotado: 150°C, aproximadamente 15 minutos (tempo aproximado — usado como referência no campo \"Tempo de Cozimento\").",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Margarina",
+          "pb": "1000",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Massa/maisena (identidade do ingrediente incerta — 2000 g, conferir no original)",
+          "pb": "2000",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Leite condensado",
+          "pb": "1",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-059",
+      "nome": "Empadinha",
+      "cat": "Salgado",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Glúten (trigo), Leite (queijo ralado)",
+      "desc": "Massa de empadinha — transcrito do caderno manuscrito (proporções, não peso).",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).\n⚠ A CONFIRMAR — Peso real da \"medida/porção\" usada na proporção 4:2\n⚠ A CONFIRMAR — Quantidade de queijo ralado (\"a gosto\")",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Trigo (4 medidas/porções — medida a padronizar)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Margarina (2 medidas/porções — medida a padronizar)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Queijo ralado (a gosto)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-060",
+      "nome": "Cookies Red Velvet",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Ovo, Glúten (trigo)",
+      "desc": "Cookies red velvet — transcrito do caderno manuscrito.",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).\n⚠ A CONFIRMAR — Quantidade de fermento (75 g) — o próprio documento pede conferência antes de uso",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Ovos",
+          "pb": "5",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Açúcar",
+          "pb": "250",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Trigo",
+          "pb": "450",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Margarina",
+          "pb": "250",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Fermento (75 g — conferir no original)",
+          "pb": "75",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Gotas",
+          "pb": "150",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-061",
+      "nome": "Bolo Integral",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Ovo, Glúten (farinha/aveia), Coco",
+      "desc": "Bolo integral (aveia e coco) — transcrito do caderno manuscrito.",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).\n⚠ A CONFIRMAR — Anotações complementares no rodapé da receita original não foram transcritas — pode haver ingrediente(s) adicional(is)",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Açúcar",
+          "pb": "900",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Ovos",
+          "pb": "8",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Margarina",
+          "pb": "450",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Aveia",
+          "pb": "150",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Farinha",
+          "pb": "1350",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Coco",
+          "pb": "340",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-062",
+      "nome": "Biscoito Amanteigado",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Glúten (trigo), Ovo",
+      "desc": "Biscoito amanteigado — transcrito do caderno manuscrito.",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).\n⚠ A CONFIRMAR — Identidade exata do item \"Farinha/amido\" (1000 g)\n⚠ A CONFIRMAR — Conferir se os 500 g de ovos correspondem mesmo a peso (não unidades) — forma incomum de anotar ovos",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Margarina",
+          "pb": "1000",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Açúcar",
+          "pb": "600",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Trigo",
+          "pb": "1500",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Farinha/amido (identidade do ingrediente incerta — 1000 g, conferir no original)",
+          "pb": "1000",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Ovos (500 g — medido em peso no manuscrito, não em unidades)",
+          "pb": "500",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-063",
+      "nome": "Bolo Formigueiro (fórmula adicional)",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Leite",
+      "desc": "Segunda entrada de bolo formigueiro, com dados de ingredientes, registrada no caderno manuscrito (a entrada 'Bolo Formigueiro' sem sufixo não trouxe ingredientes).",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).\n⚠ A CONFIRMAR — Unidade do leite líquido (g ou ml)\n⚠ A CONFIRMAR — Quantidade de ovos — não transcrita com clareza\n⚠ A CONFIRMAR — Demais ingredientes intermediários citados no manuscrito, não transcritos\nℹ Registro adicional no caderno — a entrada \"Bolo Formigueiro\" (FT-IMP-047) sem sufixo ficou sem dados de ingredientes.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Leite condensado",
+          "pb": "500",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Margarina",
+          "pb": "500",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Leite líquido (250 — unidade ambígua no manuscrito: g ou ml)",
+          "pb": "250",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Ovos (quantidade conforme manuscrito, não transcrita)",
+          "pb": "",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Fermento",
+          "pb": "20",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-064",
+      "nome": "Quindim",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Ovo, Leite",
+      "desc": "Quindim — transcrito do caderno manuscrito.",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).\n⚠ A CONFIRMAR — O item \"Ovo\" com 25 ml é uma anotação incomum (ovo normalmente não é medido em ml) — conferir no caderno original o que realmente foi anotado",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Gemas",
+          "pb": "250",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Açúcar",
+          "pb": "200",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Leite de coco",
+          "pb": "100",
+          "un": "ml",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Ovo (25 ml — anotação incomum no manuscrito, conferir se é claro/gema ou erro de transcrição)",
+          "pb": "25",
+          "un": "ml",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Açúcar adicional",
+          "pb": "60",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-065",
+      "nome": "Biscoitinho",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Leite, Glúten (trigo)",
+      "desc": "Biscoitinho (base de leite em pó e leite condensado) — transcrito do caderno manuscrito. Composição praticamente idêntica à ficha 'Beijinho' desta mesma leva — vale o Chef conferir se são de fato receitas diferentes ou duplicidade de registro no caderno original.",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).\nℹ Composição praticamente idêntica à ficha \"Beijinho\" (mesmas quantidades) — possível duplicidade no caderno original, vale conferir com o Chef antes de manter as duas.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Leite em pó",
+          "pb": "600",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Creme de leite",
+          "pb": "6",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Leite condensado",
+          "pb": "10",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Trigo",
+          "pb": "100",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Margarina",
+          "pb": "100",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-066",
+      "nome": "Pão de Ló (10 unidades)",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "10",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Ovo, Glúten (trigo)",
+      "desc": "Pão de ló, receita anotada para lote de 10 unidades — transcrito do caderno manuscrito.",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).\n⚠ A CONFIRMAR — Quantidade de emulsificante — anotada no manuscrito mas não transcrita com clareza",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Ovos",
+          "pb": "30",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Trigo",
+          "pb": "2400",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Açúcar",
+          "pb": "2400",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Emulsificante (quantidade anotada no manuscrito, não transcrita com clareza)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-067",
+      "nome": "Bolo Diet",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Leite, Ovo, Glúten (farinha, tipo a confirmar)",
+      "desc": "Bolo diet — transcrito do caderno manuscrito. Nenhuma quantidade foi transcrita com clareza; apenas os ingredientes foram identificados.",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).\n⚠ A CONFIRMAR — Todas as quantidades — nenhuma foi transcrita com clareza do manuscrito original\n⚠ A CONFIRMAR — Tipo de adoçante e de farinha",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Adoçante (quantidade conforme manuscrito, não transcrita)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Farinha (quantidade conforme manuscrito, não transcrita)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Ovos (quantidade conforme manuscrito, não transcrita)",
+          "pb": "",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Leite (quantidade conforme manuscrito, não transcrita)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-068",
+      "nome": "Massa de Empada",
+      "cat": "Salgado",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Glúten (trigo), Leite",
+      "desc": "Massa de empada — transcrito do caderno manuscrito.",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).\n⚠ A CONFIRMAR — Quantidade de essência (\"a gosto\")",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Trigo",
+          "pb": "1700",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Margarina",
+          "pb": "1000",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Leite condensado",
+          "pb": "1",
+          "un": "cx",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Essência (a gosto)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-069",
+      "nome": "Panetone",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Glúten (farinha, tipo a confirmar)",
+      "desc": "Panetone — transcrito do caderno manuscrito. Nenhuma quantidade foi transcrita com clareza; apenas os ingredientes foram identificados.",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).\n⚠ A CONFIRMAR — Todas as quantidades — nenhuma foi transcrita com clareza do manuscrito original (formulação parcialmente legível)\n⚠ A CONFIRMAR — Tipo de farinha",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Farinha (quantidade conforme manuscrito, não transcrita)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Fermento (quantidade conforme manuscrito, não transcrita)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Frutas/passas (quantidade conforme manuscrito, não transcrita)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Essência (quantidade conforme manuscrito, não transcrita)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-070",
+      "nome": "Massa Integral",
+      "cat": "Outro",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "",
+      "desc": "Massa integral — receita identificada apenas pelo nome no caderno manuscrito; ingredientes não transcritos.",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ SEM DADOS LEGÍVEIS — o documento de origem não trouxe ingredientes/quantidades para esta receita (só o nome, no índice). Ficha criada como placeholder para não perder o registro; precisa de nova consulta ao caderno original ou reformulação com o Chef antes de qualquer uso em produção.\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-071",
+      "nome": "Rosca / Massa doce",
+      "cat": "Confeitaria",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-30",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "",
+      "desc": "Rosca / massa doce — receita identificada apenas pelo nome no caderno manuscrito; ingredientes não transcritos.",
+      "obs": "── Importado de \"Caderno Consolidado de Receitas (Mestre do Pão) - transcrição de anotações manuscritas de produção\" em 2026-08-30 ──\nℹ Documento de origem: transcrição de caderno manuscrito, sem preços e sem modo de preparo detalhado para nenhuma receita (o próprio documento sinaliza isso explicitamente).\n⚠ SEM DADOS LEGÍVEIS — o documento de origem não trouxe ingredientes/quantidades para esta receita (só o nome, no índice). Ficha criada como placeholder para não perder o registro; precisa de nova consulta ao caderno original ou reformulação com o Chef antes de qualquer uso em produção.\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção (salvo quando anotado no manuscrito), equipamento, responsável, preço de todos os ingredientes (nenhum preço consta no documento) e modo de preparo completo (não detalhado no manuscrito).",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Modo de preparo não detalhado no manuscrito original — a padronizar com a equipe antes de uso em produção."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [],
+      "clienteId": "cli_1786747998536_wo88t",
+      "clienteNome": "Mestre do Pão",
+      "savedAt": "2026-08-30T00:00:00.000Z"
+    }
+  ],
+  "restaurante": "Mestre do Pão",
+  "exportado_em": "2026-08-30T00:00:00.000Z"
+}
