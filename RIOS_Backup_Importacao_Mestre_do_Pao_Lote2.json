@@ -1,0 +1,1691 @@
+{
+  "fichas": [
+    {
+      "num": "FT-IMP-007",
+      "nome": "Batata assada temperada",
+      "cat": "Almoço Executivo",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-29",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Leite (queijo ralado)",
+      "desc": "Guarnição de batata cozida, temperada com óleo de alho, azeite e orégano, gratinada com queijo ralado.",
+      "obs": "── Importado de \"Caderno Unificado de Fichas Técnicas (Mestre do Pão) - Consolidação em 29/08/2026\" em 2026-08-29 ──\nℹ Custo parcial conhecido no documento original: R$ 0,30 (apenas itens com preço e conversão direta disponíveis na tabela enviada).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção, equipamento e responsável: não informados no documento original (apenas peso aproximado do rendimento em kg, quando citado).\n⚠ A CONFIRMAR — Peso da medida \"serviço\" (óleo de alho, azeite) e da colher de queijo ralado\n⚠ A CONFIRMAR — Rendimento informado apenas como 0,936 kg de batata cozida antes dos temperos (peso pré-tempero, não em porções)\nℹ O modo de preparo é uma proposta provisória do próprio documento original, ainda não validada em operação pela equipe.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Cozinhar a batata em água e sal até ficar firme.",
+        "Escorrer, temperar com óleo de alho, azeite e orégano, dispor em assadeira, finalizar com queijo ralado e assar até dourar."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Batata",
+          "pb": "0.936",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Óleo de alho (2 serviços — medida a padronizar)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Azeite (1 serviço — medida a padronizar)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Orégano",
+          "pb": "0.003",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "100.0"
+        },
+        {
+          "nome": "Queijo ralado (2,5 colheres de sopa — medida a padronizar)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": null,
+      "clienteNome": null,
+      "savedAt": "2026-08-29T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-008",
+      "nome": "Batatonese",
+      "cat": "Almoço Executivo",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-29",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Ovo, Leite (requeijão, creme culinário, maionese)",
+      "desc": "Salada fria de batata com ovos, requeijão, creme culinário e maionese.",
+      "obs": "── Importado de \"Caderno Unificado de Fichas Técnicas (Mestre do Pão) - Consolidação em 29/08/2026\" em 2026-08-29 ──\nℹ Custo parcial conhecido no documento original: R$ 0,00 (apenas itens com preço e conversão direta disponíveis na tabela enviada).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção, equipamento e responsável: não informados no documento original (apenas peso aproximado do rendimento em kg, quando citado).\n⚠ A CONFIRMAR — Preço de batata, ovos, requeijão, creme culinário e maionese: não constam na tabela enviada\n⚠ A CONFIRMAR — Rendimento informado apenas como base de 1,421 kg de batata cozida (não em porções)\nℹ O modo de preparo é uma proposta provisória do próprio documento original, ainda não validada em operação pela equipe.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Cozinhar as batatas em água e sal, resfriar e cortar.",
+        "Cozinhar os ovos, picar e incorporar.",
+        "Misturar requeijão, creme culinário e maionese delicadamente.",
+        "Manter refrigerado até o serviço."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Batata",
+          "pb": "1.421",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Ovos",
+          "pb": "5",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Requeijão",
+          "pb": "0.1",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Creme culinário",
+          "pb": "0.05",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Maionese",
+          "pb": "0.2",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": null,
+      "clienteNome": null,
+      "savedAt": "2026-08-29T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-009",
+      "nome": "Chuchu temperado",
+      "cat": "Almoço Executivo",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-29",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "",
+      "desc": "Salada cozida de chuchu, finalizada com tempero padrão de saladas cozidas.",
+      "obs": "── Importado de \"Caderno Unificado de Fichas Técnicas (Mestre do Pão) - Consolidação em 29/08/2026\" em 2026-08-29 ──\nℹ Custo parcial conhecido no documento original: R$ 15,55 (apenas itens com preço e conversão direta disponíveis na tabela enviada).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção, equipamento e responsável: não informados no documento original (apenas peso aproximado do rendimento em kg, quando citado).\n⚠ A CONFIRMAR — Rendimento informado apenas como 0,864 kg (não em porções)\nℹ O modo de preparo é uma proposta provisória do próprio documento original, ainda não validada em operação pela equipe.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Cozinhar em água e sal até o ponto adequado, escorrer e finalizar com tempero padrão de salada.",
+        "Evitar sobrecocção para preservar textura e apresentação."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Chuchu",
+          "pb": "0.864",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "18.0"
+        }
+      ],
+      "clienteId": null,
+      "clienteNome": null,
+      "savedAt": "2026-08-29T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-010",
+      "nome": "Abobrinha italiana temperada",
+      "cat": "Almoço Executivo",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-29",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "",
+      "desc": "Salada cozida de abobrinha italiana, finalizada com tempero padrão de saladas cozidas.",
+      "obs": "── Importado de \"Caderno Unificado de Fichas Técnicas (Mestre do Pão) - Consolidação em 29/08/2026\" em 2026-08-29 ──\nℹ Custo parcial conhecido no documento original: R$ 7,60 (apenas itens com preço e conversão direta disponíveis na tabela enviada).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção, equipamento e responsável: não informados no documento original (apenas peso aproximado do rendimento em kg, quando citado).\n⚠ A CONFIRMAR — Rendimento informado apenas como 0,380 kg (não em porções)\nℹ O modo de preparo é uma proposta provisória do próprio documento original, ainda não validada em operação pela equipe.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Cozinhar em água e sal até o ponto adequado, escorrer e finalizar com tempero padrão de salada.",
+        "Evitar sobrecocção para preservar textura e apresentação."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Abobrinha",
+          "pb": "0.38",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "20.0"
+        }
+      ],
+      "clienteId": null,
+      "clienteNome": null,
+      "savedAt": "2026-08-29T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-011",
+      "nome": "Quiabo no azeite",
+      "cat": "Almoço Executivo",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-29",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "",
+      "desc": "Salada cozida de quiabo, finalizada com azeite.",
+      "obs": "── Importado de \"Caderno Unificado de Fichas Técnicas (Mestre do Pão) - Consolidação em 29/08/2026\" em 2026-08-29 ──\nℹ Custo parcial conhecido no documento original: R$ 4,59 (apenas itens com preço e conversão direta disponíveis na tabela enviada).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção, equipamento e responsável: não informados no documento original (apenas peso aproximado do rendimento em kg, quando citado).\n⚠ A CONFIRMAR — Rendimento informado apenas como 0,255 kg (não em porções)\nℹ O modo de preparo é uma proposta provisória do próprio documento original, ainda não validada em operação pela equipe.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Cozinhar em água e sal até o ponto adequado, escorrer e finalizar com azeite.",
+        "Evitar sobrecocção para preservar textura e apresentação."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Quiabo",
+          "pb": "0.255",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "18.0"
+        }
+      ],
+      "clienteId": null,
+      "clienteNome": null,
+      "savedAt": "2026-08-29T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-012",
+      "nome": "Feijão-de-corda cozido",
+      "cat": "Almoço Executivo",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-29",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "",
+      "desc": "Salada cozida de feijão-de-corda (feijão de metro), finalizada com tempero padrão.",
+      "obs": "── Importado de \"Caderno Unificado de Fichas Técnicas (Mestre do Pão) - Consolidação em 29/08/2026\" em 2026-08-29 ──\nℹ Custo parcial conhecido no documento original: R$ 0,00 (apenas itens com preço e conversão direta disponíveis na tabela enviada).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção, equipamento e responsável: não informados no documento original (apenas peso aproximado do rendimento em kg, quando citado).\n⚠ A CONFIRMAR — Preço do feijão de metro: não consta na tabela enviada\n⚠ A CONFIRMAR — Rendimento informado apenas como 0,173 kg (não em porções) — documento indica que a produção real costuma ser maior\nℹ O modo de preparo é uma proposta provisória do próprio documento original, ainda não validada em operação pela equipe.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Cozinhar em água e sal até o ponto adequado, escorrer e finalizar com tempero padrão; produção normalmente maior.",
+        "Evitar sobrecocção para preservar textura e apresentação."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Feijão de metro",
+          "pb": "0.173",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": null,
+      "clienteNome": null,
+      "savedAt": "2026-08-29T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-013",
+      "nome": "Maxixe no azeite",
+      "cat": "Almoço Executivo",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-29",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "",
+      "desc": "Salada cozida de maxixe, finalizada com azeite.",
+      "obs": "── Importado de \"Caderno Unificado de Fichas Técnicas (Mestre do Pão) - Consolidação em 29/08/2026\" em 2026-08-29 ──\nℹ Custo parcial conhecido no documento original: R$ 2,99 (apenas itens com preço e conversão direta disponíveis na tabela enviada).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção, equipamento e responsável: não informados no documento original (apenas peso aproximado do rendimento em kg, quando citado).\n⚠ A CONFIRMAR — Rendimento informado apenas como 0,166 kg (não em porções)\nℹ O modo de preparo é uma proposta provisória do próprio documento original, ainda não validada em operação pela equipe.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Cozinhar em água e sal até o ponto adequado, escorrer e finalizar com azeite.",
+        "Evitar sobrecocção para preservar textura e apresentação."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Maxixe",
+          "pb": "0.166",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "18.0"
+        }
+      ],
+      "clienteId": null,
+      "clienteNome": null,
+      "savedAt": "2026-08-29T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-014",
+      "nome": "Cenoura no azeite",
+      "cat": "Almoço Executivo",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-29",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "",
+      "desc": "Salada cozida de cenoura, finalizada com azeite.",
+      "obs": "── Importado de \"Caderno Unificado de Fichas Técnicas (Mestre do Pão) - Consolidação em 29/08/2026\" em 2026-08-29 ──\nℹ Custo parcial conhecido no documento original: R$ 0,00 (apenas itens com preço e conversão direta disponíveis na tabela enviada).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção, equipamento e responsável: não informados no documento original (apenas peso aproximado do rendimento em kg, quando citado).\n⚠ A CONFIRMAR — Preço da cenoura: não consta na tabela enviada (aparece com preço em outras fichas, mas não nesta linha)\n⚠ A CONFIRMAR — Rendimento informado apenas como 0,588 kg (não em porções)\nℹ O modo de preparo é uma proposta provisória do próprio documento original, ainda não validada em operação pela equipe.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Cozinhar em água e sal até o ponto adequado, escorrer e finalizar com azeite.",
+        "Evitar sobrecocção para preservar textura e apresentação."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Cenoura",
+          "pb": "0.588",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": null,
+      "clienteNome": null,
+      "savedAt": "2026-08-29T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-015",
+      "nome": "Brócolis cozido",
+      "cat": "Almoço Executivo",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-29",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "",
+      "desc": "Salada cozida / guarnição quente de brócolis. Também usado como componente do Arroz cremoso de brócolis.",
+      "obs": "── Importado de \"Caderno Unificado de Fichas Técnicas (Mestre do Pão) - Consolidação em 29/08/2026\" em 2026-08-29 ──\nℹ Custo parcial conhecido no documento original: R$ 0,00 (apenas itens com preço e conversão direta disponíveis na tabela enviada).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção, equipamento e responsável: não informados no documento original (apenas peso aproximado do rendimento em kg, quando citado).\n⚠ A CONFIRMAR — Preço do brócolis: não consta na tabela enviada\nℹ O modo de preparo é uma proposta provisória do próprio documento original, ainda não validada em operação pela equipe.\nℹ O documento indica que a operação também utiliza cerca de 1 kg de brócolis no preparo do arroz, quando disponível.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Higienizar, separar floretes e cozinhar rapidamente em água e sal ou vapor.",
+        "Resfriar quando destinado à salada; para guarnição quente, finalizar próximo ao serviço."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Brócolis",
+          "pb": "1",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": null,
+      "clienteNome": null,
+      "savedAt": "2026-08-29T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-016",
+      "nome": "Tempero padrão para saladas cozidas",
+      "cat": "Outro",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-29",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "",
+      "desc": "Base de tempero (óleo de alho, azeite e chimichurri) usada para finalizar as saladas cozidas do buffet (chuchu, abobrinha, quiabo, maxixe, cenoura etc.).",
+      "obs": "── Importado de \"Caderno Unificado de Fichas Técnicas (Mestre do Pão) - Consolidação em 29/08/2026\" em 2026-08-29 ──\nℹ Custo parcial conhecido no documento original: R$ 0,39 (apenas itens com preço e conversão direta disponíveis na tabela enviada).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção, equipamento e responsável: não informados no documento original (apenas peso aproximado do rendimento em kg, quando citado).\n⚠ A CONFIRMAR — Peso da medida \"serviço\" de óleo de alho e azeite\nℹ O modo de preparo é uma proposta provisória do próprio documento original, ainda não validada em operação pela equipe.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Aquecer levemente o óleo de alho e o azeite, adicionar o chimichurri sem queimar e envolver os vegetais já cozidos.",
+        "Padronizar futuramente o peso de cada colher/serviço."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Óleo de alho (2 serviços — medida a padronizar)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Azeite (1 serviço — medida a padronizar)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Chimichurri",
+          "pb": "0.003",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "130.0"
+        }
+      ],
+      "clienteId": null,
+      "clienteNome": null,
+      "savedAt": "2026-08-29T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-017",
+      "nome": "Alho da casa",
+      "cat": "Outro",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-29",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "",
+      "desc": "Pasta de alho da casa (alho, cebola e óleo), usada como base de tempero em diversas preparações.",
+      "obs": "── Importado de \"Caderno Unificado de Fichas Técnicas (Mestre do Pão) - Consolidação em 29/08/2026\" em 2026-08-29 ──\nℹ Custo parcial conhecido no documento original: R$ 0,00 (apenas itens com preço e conversão direta disponíveis na tabela enviada).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção, equipamento e responsável: não informados no documento original (apenas peso aproximado do rendimento em kg, quando citado).\n⚠ A CONFIRMAR — Preço de alho, cebola e óleo: a tabela traz alho por caixa, sem conversão para kg; demais itens sem preço informado\n⚠ A CONFIRMAR — Rendimento total da batelada: não informado\nℹ O modo de preparo é uma proposta provisória do próprio documento original, ainda não validada em operação pela equipe.\nℹ Utilizar alho de casca roxa, conforme padrão informado pela operação.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Descascar e higienizar os ingredientes.",
+        "Processar o alho com a cebola e incorporar o óleo gradualmente até obter pasta homogênea.",
+        "Armazenar identificado e refrigerado conforme procedimento interno."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Alho em cabeça",
+          "pb": "0.45",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Cebola",
+          "pb": "1",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Óleo",
+          "pb": "1",
+          "un": "L",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": null,
+      "clienteNome": null,
+      "savedAt": "2026-08-29T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-018",
+      "nome": "Salpicão de frango",
+      "cat": "Almoço Executivo",
+      "grupo": "Ave",
+      "ver": "1.0",
+      "data": "2026-08-29",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Leite (requeijão, creme culinário, maionese)",
+      "desc": "Salada composta de frango desfiado com legumes, maçã, passas e batata palha.",
+      "obs": "── Importado de \"Caderno Unificado de Fichas Técnicas (Mestre do Pão) - Consolidação em 29/08/2026\" em 2026-08-29 ──\nℹ Custo parcial conhecido no documento original: R$ 8,99 (apenas itens com preço e conversão direta disponíveis na tabela enviada).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção, equipamento e responsável: não informados no documento original (apenas peso aproximado do rendimento em kg, quando citado).\n⚠ A CONFIRMAR — Preço de milho, ervilha, uva passa, cenoura, batata, maionese, requeijão, creme culinário, maçã e batata palha: não constam na tabela enviada\n⚠ A CONFIRMAR — Medida das \"serviço\"/colheres de uva passa e creme culinário\nℹ O modo de preparo é uma proposta provisória do próprio documento original, ainda não validada em operação pela equipe.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Cozinhar e desfiar o frango.",
+        "Cozinhar cenoura e batata em cubos e resfriar.",
+        "Misturar frango, milho, ervilha, passas, legumes, maçã, maionese, requeijão e creme culinário.",
+        "Finalizar com batata palha próximo ao serviço e decorar com passas."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Frango desfiado",
+          "pb": "0.6",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "14.99"
+        },
+        {
+          "nome": "Milho (lata)",
+          "pb": "1",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Ervilha (lata)",
+          "pb": "1",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Uva passa (4 serviços — medida a padronizar)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Cenoura",
+          "pb": "0.09",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Batata",
+          "pb": "0.09",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Maionese",
+          "pb": "0.2",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Requeijão",
+          "pb": "0.09",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Creme culinário (3 serviços — medida a padronizar)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Maçã",
+          "pb": "1",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Batata palha (faixa 100–150g; referência média adotada 125g)",
+          "pb": "0.125",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Uva passa, para decoração (1 colher de sopa — medida a padronizar)",
+          "pb": "",
+          "un": "g",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": null,
+      "clienteNome": null,
+      "savedAt": "2026-08-29T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-019",
+      "nome": "Ovos cozidos",
+      "cat": "Almoço Executivo",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-29",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Ovo",
+      "desc": "Ovos de galinha cozidos, usados como salada/complemento no buffet.",
+      "obs": "── Importado de \"Caderno Unificado de Fichas Técnicas (Mestre do Pão) - Consolidação em 29/08/2026\" em 2026-08-29 ──\nℹ Custo parcial conhecido no documento original: R$ 0,00 (apenas itens com preço e conversão direta disponíveis na tabela enviada).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção, equipamento e responsável: não informados no documento original (apenas peso aproximado do rendimento em kg, quando citado).\n⚠ A CONFIRMAR — Preço dos ovos: não consta na tabela enviada\n⚠ A CONFIRMAR — Rendimento informado apenas como 13 unidades (lote de produção, não porção)\nℹ O modo de preparo é uma proposta provisória do próprio documento original, ainda não validada em operação pela equipe.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Cozinhar os ovos, resfriar imediatamente, descascar e manter refrigerados e protegidos até a montagem."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Ovos",
+          "pb": "13",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": null,
+      "clienteNome": null,
+      "savedAt": "2026-08-29T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-020",
+      "nome": "Ovos de codorna cozidos",
+      "cat": "Almoço Executivo",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-29",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Ovo",
+      "desc": "Ovos de codorna cozidos, usados como salada/complemento no buffet.",
+      "obs": "── Importado de \"Caderno Unificado de Fichas Técnicas (Mestre do Pão) - Consolidação em 29/08/2026\" em 2026-08-29 ──\nℹ Custo parcial conhecido no documento original: R$ 0,00 (apenas itens com preço e conversão direta disponíveis na tabela enviada).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção, equipamento e responsável: não informados no documento original (apenas peso aproximado do rendimento em kg, quando citado).\n⚠ A CONFIRMAR — Preço dos ovos de codorna: não consta na tabela enviada\n⚠ A CONFIRMAR — Rendimento informado apenas como 30 unidades (lote de produção, não porção)\nℹ O modo de preparo é uma proposta provisória do próprio documento original, ainda não validada em operação pela equipe.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Cozinhar, resfriar, descascar e manter refrigerado.",
+        "Padronizar apresentação e quantidade por cuba."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Ovo de codorna",
+          "pb": "30",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": null,
+      "clienteNome": null,
+      "savedAt": "2026-08-29T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-021",
+      "nome": "Salada crua de tomate, pepino e cebolas",
+      "cat": "Almoço Executivo",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-29",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "",
+      "desc": "Salada crua de tomate, pepino, cebola comum e cebola roxa.",
+      "obs": "── Importado de \"Caderno Unificado de Fichas Técnicas (Mestre do Pão) - Consolidação em 29/08/2026\" em 2026-08-29 ──\nℹ Custo parcial conhecido no documento original: R$ 8,20 (apenas itens com preço e conversão direta disponíveis na tabela enviada).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção, equipamento e responsável: não informados no documento original (apenas peso aproximado do rendimento em kg, quando citado).\n⚠ A CONFIRMAR — Preço de cebola comum e tomate: aparecem na tabela por saca/caixa, sem conversão para custo por kg\n⚠ A CONFIRMAR — Rendimento informado apenas como aproximadamente 2,4 kg antes do tempero (não em porções)\nℹ O modo de preparo é uma proposta provisória do próprio documento original, ainda não validada em operação pela equipe.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Higienizar, sanitizar e cortar os vegetais de forma uniforme.",
+        "Misturar próximo ao serviço e temperar conforme padrão da casa, evitando excesso de líquido."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Cebola",
+          "pb": "0.4",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Cebola roxa",
+          "pb": "0.1",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "10.0"
+        },
+        {
+          "nome": "Tomate",
+          "pb": "1",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Pepino",
+          "pb": "0.9",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "8.0"
+        }
+      ],
+      "clienteId": null,
+      "clienteNome": null,
+      "savedAt": "2026-08-29T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-022",
+      "nome": "Salada de folhas com frutas",
+      "cat": "Almoço Executivo",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-29",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "",
+      "desc": "Salada crua de alface com frutas (manga, abacaxi, uva, maçã) — composição varia conforme disponibilidade.",
+      "obs": "── Importado de \"Caderno Unificado de Fichas Técnicas (Mestre do Pão) - Consolidação em 29/08/2026\" em 2026-08-29 ──\nℹ Custo parcial conhecido no documento original: R$ 13,00 (apenas itens com preço e conversão direta disponíveis na tabela enviada).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção, equipamento e responsável: não informados no documento original (apenas peso aproximado do rendimento em kg, quando citado).\n⚠ A CONFIRMAR — Preço de manga, uva e maçã: não constam na tabela enviada\n⚠ A CONFIRMAR — Preço do abacaxi consta por unidade inteira (R$ 8,50/un) — não é possível converter para os 0,07 kg efetivamente usados sem o peso médio do abacaxi\n⚠ A CONFIRMAR — Rendimento: não informado (a composição varia conforme frutas disponíveis no dia)\nℹ O modo de preparo é uma proposta provisória do próprio documento original, ainda não validada em operação pela equipe.\nℹ Registrar a substituição diária de frutas para manter o custo real atualizado.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Higienizar e sanitizar as folhas e frutas.",
+        "Rasgar as folhas, cortar as frutas e montar próximo ao serviço para preservar textura e cor."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Alface (maço)",
+          "pb": "2",
+          "un": "un",
+          "fc": "1.000",
+          "custo": "6.5"
+        },
+        {
+          "nome": "Manga",
+          "pb": "1",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Abacaxi (0,07 kg utilizados; preço da tabela é por abacaxi inteiro, não convertível para o peso usado)",
+          "pb": "0.07",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Uva",
+          "pb": "0.06",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Maçã",
+          "pb": "1",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": null,
+      "clienteNome": null,
+      "savedAt": "2026-08-29T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-023",
+      "nome": "Salada de cenoura e beterraba",
+      "cat": "Almoço Executivo",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-29",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "",
+      "desc": "Salada crua de cenoura ralada e beterraba.",
+      "obs": "── Importado de \"Caderno Unificado de Fichas Técnicas (Mestre do Pão) - Consolidação em 29/08/2026\" em 2026-08-29 ──\nℹ Custo parcial conhecido no documento original: R$ 1,60 (apenas itens com preço e conversão direta disponíveis na tabela enviada).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção, equipamento e responsável: não informados no documento original (apenas peso aproximado do rendimento em kg, quando citado).\n⚠ A CONFIRMAR — Preço da cenoura: não consta na tabela enviada\n⚠ A CONFIRMAR — Rendimento informado apenas como 0,667 kg antes do tempero (não em porções)\nℹ O modo de preparo é uma proposta provisória do próprio documento original, ainda não validada em operação pela equipe.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Higienizar, sanitizar, descascar quando aplicável e ralar/cortar de forma padronizada.",
+        "Manter refrigerado e temperar próximo ao serviço."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Cenoura",
+          "pb": "0.467",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Beterraba",
+          "pb": "0.2",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "8.0"
+        }
+      ],
+      "clienteId": null,
+      "clienteNome": null,
+      "savedAt": "2026-08-29T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-024",
+      "nome": "Arroz cremoso de brócolis",
+      "cat": "Almoço Executivo",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-29",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Leite (creme culinário)",
+      "desc": "Guarnição sugerida: arroz com brócolis refogado e creme culinário, alternativa ao arroz branco.",
+      "obs": "── Importado de \"Caderno Unificado de Fichas Técnicas (Mestre do Pão) - Consolidação em 29/08/2026\" em 2026-08-29 ──\nℹ Trata-se de SUGESTÃO da consultoria (ainda não testada/adotada em produção) - avaliar antes de padronizar no buffet.\nℹ Custo parcial conhecido no documento original: R$ 8,98 (apenas itens com preço e conversão direta disponíveis na tabela enviada).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção, equipamento e responsável: não informados no documento original (apenas peso aproximado do rendimento em kg, quando citado).\n⚠ A CONFIRMAR — Preço de brócolis, alho, cebola e creme culinário: não constam na tabela enviada\n⚠ A CONFIRMAR — Rendimento informado apenas como aproximadamente 5–6 kg (não em porções)\nℹ O modo de preparo é uma proposta provisória do próprio documento original, ainda não validada em operação pela equipe.\nℹ Boa diferenciação visual em relação ao arroz branco e aproveita o brócolis já utilizado na operação.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Preparar o arroz.",
+        "Cozinhar o brócolis rapidamente, picar e refogar com alho e cebola.",
+        "Incorporar ao arroz e finalizar com creme culinário apenas para dar liga, sem deixar pesado."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Arroz",
+          "pb": "2",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "4.49"
+        },
+        {
+          "nome": "Brócolis",
+          "pb": "1",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Alho em cabeça",
+          "pb": "0.06",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Cebola",
+          "pb": "0.25",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Creme culinário",
+          "pb": "0.3",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": null,
+      "clienteNome": null,
+      "savedAt": "2026-08-29T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-025",
+      "nome": "Farofa de banana e bacon",
+      "cat": "Almoço Executivo",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-29",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Glúten (a confirmar — tipo de farinha não especificado no documento)",
+      "desc": "Guarnição sugerida: farofa de farinha de mandioca (ou trigo, a confirmar) com banana prata e bacon.",
+      "obs": "── Importado de \"Caderno Unificado de Fichas Técnicas (Mestre do Pão) - Consolidação em 29/08/2026\" em 2026-08-29 ──\nℹ Trata-se de SUGESTÃO da consultoria (ainda não testada/adotada em produção) - avaliar antes de padronizar no buffet.\nℹ Custo parcial conhecido no documento original: R$ 17,68 (apenas itens com preço e conversão direta disponíveis na tabela enviada).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção, equipamento e responsável: não informados no documento original (apenas peso aproximado do rendimento em kg, quando citado).\n⚠ A CONFIRMAR — Tipo de \"farinha branca\" (mandioca ou trigo) — relevante para alergênicos (glúten)\n⚠ A CONFIRMAR — Preço de banana prata e cebola: não constam na tabela enviada\n⚠ A CONFIRMAR — Rendimento informado apenas como aproximadamente 2,8 kg (não em porções)\nℹ O modo de preparo é uma proposta provisória do próprio documento original, ainda não validada em operação pela equipe.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Dourar o bacon, refogar a cebola na gordura liberada, adicionar banana em cubos e saltear.",
+        "Incorporar a farinha aos poucos, ajustar sal e manter a farofa solta."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Farinha branca (tipo — mandioca ou trigo — a confirmar)",
+          "pb": "1.5",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "4.9"
+        },
+        {
+          "nome": "Bacon",
+          "pb": "0.35",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "29.5"
+        },
+        {
+          "nome": "Banana prata madura",
+          "pb": "0.8",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Cebola",
+          "pb": "0.25",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": null,
+      "clienteNome": null,
+      "savedAt": "2026-08-29T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-026",
+      "nome": "Legumes assados com páprica",
+      "cat": "Almoço Executivo",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-29",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "",
+      "desc": "Guarnição sugerida: mix de legumes assados (abobrinha, berinjela, cenoura, pimentões) com páprica defumada.",
+      "obs": "── Importado de \"Caderno Unificado de Fichas Técnicas (Mestre do Pão) - Consolidação em 29/08/2026\" em 2026-08-29 ──\nℹ Trata-se de SUGESTÃO da consultoria (ainda não testada/adotada em produção) - avaliar antes de padronizar no buffet.\nℹ Custo parcial conhecido no documento original: R$ 63,77 (apenas itens com preço e conversão direta disponíveis na tabela enviada).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção, equipamento e responsável: não informados no documento original (apenas peso aproximado do rendimento em kg, quando citado).\n⚠ A CONFIRMAR — Preço da cenoura: não consta na tabela enviada\n⚠ A CONFIRMAR — Rendimento informado apenas como aproximadamente 3 kg (não em porções)\nℹ O modo de preparo é uma proposta provisória do próprio documento original, ainda não validada em operação pela equipe.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Cortar os legumes em tamanhos semelhantes, temperar com sal, óleo/azeite e páprica.",
+        "Assar em camada única até dourar, mantendo textura."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Abobrinha",
+          "pb": "0.8",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "20.0"
+        },
+        {
+          "nome": "Berinjela",
+          "pb": "2",
+          "un": "un",
+          "fc": "1.000",
+          "custo": "12.0"
+        },
+        {
+          "nome": "Cenoura",
+          "pb": "0.8",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Pimentão amarelo",
+          "pb": "0.3",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "38.0"
+        },
+        {
+          "nome": "Pimentão vermelho",
+          "pb": "0.3",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "38.0"
+        },
+        {
+          "nome": "Páprica defumada",
+          "pb": "0.015",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "65.0"
+        }
+      ],
+      "clienteId": null,
+      "clienteNome": null,
+      "savedAt": "2026-08-29T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-027",
+      "nome": "Repolho refogado com bacon",
+      "cat": "Almoço Executivo",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-29",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "",
+      "desc": "Guarnição sugerida: repolho branco fatiado, refogado com bacon e cebola roxa.",
+      "obs": "── Importado de \"Caderno Unificado de Fichas Técnicas (Mestre do Pão) - Consolidação em 29/08/2026\" em 2026-08-29 ──\nℹ Trata-se de SUGESTÃO da consultoria (ainda não testada/adotada em produção) - avaliar antes de padronizar no buffet.\nℹ Custo parcial conhecido no documento original: R$ 25,38 (apenas itens com preço e conversão direta disponíveis na tabela enviada).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção, equipamento e responsável: não informados no documento original (apenas peso aproximado do rendimento em kg, quando citado).\n⚠ A CONFIRMAR — Rendimento informado apenas como aproximadamente 2,2 kg (não em porções)\nℹ O modo de preparo é uma proposta provisória do próprio documento original, ainda não validada em operação pela equipe.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Dourar o bacon, refogar a cebola e adicionar o repolho fatiado.",
+        "Cozinhar rapidamente, mantendo leve crocância.",
+        "Ajustar sal somente ao final."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Repolho branco",
+          "pb": "2",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "8.0"
+        },
+        {
+          "nome": "Bacon",
+          "pb": "0.25",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "29.5"
+        },
+        {
+          "nome": "Cebola roxa",
+          "pb": "0.2",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "10.0"
+        }
+      ],
+      "clienteId": null,
+      "clienteNome": null,
+      "savedAt": "2026-08-29T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-028",
+      "nome": "Jerimum assado com ervas",
+      "cat": "Almoço Executivo",
+      "grupo": "",
+      "ver": "1.0",
+      "data": "2026-08-29",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "",
+      "desc": "Guarnição sugerida: jerimum (abóbora) em cubos, assado com alecrim e páprica defumada.",
+      "obs": "── Importado de \"Caderno Unificado de Fichas Técnicas (Mestre do Pão) - Consolidação em 29/08/2026\" em 2026-08-29 ──\nℹ Trata-se de SUGESTÃO da consultoria (ainda não testada/adotada em produção) - avaliar antes de padronizar no buffet.\nℹ Custo parcial conhecido no documento original: R$ 13,70 (apenas itens com preço e conversão direta disponíveis na tabela enviada).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção, equipamento e responsável: não informados no documento original (apenas peso aproximado do rendimento em kg, quando citado).\n⚠ A CONFIRMAR — Rendimento informado apenas como aproximadamente 2,2 kg (não em porções)\nℹ O modo de preparo é uma proposta provisória do próprio documento original, ainda não validada em operação pela equipe.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Cortar o jerimum em cubos, temperar com sal, óleo/azeite, alecrim e páprica.",
+        "Assar até ficar macio por dentro e dourado nas bordas."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Jerimum pequeno",
+          "pb": "2.5",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "4.5"
+        },
+        {
+          "nome": "Alecrim",
+          "pb": "0.01",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "180.0"
+        },
+        {
+          "nome": "Páprica defumada",
+          "pb": "0.01",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "65.0"
+        }
+      ],
+      "clienteId": null,
+      "clienteNome": null,
+      "savedAt": "2026-08-29T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-029",
+      "nome": "Sobrecoxa assada com páprica e limão",
+      "cat": "Almoço Executivo",
+      "grupo": "Ave",
+      "ver": "1.0",
+      "data": "2026-08-29",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "",
+      "desc": "Proteína sugerida: sobrecoxa de frango assada, temperada com alho, páprica defumada e limão.",
+      "obs": "── Importado de \"Caderno Unificado de Fichas Técnicas (Mestre do Pão) - Consolidação em 29/08/2026\" em 2026-08-29 ──\nℹ Trata-se de SUGESTÃO da consultoria (ainda não testada/adotada em produção) - avaliar antes de padronizar no buffet.\nℹ Custo parcial conhecido no documento original: R$ 47,60 (apenas itens com preço e conversão direta disponíveis na tabela enviada).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção, equipamento e responsável: não informados no documento original (apenas peso aproximado do rendimento em kg, quando citado).\n⚠ A CONFIRMAR — Preço de alho e limão: não constam na tabela enviada\n⚠ A CONFIRMAR — Rendimento informado como 5 kg CRU (peso após cocção/rendimento real ainda não medido)\nℹ O modo de preparo é uma proposta provisória do próprio documento original, ainda não validada em operação pela equipe.\nℹ Custo de proteína atrativo na tabela recebida: R$ 9,00/kg, antes de considerar rendimento pós-cocção e temperos.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Temperar as sobrecoxas com alho, páprica, limão e sal.",
+        "Marinar sob refrigeração.",
+        "Assar até cocção completa e douramento, finalizando com o próprio fundo da assadeira."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Coxa sobrecoxa",
+          "pb": "5",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "9.0"
+        },
+        {
+          "nome": "Páprica defumada",
+          "pb": "0.04",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "65.0"
+        },
+        {
+          "nome": "Alho em cabeça",
+          "pb": "0.1",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Limão",
+          "pb": "4",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": null,
+      "clienteNome": null,
+      "savedAt": "2026-08-29T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-030",
+      "nome": "Pernil suíno assado ao molho de laranja",
+      "cat": "Almoço Executivo",
+      "grupo": "Suína",
+      "ver": "1.0",
+      "data": "2026-08-29",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "",
+      "desc": "Proteína sugerida: pernil suíno assado, com molho reduzido de suco de laranja.",
+      "obs": "── Importado de \"Caderno Unificado de Fichas Técnicas (Mestre do Pão) - Consolidação em 29/08/2026\" em 2026-08-29 ──\nℹ Trata-se de SUGESTÃO da consultoria (ainda não testada/adotada em produção) - avaliar antes de padronizar no buffet.\nℹ Custo parcial conhecido no documento original: R$ 102,70 (apenas itens com preço e conversão direta disponíveis na tabela enviada).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção, equipamento e responsável: não informados no documento original (apenas peso aproximado do rendimento em kg, quando citado).\n⚠ A CONFIRMAR — Preço de alho e laranja: não constam na tabela enviada\n⚠ A CONFIRMAR — Rendimento informado como 5 kg CRU (peso após cocção/rendimento real ainda não medido)\nℹ O modo de preparo é uma proposta provisória do próprio documento original, ainda não validada em operação pela equipe.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Temperar o pernil e marinar refrigerado.",
+        "Assar coberto até amaciar, descobrir para dourar.",
+        "Reduzir o fundo com suco de laranja e servir fatiado com o molho."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Pernil",
+          "pb": "5",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "20.18"
+        },
+        {
+          "nome": "Alho em cabeça",
+          "pb": "0.1",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Laranja, em suco (1 L — a confirmar rendimento de suco por kg de laranja)",
+          "pb": "1",
+          "un": "L",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Alecrim",
+          "pb": "0.01",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "180.0"
+        }
+      ],
+      "clienteId": null,
+      "clienteNome": null,
+      "savedAt": "2026-08-29T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-031",
+      "nome": "Pirarucu fresco ao molho de cheiro-verde",
+      "cat": "Almoço Executivo",
+      "grupo": "Peixe",
+      "ver": "1.0",
+      "data": "2026-08-29",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "Peixe (pirarucu)",
+      "desc": "Proteína sugerida: pirarucu fresco selado/assado, com molho leve de cheiro-verde e pimenta-de-cheiro.",
+      "obs": "── Importado de \"Caderno Unificado de Fichas Técnicas (Mestre do Pão) - Consolidação em 29/08/2026\" em 2026-08-29 ──\nℹ Trata-se de SUGESTÃO da consultoria (ainda não testada/adotada em produção) - avaliar antes de padronizar no buffet.\nℹ Custo parcial conhecido no documento original: R$ 140,76 (apenas itens com preço e conversão direta disponíveis na tabela enviada).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção, equipamento e responsável: não informados no documento original (apenas peso aproximado do rendimento em kg, quando citado).\n⚠ A CONFIRMAR — Preço de cheiro-verde e limão: não constam na tabela enviada\n⚠ A CONFIRMAR — Rendimento informado como 4 kg CRU (peso após cocção/rendimento real ainda não medido)\nℹ O modo de preparo é uma proposta provisória do próprio documento original, ainda não validada em operação pela equipe.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Porcionar o peixe, temperar com sal e limão.",
+        "Selar ou assar sem ressecar.",
+        "Preparar molho leve com cheiro-verde e pimenta-de-cheiro e aplicar na finalização."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Pirarucu fresco",
+          "pb": "4",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "35.0"
+        },
+        {
+          "nome": "Cheiro-verde (2 maços)",
+          "pb": "2",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Pimenta de cheiro",
+          "pb": "0.04",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "19.0"
+        },
+        {
+          "nome": "Limão",
+          "pb": "3",
+          "un": "un",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": null,
+      "clienteNome": null,
+      "savedAt": "2026-08-29T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-032",
+      "nome": "Língua bovina ao molho escuro de ervas",
+      "cat": "Almoço Executivo",
+      "grupo": "Bovina",
+      "ver": "1.0",
+      "data": "2026-08-29",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "",
+      "desc": "Proteína sugerida: língua bovina cozida e fatiada, ao molho escuro de cebola roxa e ervas.",
+      "obs": "── Importado de \"Caderno Unificado de Fichas Técnicas (Mestre do Pão) - Consolidação em 29/08/2026\" em 2026-08-29 ──\nℹ Trata-se de SUGESTÃO da consultoria (ainda não testada/adotada em produção) - avaliar antes de padronizar no buffet.\nℹ Custo parcial conhecido no documento original: R$ 104,92 (apenas itens com preço e conversão direta disponíveis na tabela enviada).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção, equipamento e responsável: não informados no documento original (apenas peso aproximado do rendimento em kg, quando citado).\n⚠ A CONFIRMAR — Rendimento informado como 4 kg CRU (peso após cocção/rendimento real ainda não medido)\nℹ O modo de preparo é uma proposta provisória do próprio documento original, ainda não validada em operação pela equipe.\nℹ Corte com custo (R$ 24,99/kg) inferior aos cortes de coxão já usados na Carne Assada de Panela — alternativa bovina de menor custo.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Cozinhar a língua até ficar macia, retirar a pele e fatiar.",
+        "Preparar molho com o fundo do cozimento, cebola e ervas; retornar as fatias ao molho e finalizar lentamente."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Língua",
+          "pb": "4",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "24.99"
+        },
+        {
+          "nome": "Cebola roxa",
+          "pb": "0.3",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "10.0"
+        },
+        {
+          "nome": "Alecrim",
+          "pb": "0.008",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "180.0"
+        },
+        {
+          "nome": "Pimenta do reino",
+          "pb": "0.008",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "65.0"
+        }
+      ],
+      "clienteId": null,
+      "clienteNome": null,
+      "savedAt": "2026-08-29T00:00:00.000Z"
+    },
+    {
+      "num": "FT-IMP-033",
+      "nome": "Costela suína assada com barbecue de goiabada",
+      "cat": "Almoço Executivo",
+      "grupo": "Suína",
+      "ver": "1.0",
+      "data": "2026-08-29",
+      "elab": "",
+      "rend": "",
+      "pporcao": "",
+      "temp": "",
+      "valid": "",
+      "diff": 0,
+      "tprep": "",
+      "tcook": "",
+      "equip": "",
+      "alerg": "",
+      "desc": "Proteína sugerida: costela suína assada, finalizada com molho agridoce de goiabada.",
+      "obs": "── Importado de \"Caderno Unificado de Fichas Técnicas (Mestre do Pão) - Consolidação em 29/08/2026\" em 2026-08-29 ──\nℹ Trata-se de SUGESTÃO da consultoria (ainda não testada/adotada em produção) - avaliar antes de padronizar no buffet.\nℹ Custo parcial conhecido no documento original: R$ 117,28 (apenas itens com preço e conversão direta disponíveis na tabela enviada).\n⚠ A CONFIRMAR — Rendimento em porções, peso por porção, tempo de preparo/cocção, equipamento e responsável: não informados no documento original (apenas peso aproximado do rendimento em kg, quando citado).\n⚠ A CONFIRMAR — Preço de alho e goiabada: não constam na tabela enviada; vinagre do molho também sem preço\n⚠ A CONFIRMAR — Rendimento informado como 5 kg CRU (peso após cocção/rendimento real ainda não medido)\nℹ O modo de preparo é uma proposta provisória do próprio documento original, ainda não validada em operação pela equipe.\nℹ Goiabada, vinagre e demais componentes do molho precisam de preço para fechamento do custo total.",
+      "dishPhoto": null,
+      "oh": "",
+      "mo": "",
+      "emb": "0",
+      "out": "0",
+      "mise": "",
+      "final": "",
+      "steps": [
+        "Temperar e assar a costela coberta até macia.",
+        "Preparar molho agridoce de goiabada com água, vinagre e temperos, pincelar e retornar ao forno para caramelizar."
+      ],
+      "preco": "",
+      "cmv": "30",
+      "vend": "",
+      "ings": [
+        {
+          "nome": "Costela suína",
+          "pb": "5",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "23.0"
+        },
+        {
+          "nome": "Páprica defumada",
+          "pb": "0.035",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": "65.0"
+        },
+        {
+          "nome": "Alho em cabeça",
+          "pb": "0.08",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        },
+        {
+          "nome": "Goiabada",
+          "pb": "0.5",
+          "un": "kg",
+          "fc": "1.000",
+          "custo": ""
+        }
+      ],
+      "clienteId": null,
+      "clienteNome": null,
+      "savedAt": "2026-08-29T00:00:00.000Z"
+    }
+  ],
+  "restaurante": "Mestre do Pão",
+  "exportado_em": "2026-08-29T00:00:00.000Z"
+}
