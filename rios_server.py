@@ -282,10 +282,14 @@ def pop_page():
 def buffet_page():
     return serve_html("RIOS_CardapioBuffet.html")
 
+@app.route("/produtos")
+def produtos_page():
+    return serve_html("RIOS_Produtos.html")
+
 @app.route("/api/status")
 def api_status():
     key_ok = bool(API_KEY and API_KEY.startswith("sk-ant"))
-    return jsonify({"status":"ok","version":"1.12.0","key_configured":key_ok,"ai_provider":AI_PROVIDER,
+    return jsonify({"status":"ok","version":"1.13.0","key_configured":key_ok,"ai_provider":AI_PROVIDER,
                      "database_configured": bool(DATABASE_URL)})
 
 @app.route("/api/pop/docx", methods=["POST"])

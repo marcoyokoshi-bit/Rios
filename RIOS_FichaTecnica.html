@@ -223,6 +223,7 @@ select option{background:var(--cd)}
     <span class="tag" id="ai-tag">&#9679; IA Offline</span>
     <button class="bic" onclick="openMo('mo-cfg')">&#9881;&#65039; Config</button>
   <button class="bic" onclick="openMo('mo-backup')" title="Backup e Restauração">&#128190; Backup</button>
+  <a class="bic" href="/produtos" title="Cadastro de Produtos — preços centralizados" style="text-decoration:none">&#129534; Produtos</a>
   </div>
 </div>
 
@@ -738,30 +739,170 @@ function saveLastCost(id) {
   localStorage.setItem('rios_lastcost', JSON.stringify(lc));
 }
 
-function addIng(nome='', pb='', un='g', fc='1.000', custo='') {
+function getProdutos() {
+  try { return JSON.parse(localStorage.getItem('rios_produtos') || '[]'); } catch(e) { return []; }
+}
+function produtoPorId(id) { return getProdutos().find(p => p.id === id) || null; }
+
+// Converte o preço cadastrado no produto pra "linguagem" da unidade escolhida na ficha
+// (peso: g/kg sempre custam em preço-por-kg; volume: ml/L sempre custam em preço-por-L;
+// un/cx/dz/pct usam o preço do produto direto — são a mesma família na calcIngTotal).
+function custoParaUnidade(produto, unFicha) {
+  const p = parseFloat(produto.preco) || 0;
+  const pu = produto.unidade;
+  const pesoKg  = pu === 'g'  ? p * 1000 : (pu === 'kg' ? p : null);
+  const volumeL = pu === 'ml' ? p * 1000 : (pu === 'L'  ? p : null);
+  if ((unFicha === 'g' || unFicha === 'kg') && pesoKg  != null) return pesoKg;
+  if ((unFicha === 'ml' || unFicha === 'L') && volumeL != null) return volumeL;
+  return p; // fallback: família não bate (ex. produto em kg vinculado a linha em "un") — usa o preço bruto
+}
+
+function addIng(nome='', pb='', un='g', fc='1.000', custo='', produtoId=null) {
   const id = ++ING;
-  // Se custo não foi passado, usa o último valor utilizado para esta unidade
-  if (!custo) {
+  let produto = produtoId ? produtoPorId(produtoId) : null;
+  // produtoId apontava pra um produto que não existe mais no catálogo — desvincula
+  // silenciosamente e mantém o último custo salvo na própria ficha (fallback).
+  if (produtoId && !produto) produtoId = null;
+  // Se custo não foi passado nem tem produto vinculado, usa o último valor usado nessa unidade
+  if (!custo && !produto) {
     const lc = getLastCosts();
     if (lc[un]) custo = lc[un];
   }
+  // Importante: a unidade da linha (un) é sempre a que já estava na ficha/foi importada —
+  // vincular a um produto NUNCA troca a unidade sozinho (senão 1000g vira lido como 1000kg).
+  const custoEfetivo = produto ? custoParaUnidade(produto, un) : custo;
+  const nomeEfetivo  = produto ? produto.nome : nome;
   const optHtml = UNITS.map(u => `<option value="${u}"${u===un?' selected':''}>${u}</option>`).join('');
+  const lnkTitle = produto
+    ? `Vinculado a "${esc(produto.nome)}" do catálogo — clique pra desvincular (volta a digitar o preço manualmente)`
+    : 'Vincular a um produto do catálogo (preço passa a vir de lá automaticamente)';
   const row = `
-  <tr id="ing-${id}">
+  <tr id="ing-${id}" ${produto ? `data-produto-id="${esc(produto.id)}"` : ''}>
     <td class="nc">${id}</td>
     <td class="nc"><button class="bcm" id="bcm-${id}" onclick="openCam(${id})" title="Identificar por foto">&#128247;</button></td>
-    <td><input id="ing-nome-${id}" value="${esc(nome)}" placeholder="Nome do ingrediente" oninput="calc()" style="min-width:160px"></td>
+    <td>
+      <div style="display:flex;gap:4px;align-items:center">
+        <input id="ing-nome-${id}" value="${esc(nomeEfetivo)}" placeholder="Nome do ingrediente" oninput="calc()" style="min-width:100px;flex:1" ${produto?'readonly':''}>
+        <button class="bcm" id="lnk-${id}" onclick="toggleLinkProduto(${id})" title="${lnkTitle}" style="${produto?'color:var(--gn);border-color:var(--gn)':''}">&#128279;</button>
+      </div>
+    </td>
     <td><input id="ing-pb-${id}" type="number" value="${pb}" placeholder="0" min="0" step="0.001" oninput="updatePL(${id});calc()" style="width:80px"></td>
-    <td><select id="ing-un-${id}" onchange="updatePL(${id});updateCustoLabel();updateCustoByUnit(${id});calc()">${optHtml}</select></td>
+    <td><select id="ing-un-${id}" onchange="updatePL(${id});updateCustoLabel();updateCustoByUnit(${id});calc()" title="${produto?'Você pode trocar entre g/kg (ou ml/L) livremente — o preço vindo do catálogo se ajusta sozinho':''}">${optHtml}</select></td>
     <td><input id="ing-fc-${id}" type="number" value="${fc}" min="0.001" step="0.001" placeholder="1.000" oninput="updatePL(${id});calc()" style="width:65px"></td>
     <td class="plv" id="ing-pl-${id}">—</td>
-    <td><input id="ing-cu-${id}" type="number" value="${custo}" placeholder="0.00" min="0" step="0.01" oninput="calc()" onblur="saveLastCost(${id})" style="width:90px"></td>
+    <td><input id="ing-cu-${id}" type="number" value="${custoEfetivo}" placeholder="0.00" min="0" step="0.01" oninput="calc()" onblur="saveLastCost(${id})" style="width:90px" ${produto?'readonly title="Preço vem do catálogo — edite lá pra mudar em todas as fichas que usam este produto"':''}></td>
     <td class="tc2" id="ing-tt-${id}">R$ 0,00</td>
     <td><button class="bd2" onclick="remIng(${id})" title="Remover">&#10005;</button></td>
   </tr>`;
   document.getElementById('ing-body').insertAdjacentHTML('beforeend', row);
   updatePL(id);
   calc();
+}
+
+// ── Vínculo com o Catálogo de Produtos ───────────────────────────────────────
+let LINK_TARGET_ID = null;
+
+function toggleLinkProduto(id) {
+  const row = document.getElementById('ing-' + id);
+  if (!row) return;
+  if (row.dataset.produtoId) {
+    delete row.dataset.produtoId;
+    const nomeEl = document.getElementById('ing-nome-' + id);
+    const unEl   = document.getElementById('ing-un-' + id);
+    const cuEl   = document.getElementById('ing-cu-' + id);
+    const lnkEl  = document.getElementById('lnk-' + id);
+    if (nomeEl) nomeEl.readOnly = false;
+    if (unEl)   unEl.disabled = false;
+    if (cuEl)   { cuEl.readOnly = false; cuEl.title = ''; }
+    if (lnkEl)  { lnkEl.style.color = ''; lnkEl.style.borderColor = ''; lnkEl.title = 'Vincular a um produto do catálogo (preço passa a vir de lá automaticamente)'; }
+    calc();
+    toast('Ingrediente desvinculado — preço volta a ser digitado manualmente nesta ficha.', 'ok');
+    return;
+  }
+  abrirPickerProduto(id);
+}
+
+function abrirPickerProduto(id) {
+  LINK_TARGET_ID = id;
+  document.getElementById('picker-busca').value = '';
+  document.getElementById('picker-novo-nome').value = (document.getElementById('ing-nome-' + id) || {}).value || '';
+  document.getElementById('picker-novo-box').style.display = 'none';
+  renderPickerLista('');
+  openMo('mo-produto-picker');
+  setTimeout(() => document.getElementById('picker-busca').focus(), 50);
+}
+
+function renderPickerLista(q) {
+  const termo = (q || '').toLowerCase().trim();
+  const lista = getProdutos()
+    .filter(p => !p.clienteId || (ACTIVE_CLIENTE && p.clienteId === ACTIVE_CLIENTE.id))
+    .filter(p => !termo || p.nome.toLowerCase().includes(termo))
+    .sort((a,b) => a.nome.localeCompare(b.nome));
+  const box = document.getElementById('picker-lista');
+  if (!lista.length) {
+    box.innerHTML = '<div style="padding:14px;text-align:center;color:var(--sb);font-size:12px">Nenhum produto encontrado' + (termo ? ' para "' + esc(q) + '"' : ' no catálogo ainda') + '.</div>';
+  } else {
+    box.innerHTML = lista.map(p => `
+      <div onclick="selecionarProdutoParaLinha('${esc(p.id)}')" style="display:flex;justify-content:space-between;align-items:center;padding:9px 11px;border:1px solid var(--bd);border-radius:8px;margin-bottom:6px;cursor:pointer;transition:border-color .2s" onmouseover="this.style.borderColor='var(--bl)'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div>
+          <div style="font-size:13px;font-weight:700">${esc(p.nome)}</div>
+          <div style="font-size:10px;color:var(--sb)">${esc(p.categoria || 'Sem categoria')}${p.fornecedor ? ' · ' + esc(p.fornecedor) : ''}</div>
+        </div>
+        <div style="font-size:13px;font-weight:700;color:var(--or)">${fmtR(parseFloat(p.preco)||0)} / ${esc(p.unidade)}</div>
+      </div>`).join('');
+  }
+  const novoNome = document.getElementById('picker-novo-nome');
+  if (novoNome && termo) novoNome.value = q;
+}
+
+function selecionarProdutoParaLinha(produtoId) {
+  const id = LINK_TARGET_ID;
+  const produto = produtoPorId(produtoId);
+  if (!id || !produto) return;
+  const row = document.getElementById('ing-' + id);
+  if (!row) return;
+  row.dataset.produtoId = produto.id;
+  const nomeEl = document.getElementById('ing-nome-' + id);
+  const unEl   = document.getElementById('ing-un-' + id);
+  const cuEl   = document.getElementById('ing-cu-' + id);
+  const lnkEl  = document.getElementById('lnk-' + id);
+  // A unidade da linha NÃO muda ao vincular — só o preço passa a vir do catálogo,
+  // já convertido pra unidade que a ficha já estava usando (g/kg ou ml/L).
+  const unAtual = unEl ? unEl.value : 'g';
+  if (nomeEl) { nomeEl.value = produto.nome; nomeEl.readOnly = true; }
+  if (cuEl)   { cuEl.value = custoParaUnidade(produto, unAtual); cuEl.readOnly = true; cuEl.title = 'Preço vem do catálogo — edite lá pra mudar em todas as fichas que usam este produto'; }
+  if (lnkEl)  { lnkEl.style.color = 'var(--gn)'; lnkEl.style.borderColor = 'var(--gn)'; lnkEl.title = `Vinculado a "${produto.nome}" do catálogo — clique pra desvincular`; }
+  updatePL(id);
+  calc();
+  closeMo('mo-produto-picker');
+  toast(`Vinculado a "${produto.nome}" — o preço agora acompanha o catálogo.`, 'ok');
+}
+
+function abrirCriarProdutoRapido() {
+  document.getElementById('picker-novo-box').style.display = '';
+  document.getElementById('picker-novo-unidade').innerHTML = UNITS.map(u => `<option value="${u}">${u}</option>`).join('');
+  setTimeout(() => document.getElementById('picker-novo-preco').focus(), 50);
+}
+
+function salvarProdutoRapido() {
+  const nome = (document.getElementById('picker-novo-nome').value || '').trim();
+  const unidade = document.getElementById('picker-novo-unidade').value;
+  const preco = parseFloat(document.getElementById('picker-novo-preco').value) || 0;
+  if (!nome) { toast('Digite o nome do produto.', 'err'); return; }
+  if (preco <= 0) { toast('Informe um preço maior que zero.', 'err'); return; }
+  const produtos = getProdutos();
+  const novo = {
+    id: 'PRD-' + Date.now(),
+    nome, categoria: '', unidade, preco, fornecedor: '', obs: '',
+    clienteId: ACTIVE_CLIENTE ? ACTIVE_CLIENTE.id : null,
+    clienteNome: ACTIVE_CLIENTE ? ACTIVE_CLIENTE.nome : null,
+    criadoEm: new Date().toISOString(), atualizadoEm: new Date().toISOString()
+  };
+  produtos.push(novo);
+  localStorage.setItem('rios_produtos', JSON.stringify(produtos));
+  fetch('/api/backup', { method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ versao:'1.0', exportado_em: new Date().toISOString(), produtos }) }).catch(()=>{});
+  selecionarProdutoParaLinha(novo.id);
 }
 
 function updateCustoByUnit(id) {
@@ -834,11 +975,36 @@ function getSteps() {
 // ── Cálculo Principal ─────────────────────────────────────────────────────────
 function calc() {
   let totalIng = 0;
+  const produtosAtuais = getProdutos();
   document.querySelectorAll('#ing-body tr').forEach(row => {
     const id = row.id.replace('ing-','');
     const pb = parseFloat((document.getElementById('ing-pb-' + id) || {}).value) || 0;
-    const un = (document.getElementById('ing-un-' + id) || {}).value || 'g';
-    const cu = parseFloat((document.getElementById('ing-cu-' + id) || {}).value) || 0;
+    let   un = (document.getElementById('ing-un-' + id) || {}).value || 'g';
+    let   cu = parseFloat((document.getElementById('ing-cu-' + id) || {}).value) || 0;
+    // Vínculo vivo: se a linha aponta pra um produto do catálogo, o preço vem sempre do
+    // catálogo agora (convertido pra unidade que a linha já está usando) — a unidade em
+    // si continua sendo escolha da ficha, nunca é sobrescrita pelo vínculo.
+    const pid = row.dataset.produtoId;
+    if (pid) {
+      const prod = produtosAtuais.find(p => p.id === pid);
+      if (prod) {
+        cu = custoParaUnidade(prod, un);
+        const cuEl = document.getElementById('ing-cu-' + id);
+        if (cuEl && parseFloat(cuEl.value) !== cu) cuEl.value = cu;
+      } else {
+        // Produto foi excluído do catálogo desde que a ficha foi carregada — desvincula
+        // suavemente (mantém o último preço em tela, editável) em vez de quebrar o cálculo.
+        delete row.dataset.produtoId;
+        const nomeEl = document.getElementById('ing-nome-' + id);
+        const unEl2  = document.getElementById('ing-un-' + id);
+        const cuEl2  = document.getElementById('ing-cu-' + id);
+        const lnkEl  = document.getElementById('lnk-' + id);
+        if (nomeEl) nomeEl.readOnly = false;
+        if (unEl2)  unEl2.disabled = false;
+        if (cuEl2)  { cuEl2.readOnly = false; cuEl2.title = ''; }
+        if (lnkEl)  { lnkEl.style.color = 'var(--yl)'; lnkEl.style.borderColor = 'var(--yl)'; lnkEl.title = 'Produto vinculado foi removido do catálogo — usando o último preço conhecido. Clique pra vincular de novo.'; }
+      }
+    }
     const total = calcIngTotal(pb, un, cu);
     const ttEl = document.getElementById('ing-tt-' + id);
     if (ttEl) ttEl.textContent = fmtR(total);
@@ -958,7 +1124,8 @@ function collectForm() {
       pb:    (document.getElementById('ing-pb-' + id)   || {}).value || '',
       un:    (document.getElementById('ing-un-' + id)   || {}).value || 'g',
       fc:    (document.getElementById('ing-fc-' + id)   || {}).value || '1.000',
-      custo: (document.getElementById('ing-cu-' + id)   || {}).value || ''
+      custo: (document.getElementById('ing-cu-' + id)   || {}).value || '',
+      produtoId: row.dataset.produtoId || null
     });
   });
 
@@ -1076,7 +1243,7 @@ function loadFicha(idx) {
 
   // Ingredientes
   document.getElementById('ing-body').innerHTML = '';
-  (f.ings || []).forEach(ing => addIng(ing.nome, ing.pb, ing.un, ing.fc, ing.custo));
+  (f.ings || []).forEach(ing => addIng(ing.nome, ing.pb, ing.un, ing.fc, ing.custo, ing.produtoId || null));
 
   // Passos
   document.getElementById('step-list').innerHTML = '';
@@ -2161,6 +2328,33 @@ window.onload = function() {
 
     <div class="moa" style="margin-top:14px">
       <button class="btn bg_" onclick="closeMo('mo-backup')">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Vincular Produto do Catálogo -->
+<div class="mo" id="mo-produto-picker">
+  <div class="mob" style="max-width:520px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <h2>&#128279; Vincular Produto do Catálogo</h2>
+      <button class="bic" onclick="closeMo('mo-produto-picker')">✕ Fechar</button>
+    </div>
+    <p style="font-size:11px;color:var(--sb);margin-bottom:10px">Ao vincular, o preço deste ingrediente passa a vir do catálogo automaticamente — atualizar lá atualiza esta e todas as outras fichas que usam o mesmo produto.</p>
+    <input id="picker-busca" placeholder="Buscar produto pelo nome..." oninput="renderPickerLista(this.value)" style="margin-bottom:10px">
+    <div id="picker-lista" style="max-height:260px;overflow-y:auto;margin-bottom:10px"></div>
+    <div style="display:flex;justify-content:center;margin-bottom:4px">
+      <button class="btn bg_" onclick="abrirCriarProdutoRapido()">&#43; Não encontrei — cadastrar novo produto</button>
+    </div>
+    <div id="picker-novo-box" style="display:none;background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:12px;margin-top:10px">
+      <div class="g3">
+        <div class="fg full"><label>Nome do Produto</label><input id="picker-novo-nome" placeholder="Ex: Farinha de Trigo"></div>
+        <div class="fg"><label>Unidade</label><select id="picker-novo-unidade"></select></div>
+        <div class="fg"><label>Preço (R$)</label><input id="picker-novo-preco" type="number" min="0" step="0.01" placeholder="0.00"></div>
+      </div>
+      <div class="moa" style="margin-top:10px;justify-content:flex-start">
+        <button class="btn bp" onclick="salvarProdutoRapido()">&#128190; Salvar e Vincular</button>
+      </div>
+      <div style="font-size:10px;color:var(--sb);margin-top:6px">Cadastro rápido — pra completar categoria/fornecedor/observações depois, use a tela de <a href="/produtos" style="color:var(--bl)">Produtos</a>.</div>
     </div>
   </div>
 </div>
