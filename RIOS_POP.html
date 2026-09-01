@@ -201,6 +201,33 @@ select option{background:var(--cd)}
   </div>
 </div>
 
+<!-- Modal: Importar POP via Word -->
+<div class="mo" id="mo-import-pop">
+  <div class="mob" style="max-width:680px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <h2>📥 Importar POP de um Word</h2>
+      <button class="bic" onclick="closeMo('mo-import-pop')">✕ Fechar</button>
+    </div>
+
+    <div id="import-pop-step-upload">
+      <p style="font-size:12px;color:var(--sb);margin-bottom:10px">Envie um documento Word (.docx) de um POP já pronto, no mesmo padrão usado pelo sistema (cabeçalho institucional, histórico de revisão, tabelas de Materiais/PCC/Indicadores, etapas numeradas). A IA lê o documento e preenche os campos automaticamente. O que não estiver claro no documento fica marcado como <strong>"a confirmar"</strong> — nada é inventado.</p>
+      <div class="fg" style="margin-bottom:6px">
+        <label>Arquivo Word (.docx)</label>
+        <input type="file" id="import-pop-file" accept=".docx">
+      </div>
+      <div class="moa" style="margin-top:14px">
+        <button class="btn bp" onclick="importarPopIA()">🧠 Analisar com IA</button>
+        <button class="btn bg_" onclick="closeMo('mo-import-pop')">Cancelar</button>
+      </div>
+    </div>
+
+    <div id="import-pop-step-review" style="display:none">
+      <div id="import-pop-review-body"></div>
+      <div class="moa" id="import-pop-review-actions" style="margin-top:14px"></div>
+    </div>
+  </div>
+</div>
+
 <!-- Modal: confirmação -->
 <div class="mo" id="mo-confirm">
   <div class="mob" style="max-width:400px">
@@ -222,6 +249,7 @@ select option{background:var(--cd)}
   <div class="tr">
     <span class="tag" id="cliente-tag" style="color:var(--pu);border-color:var(--pu)" title="Empresa/cliente ativo — troque na Home">&#127970; &mdash;</span>
     <a class="bic" href="/configuracoes" style="text-decoration:none" title="Logo e cor padrão do sistema, usadas em todos os relatórios">⚙️ Configurações</a>
+    <button class="bic" onclick="openImportPopModal()" title="Enviar um POP em Word já pronto e preencher o formulário automaticamente com a IA">📥 Importar POP</button>
     <button class="bic" onclick="openBrandingModal()" title="Logo e cor institucional só para este cliente, usadas no Word gerado">🎨 Papel Timbrado</button>
     <span class="tag" id="ai-tag">● IA Offline</span>
   </div>
@@ -638,14 +666,18 @@ function preencherForm(p){
   updateFlowPreview();
 }
 
+function clearFormFields(){
+  editingId = null;
+  ['f-titulo','f-codigo','f-objetivo','f-aplicacao','f-referencias','f-frequencia','f-registros','f-obs'].forEach(id=>setv(id,''));
+  setv('f-status','rascunho'); setv('f-versao','1.0'); setv('f-setor','Cozinha');
+  setv('f-cliente', ACTIVE_CLIENTE ? ACTIVE_CLIENTE.nome : '');
+  ['rev-body','def-body','resp-body','etapas-body','pcc-body','mat-body','ind-body'].forEach(id=>document.getElementById(id).innerHTML='');
+  document.getElementById('ia-parecer-wrap').innerHTML = '';
+}
+
 function limparForm(){
   confirmAction('Limpar formulário?', 'Todos os campos não salvos serão perdidos.', ()=>{
-    editingId = null;
-    ['f-titulo','f-codigo','f-objetivo','f-aplicacao','f-referencias','f-frequencia','f-registros','f-obs'].forEach(id=>setv(id,''));
-    setv('f-status','rascunho'); setv('f-versao','1.0'); setv('f-setor','Cozinha');
-    setv('f-cliente', ACTIVE_CLIENTE ? ACTIVE_CLIENTE.nome : '');
-    ['rev-body','def-body','resp-body','etapas-body','pcc-body','mat-body','ind-body'].forEach(id=>document.getElementById(id).innerHTML='');
-    document.getElementById('ia-parecer-wrap').innerHTML = '';
+    clearFormFields();
     addRevisao('Revisão Inicial','','',today());
     updateFlowPreview();
     toast('Formulário limpo.','ok');
@@ -996,6 +1028,169 @@ function gerarWordFormAtual(){
 function gerarWordPop(id){
   const p = pops.find(x=>x.id===id); if (!p) return;
   gerarWordDe(p);
+}
+
+// ── Importar POP (Word .docx -> POP estruturado, via IA) ─────────────────
+const SETORES_VALIDOS = ['Cozinha','Recebimento / Compras','Estoque','Atendimento / Salão','Higiene / BPM','RH / Financeiro','Delivery','Outro'];
+
+function openImportPopModal(){
+  document.getElementById('import-pop-step-upload').style.display = '';
+  document.getElementById('import-pop-step-review').style.display = 'none';
+  document.getElementById('import-pop-file').value = '';
+  window._importPopData = null;
+  openMo('mo-import-pop');
+}
+
+function readFileAsBase64(file){
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+async function importarPopIA(){
+  const input = document.getElementById('import-pop-file');
+  const file = input.files && input.files[0];
+  if (!file){ toast('Selecione um arquivo .docx antes de continuar.', 'err'); return; }
+  if (!/\.docx$/i.test(file.name)){ toast('Envie um arquivo .docx (Word).', 'err'); return; }
+
+  showLoad('📥 Lendo o documento...', 'Claude está estruturando o POP a partir do Word');
+  try {
+    const docxBase64 = await readFileAsBase64(file);
+    const resp = await fetch('/api/pop/importar_docx', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ docxBase64 })
+    });
+    const result = await resp.json();
+    if (!resp.ok || result.error) throw new Error(result.error || 'Erro desconhecido');
+    if (!result.success) throw new Error(result.error || 'Resposta inválida da IA');
+
+    hideLoad();
+    window._importPopData = result.data;
+    renderImportPopReview(result.data);
+  } catch(e) {
+    hideLoad();
+    toast('Erro ao importar: ' + e.message, 'err');
+  }
+}
+
+function renderImportPopReview(p){
+  document.getElementById('import-pop-step-upload').style.display = 'none';
+  document.getElementById('import-pop-step-review').style.display = '';
+
+  const pend = p.pendencias || [];
+  const nEtapas = (p.etapas||[]).length, nMat = (p.materiais||[]).length, nPcc = (p.pcc||[]).length;
+
+  const pendHtml = pend.length ? `
+    <div style="margin-top:10px;display:flex;flex-direction:column;gap:6px">
+      ${pend.map((pd, pi) => `
+        <div id="pop-pend-${pi}" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;background:rgba(255,193,7,.08);border:1px solid rgba(255,193,7,.25);border-radius:7px;padding:6px 9px">
+          <div style="font-size:11px;line-height:1.5;flex:1;min-width:180px"><strong>${esc(pd.campo || 'campo')}:</strong> ${esc(pd.descricao || 'a confirmar')}</div>
+          <button class="btn" style="font-size:10px;padding:3px 9px;background:var(--bl20);white-space:nowrap;flex-shrink:0" onclick="estimarPendenciaPop(${pi},this)">✨ Estimar c/ IA</button>
+        </div>
+      `).join('')}
+    </div>` : '';
+
+  document.getElementById('import-pop-review-body').innerHTML = `
+    <div style="background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:12px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
+        <div>
+          <div style="font-weight:800;font-size:14px">${esc(p.titulo || '(sem título — verifique o documento original)')}</div>
+          <div style="font-size:11px;color:var(--sb);margin-top:2px">${esc(p.codigo || '—')} · ${esc(p.setor || '—')} · ${nEtapas} etapa${nEtapas!==1?'s':''} · ${nMat} item${nMat!==1?'ns':''} de materiais · ${nPcc} PCC</div>
+        </div>
+        ${pend.length
+          ? `<span style="font-size:10px;font-weight:800;color:var(--yl);border:1px solid var(--yl);border-radius:6px;padding:2px 8px;white-space:nowrap">⚠ ${pend.length} a confirmar</span>`
+          : `<span style="font-size:10px;font-weight:800;color:var(--gn);border:1px solid var(--gn);border-radius:6px;padding:2px 8px;white-space:nowrap">✓ completo</span>`}
+      </div>
+      ${pendHtml}
+    </div>
+    <p style="font-size:11px;color:var(--sb);margin-top:10px">Itens marcados "a confirmar" não foram inventados pela IA — revise manualmente ou peça uma estimativa antes de aplicar.</p>`;
+
+  document.getElementById('import-pop-review-actions').innerHTML = `
+    <button class="btn bp" onclick="aplicarImportPop()">✓ Preencher Formulário</button>
+    <button class="btn bg_" onclick="closeMo('mo-import-pop')">Cancelar</button>`;
+}
+
+async function estimarPendenciaPop(pIdx, btnEl){
+  const p = window._importPopData;
+  const pd = p && p.pendencias && p.pendencias[pIdx];
+  if (!pd) return;
+  const original = btnEl.textContent;
+  btnEl.textContent = '...'; btnEl.disabled = true;
+  try {
+    const pop_contexto = `POP: ${p.titulo || '?'} · Setor: ${p.setor || '?'} · Código: ${p.codigo || '?'}`;
+    const resp = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ task: 'estimar_pendencia_pop', context: { campo: pd.campo, descricao: pd.descricao, pop_contexto } })
+    });
+    const result = await resp.json();
+    if (!resp.ok || result.error || !result.success) throw new Error(result.error || 'Erro ao estimar');
+    const val  = result.data.valor_estimado || '';
+    const just = result.data.justificativa  || '';
+    pd.valorEstimado = val;
+    pd.justificativaEstimativa = just;
+    const container = document.getElementById(`pop-pend-${pIdx}`);
+    if (container) container.insertAdjacentHTML('beforeend',
+      `<div style="width:100%;font-size:11px;background:rgba(43,143,255,.08);border-left:2px solid var(--bl);border-radius:5px;padding:5px 8px">✨ Estimativa da IA: <strong>${esc(val)}</strong> — ${esc(just)}</div>`);
+    btnEl.remove();
+  } catch(e) {
+    toast('Erro ao estimar: ' + e.message, 'err');
+    btnEl.textContent = original; btnEl.disabled = false;
+  }
+}
+
+function pendObsTextPop(p){
+  const pend = p.pendencias || [];
+  if (!pend.length) return '';
+  const linhas = pend.map(pd => {
+    let linha = `⚠ A CONFIRMAR — ${pd.campo || 'campo'}: ${pd.descricao || ''}`;
+    if (pd.valorEstimado) linha += ` [Estimativa IA: ${pd.valorEstimado} — ${pd.justificativaEstimativa || ''}]`;
+    return linha;
+  }).join('\n');
+  return '── Importado de Word via IA em ' + today() + ' ──\n' + linhas;
+}
+
+function aplicarImportPop(){
+  const p = window._importPopData;
+  if (!p) return;
+
+  const proceed = () => {
+    clearFormFields();
+    setv('f-titulo', p.titulo); setv('f-codigo', p.codigo || nextCodigo());
+    if (p.setor && SETORES_VALIDOS.includes(p.setor)) setv('f-setor', p.setor);
+    if (p.versao) setv('f-versao', p.versao);
+    setv('f-objetivo', p.objetivo); setv('f-aplicacao', p.aplicacao);
+    setv('f-referencias', (p.referencias||[]).join('\n'));
+    setv('f-frequencia', p.frequencia);
+    setv('f-registros', (p.registros||[]).join('\n'));
+    const pendTxt = pendObsTextPop(p);
+    setv('f-obs', [p.obs, pendTxt].filter(Boolean).join('\n\n'));
+
+    (p.revisoes && p.revisoes.length ? p.revisoes : [{descricao:'Revisão Inicial', data:today()}])
+      .forEach(r=>addRevisao(r.descricao,r.revisadoPor,r.aprovadoPor,r.data||today()));
+    (p.definicoes||[]).forEach(d=>addDefinicao(d.termo,d.definicao));
+    (p.responsaveis||[]).forEach(r=>addResponsavel(r.papel,r.tarefas));
+    (p.etapas && p.etapas.length ? p.etapas : [{}]).forEach(e=>addEtapa(e.titulo,e.destaque,e.itens));
+    (p.materiais && p.materiais.length ? p.materiais : [{}]).forEach(m=>addMaterial(m.grupo,m.item,m.obs));
+    (p.pcc||[]).forEach(pc=>addPcc(pc.etapa,pc.risco,pc.controle,pc.responsavel));
+    (p.indicadores && p.indicadores.length ? p.indicadores : [{}]).forEach(i=>addIndicador(i.controle,i.criterio));
+
+    updateFlowPreview();
+    closeMo('mo-import-pop');
+    showTab('novo');
+    toast('Formulário preenchido a partir do Word importado!' + ((p.pendencias||[]).length ? ' Confira os itens "a confirmar" nas Observações.' : ''), 'ok');
+  };
+
+  const hasContent = v('f-titulo').trim() || document.querySelectorAll('#etapas-body .etapa-card').length > 1;
+  if (hasContent){
+    confirmAction('Substituir o formulário atual?', 'Os dados não salvos do formulário atual serão substituídos pelo conteúdo importado.', proceed);
+  } else {
+    proceed();
+  }
 }
 
 // ── Init ─────────────────────────────────────────────────────────────────

@@ -1,5 +1,5 @@
 """
-RIOS v1.14.0 - Restaurant Intelligence OS
+RIOS v1.15.0 - Restaurant Intelligence OS
 """
 import json, re, os, sys, glob, base64, tempfile, shutil
 from datetime import datetime
@@ -30,6 +30,7 @@ except ImportError:
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from rios_pop_docx import build_pop_docx, docx_filename  # noqa: E402
+from rios_pop_import import extract_docx_outline  # noqa: E402
 
 try:
     from dotenv import load_dotenv
@@ -71,6 +72,8 @@ TASK_MODELS = {
     "importar_receita":  "claude-sonnet-4-6",
     "estimar_pendencia": "claude-haiku-4-5-20251001",
     "buffet_analise":    "claude-sonnet-4-6",
+    "importar_pop":            "claude-sonnet-4-6",
+    "estimar_pendencia_pop":   "claude-haiku-4-5-20251001",
     "default":    "claude-sonnet-4-6",
 }
 
@@ -140,6 +143,71 @@ ESTIMAR_PENDENCIA_SYSTEM = (
     "importada de uma receita e pediu para voce estimar, com sua experiencia profissional, um valor razoavel "
     "para um dado especifico que a receita original nao deixou claro. De sua melhor estimativa profissional, "
     "curta e objetiva, e deixe explicito que e uma ESTIMATIVA — nao um dado confirmado pela receita original.\n\n"
+    'Retorne SOMENTE JSON: {"valor_estimado":"...","justificativa":"..."}'
+)
+
+IMPORT_POP_SYSTEM = (
+    "Voce e o Chef Marco A Souza, chef e consultor gastronomico especializado em Procedimentos "
+    "Operacionais Padronizados (POP) para cozinhas profissionais e food service. Voce recebe o "
+    "conteudo bruto extraido de um documento Word (.docx) de um POP — texto de paragrafos e "
+    "conteudo de tabelas, na ordem em que aparecem no documento, incluindo o cabecalho institucional "
+    "(que repete titulo/codigo/revisao/data em toda pagina). O documento normalmente segue esta "
+    "estrutura, numerada de 1 a 11 (os nomes das secoes podem variar levemente):\n\n"
+    "- Cabecalho: nome do sistema/empresa, titulo do POP, codigo, numero de revisao, data.\n"
+    "- Tabela \"Historico de Revisao\" (colunas: Revisao, Descricao, Revisado por, Aprovado por, Data), "
+    "no inicio do documento.\n"
+    "- 1. Objetivo — texto livre.\n"
+    "- 2. Campo de aplicacao — texto livre.\n"
+    "- 3. Referencias — lista.\n"
+    "- 4. Definicoes — lista de termo: definicao.\n"
+    "- 5. Responsabilidades — tabela (Funcao, Responsabilidade).\n"
+    "- 6. Materiais, utensilios, equipamentos e EPIs — tabela (Grupo, Item/quantidade, Observacao).\n"
+    "- 7. Descricao do procedimento — etapas numeradas (ex: \"7.1 Recebimento:\"), cada uma com uma "
+    "lista de itens/passos logo abaixo (as vezes no mesmo paragrafo, as vezes em linhas seguintes). "
+    "Pode conter marcacoes de destaque como \"[PONTO CRITICO]\", \"[REGRA PRINCIPAL]\" ou \"[PCC "
+    "FINANCEIRO]\" junto ao titulo da etapa, ou frases equivalentes (\"ponto critico\", \"atencao "
+    "maxima\", \"regra principal\") — se encontrar isso, classifique o campo destaque da etapa como "
+    "\"critico\", \"regra\" ou \"financeiro\" respectivamente; senao deixe destaque como \"\".\n"
+    "- 8. Pontos criticos de controle (PCC) — tabela (Etapa, Risco/desvio, Medida de controle, "
+    "Responsavel).\n"
+    "- 9. Registros obrigatorios — lista.\n"
+    "- 10. Indicadores, rendimento e criterios de aceitacao — tabela (Controle, Criterio).\n"
+    "- 11. Fluxo do processo — repete as mesmas etapas da secao 7 em formato de caixas ligadas por "
+    "setas; NAO precisa ser extraido separadamente, ja esta coberto pelas etapas da secao 7.\n\n"
+    "REGRA CRITICA — nunca invente dado: extraia apenas o que esta escrito no documento. Nunca crie "
+    "conteudo nem complete lacunas com achismo profissional. Quando um campo esperado nao aparecer no "
+    "documento ou estiver ambiguo, deixe-o vazio (\"\" ou [] conforme o tipo) e registre uma pendencia "
+    "em \"pendencias\" explicando o que nao foi encontrado ou o que ficou ambiguo. Isso vale inclusive "
+    "para o campo \"setor\": se nao conseguir identificar o setor com confianca a partir do conteudo, "
+    "escolha a opcao mais provavel da lista permitida MAS registre uma pendencia avisando que foi uma "
+    "inferencia, nao um dado explicito do documento.\n\n"
+    "Setores validos para o campo \"setor\" (escolha exatamente um destes textos): \"Cozinha\", "
+    "\"Recebimento / Compras\", \"Estoque\", \"Atendimento / Salao\", \"Higiene / BPM\", "
+    "\"RH / Financeiro\", \"Delivery\", \"Outro\".\n\n"
+    "Na tabela de Responsabilidades, se a celula \"Responsabilidade\" tiver multiplos itens separados "
+    "por \";\", virgula ou quebra de linha, divida em varias entradas na lista \"tarefas\" daquele papel.\n\n"
+    "Retorne SOMENTE JSON no formato exato: "
+    '{"titulo":"...","codigo":"...","setor":"...","versao":"...",'
+    '"revisoes":[{"descricao":"...","revisadoPor":"...","aprovadoPor":"...","data":"AAAA-MM-DD ou vazio"}],'
+    '"objetivo":"...","aplicacao":"...","referencias":["..."],'
+    '"materiais":[{"grupo":"...","item":"...","obs":"..."}],'
+    '"definicoes":[{"termo":"...","definicao":"..."}],'
+    '"responsaveis":[{"papel":"...","tarefas":["..."]}],'
+    '"frequencia":"...",'
+    '"etapas":[{"titulo":"...","destaque":"","itens":["..."]}],'
+    '"pcc":[{"etapa":"...","risco":"...","controle":"...","responsavel":"..."}],'
+    '"registros":["..."],'
+    '"indicadores":[{"controle":"...","criterio":"..."}],'
+    '"obs":"...",'
+    '"pendencias":[{"campo":"...","descricao":"..."}]}'
+)
+
+ESTIMAR_PENDENCIA_POP_SYSTEM = (
+    "Voce e o Chef Marco A Souza, chef e consultor gastronomico. O usuario esta preenchendo um POP "
+    "(Procedimento Operacional Padrao) importado de um documento Word e pediu para voce estimar, com "
+    "sua experiencia profissional em cozinhas e food service, um valor razoavel para um dado especifico "
+    "que o documento original nao deixou claro. De sua melhor estimativa profissional, curta e "
+    "objetiva, e deixe explicito que e uma ESTIMATIVA — nao um dado confirmado pelo documento original.\n\n"
     'Retorne SOMENTE JSON: {"valor_estimado":"...","justificativa":"..."}'
 )
 
@@ -293,7 +361,7 @@ def configuracoes_page():
 @app.route("/api/status")
 def api_status():
     key_ok = bool(API_KEY and API_KEY.startswith("sk-ant"))
-    return jsonify({"status":"ok","version":"1.14.0","key_configured":key_ok,"ai_provider":AI_PROVIDER,
+    return jsonify({"status":"ok","version":"1.15.0","key_configured":key_ok,"ai_provider":AI_PROVIDER,
                      "database_configured": bool(DATABASE_URL)})
 
 @app.route("/api/pop/docx", methods=["POST"])
@@ -334,6 +402,62 @@ def pop_docx_route():
                           mimetype="application/vnd.openxmlformats-officedocument.wordprocessingml.document")
     except Exception as e:
         return jsonify({"error": f"Falha ao gerar Word: {e}"}), 500
+
+@app.route("/api/pop/importar_docx", methods=["POST"])
+def pop_importar_docx():
+    """Recebe um .docx de POP (base64), extrai o conteúdo bruto (parágrafos +
+    tabelas, sem interpretar nada — ver rios_pop_import.py) e manda pra IA
+    mapear nos campos do formulário de POP, seguindo a mesma regra de
+    honestidade do Importar Receita: nada é inventado, o que não estiver
+    claro no documento vira pendência."""
+    tmp_dir = None
+    try:
+        if not API_KEY:
+            return jsonify({"error": "API Key ausente"}), 401
+        data = request.json or {}
+        b64 = data.get("docxBase64") or ""
+        if not b64:
+            return jsonify({"error": "Envie um arquivo .docx antes de importar."}), 400
+        if not check_upload_size(b64):
+            return jsonify({"error": "Arquivo muito grande (limite 10MB)."}), 413
+
+        header, b64data = b64.split(",", 1) if "," in b64 else ("", b64)
+        try:
+            raw = base64.b64decode(b64data)
+        except Exception:
+            return jsonify({"error": "Arquivo inválido — não foi possível decodificar."}), 400
+
+        tmp_dir = tempfile.mkdtemp(prefix="rios_pop_import_")
+        in_path = os.path.join(tmp_dir, "_import.docx")
+        with open(in_path, "wb") as fh:
+            fh.write(raw)
+
+        try:
+            outline = extract_docx_outline(in_path)
+        except Exception as e:
+            return jsonify({"error": f"Não consegui ler o arquivo Word — confira se é um .docx válido: {e}"}), 400
+        if not outline.strip():
+            return jsonify({"error": "O documento parece vazio — nenhum texto encontrado."}), 400
+
+        model = TASK_MODELS.get("importar_pop", TASK_MODELS["default"])
+        client = anthropic.Anthropic(api_key=API_KEY)
+        user_msg = (f"CONTEUDO EXTRAIDO DO DOCUMENTO WORD:\n\n{outline}\n\n"
+                    "Mapeie este conteudo para os campos do POP conforme instruido.")
+        resp = client.messages.create(model=model, max_tokens=6144,
+            system=IMPORT_POP_SYSTEM, messages=[{"role": "user", "content": user_msg}])
+        return parse_json(resp.content[0].text, "importar_pop")
+    except anthropic.AuthenticationError:
+        return jsonify({"error": "API Key invalida"}), 401
+    except anthropic.RateLimitError:
+        return jsonify({"error": "Rate limit. Aguarde."}), 429
+    except Exception as e:
+        return jsonify({"error": f"Falha ao importar POP: {e}"}), 500
+    finally:
+        if tmp_dir:
+            try:
+                shutil.rmtree(tmp_dir, ignore_errors=True)
+            except Exception:
+                pass
 
 @app.route("/api/db/status")
 def db_status():
@@ -470,6 +594,16 @@ def chat():
             resp = client.messages.create(model=model, max_tokens=500,
                 system=ESTIMAR_PENDENCIA_SYSTEM, messages=[{"role":"user","content":user_msg}])
             return parse_json(resp.content[0].text, task)
+        if task == "estimar_pendencia_pop":
+            campo    = context.get("campo","")
+            motivo   = context.get("descricao","")
+            popCtx   = context.get("pop_contexto","")
+            user_msg = (f"POP/contexto conhecido:\n{popCtx}\n\n"
+                        f"Campo pendente: {campo}\nMotivo da pendencia: {motivo}\n\n"
+                        "De sua melhor estimativa profissional para este campo.")
+            resp = client.messages.create(model=model, max_tokens=500,
+                system=ESTIMAR_PENDENCIA_POP_SYSTEM, messages=[{"role":"user","content":user_msg}])
+            return parse_json(resp.content[0].text, task)
         if task == "buffet_analise":
             resumo = context.get("resumo","")
             if not resumo:
@@ -593,7 +727,7 @@ def insights_daily():
 
 if __name__ == "__main__":
     print("\n" + "="*56)
-    print("  RIOS v1.14.0 - Restaurant Intelligence OS")
+    print("  RIOS v1.15.0 - Restaurant Intelligence OS")
     print(f"  AI Provider: {AI_PROVIDER.upper()}")
     print("="*56)
     if API_KEY:
@@ -610,6 +744,6 @@ if __name__ == "__main__":
         print(f"  http://{ip}:{PORT}  (Wi-Fi)")
     except Exception:
         print(f"\n  http://localhost:{PORT}")
-    print("\n  / | /fichas | /qc | /historico | /insights | /escala | /pop | /buffet")
+    print("\n  / | /fichas | /qc | /historico | /insights | /escala | /pop | /buffet | /produtos | /configuracoes")
     print("\n  Ctrl+C para encerrar.\n" + "="*56 + "\n")
     app.run(host="0.0.0.0", port=PORT, debug=False)
