@@ -1,5 +1,5 @@
 """
-RIOS v1.12.0 - Restaurant Intelligence OS
+RIOS v1.14.0 - Restaurant Intelligence OS
 """
 import json, re, os, sys, glob, base64, tempfile, shutil
 from datetime import datetime
@@ -286,10 +286,14 @@ def buffet_page():
 def produtos_page():
     return serve_html("RIOS_Produtos.html")
 
+@app.route("/configuracoes")
+def configuracoes_page():
+    return serve_html("RIOS_Config.html")
+
 @app.route("/api/status")
 def api_status():
     key_ok = bool(API_KEY and API_KEY.startswith("sk-ant"))
-    return jsonify({"status":"ok","version":"1.13.0","key_configured":key_ok,"ai_provider":AI_PROVIDER,
+    return jsonify({"status":"ok","version":"1.14.0","key_configured":key_ok,"ai_provider":AI_PROVIDER,
                      "database_configured": bool(DATABASE_URL)})
 
 @app.route("/api/pop/docx", methods=["POST"])
@@ -589,7 +593,7 @@ def insights_daily():
 
 if __name__ == "__main__":
     print("\n" + "="*56)
-    print("  RIOS v1.12.0 - Restaurant Intelligence OS")
+    print("  RIOS v1.14.0 - Restaurant Intelligence OS")
     print(f"  AI Provider: {AI_PROVIDER.upper()}")
     print("="*56)
     if API_KEY:

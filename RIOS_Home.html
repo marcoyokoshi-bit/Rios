@@ -634,6 +634,12 @@ html,body{
         <div class="mod-name">Cadastro de Produtos</div>
         <div class="mod-desc">Preco central dos insumos, vinculado as fichas tecnicas</div>
       </div>
+      <div class="mod-card" style="--card-color:#7a7d9a" onclick="openModule('configuracoes')">
+        <span class="mod-badge badge-new">NOVO</span>
+        <span class="mod-icon">&#9881;</span>
+        <div class="mod-name">Configuracoes</div>
+        <div class="mod-desc">Logo e cor padrao do sistema, usadas em todos os relatorios</div>
+      </div>
     </div>
 
     <div class="slbl">Em Desenvolvimento</div>
@@ -983,7 +989,7 @@ function checkCortex(){
 
 function openModule(mod){
   document.getElementById('user-menu').style.display='none';
-  const URLS={fichas:'/fichas',qc:'/qc',historico:'/historico',insights:'/insights',escala:'/escala',pop:'/pop',buffet:'/buffet',produtos:'/produtos',backup:'/fichas?tab=backup'};
+  const URLS={fichas:'/fichas',qc:'/qc',historico:'/historico',insights:'/insights',escala:'/escala',pop:'/pop',buffet:'/buffet',produtos:'/produtos',configuracoes:'/configuracoes',backup:'/fichas?tab=backup'};
   if(URLS[mod]){addActivity(`Modulo: ${mod}`,new Date().toLocaleTimeString('pt-BR'),'var(--bl)');window.location.href=URLS[mod];}
 }
 

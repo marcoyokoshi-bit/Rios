@@ -183,7 +183,7 @@ select option{background:var(--cd)}
 <div class="mo" id="mo-branding">
   <div class="mob">
     <h2>🎨 Papel Timbrado do Cliente</h2>
-    <p class="sub">Logotipo e cor institucional usados na capa e no cabeçalho do Word gerado para <b id="brand-cliente-nome">—</b>. Sem logo, o documento usa um espaço reservado "LOGOTIPO DO CLIENTE".</p>
+    <p class="sub">Logotipo e cor institucional usados no cabeçalho do Word gerado para <b id="brand-cliente-nome">—</b>. Use isto só quando este cliente precisar de uma marca diferente da padrão do sistema. Sem nada configurado aqui, o Word usa a logo e a cor definidas em <b>⚙️ Configurações</b>.</p>
     <div class="fg" style="margin-bottom:12px">
       <label>Logotipo (PNG, fundo transparente de preferência)</label>
       <input type="file" id="brand-logo-file" accept="image/png,image/jpeg" onchange="onBrandLogoChange(event)">
@@ -221,7 +221,8 @@ select option{background:var(--cd)}
   </div>
   <div class="tr">
     <span class="tag" id="cliente-tag" style="color:var(--pu);border-color:var(--pu)" title="Empresa/cliente ativo — troque na Home">&#127970; &mdash;</span>
-    <button class="bic" onclick="openBrandingModal()" title="Logo e cor institucional do cliente, usados no Word gerado">🎨 Papel Timbrado</button>
+    <a class="bic" href="/configuracoes" style="text-decoration:none" title="Logo e cor padrão do sistema, usadas em todos os relatórios">⚙️ Configurações</a>
+    <button class="bic" onclick="openBrandingModal()" title="Logo e cor institucional só para este cliente, usadas no Word gerado">🎨 Papel Timbrado</button>
     <span class="tag" id="ai-tag">● IA Offline</span>
   </div>
 </div>
@@ -276,15 +277,24 @@ select option{background:var(--cd)}
       <div class="fg"><textarea id="f-aplicacao" placeholder="Setores, áreas e pessoas a que este POP se aplica..." style="min-height:60px"></textarea></div>
     </div>
 
-    <div class="g2">
-      <div class="card">
-        <div class="sec">📚 Referências</div>
-        <div class="fg"><label>Uma por linha</label><textarea id="f-referencias" placeholder="Ex: ISO 22000:2018&#10;Boas Práticas de Manipulação (BPM)" style="min-height:80px"></textarea></div>
+    <div class="card">
+      <div class="sec">📚 Referências</div>
+      <div class="fg"><label>Uma por linha</label><textarea id="f-referencias" placeholder="Ex: ISO 22000:2018&#10;Boas Práticas de Manipulação (BPM)" style="min-height:70px"></textarea></div>
+    </div>
+
+    <div class="card">
+      <div class="sec">🧰 Materiais, Utensílios, Equipamentos e EPIs</div>
+      <div class="itw">
+        <table class="it">
+          <thead><tr><th style="width:22%">Grupo</th><th>Item / quantidade</th><th>Observação</th><th style="width:26px"></th></tr></thead>
+          <tbody id="mat-body"></tbody>
+        </table>
       </div>
-      <div class="card">
-        <div class="sec">🧰 Materiais, Utensílios e EPIs</div>
-        <div class="fg"><label>Um por linha</label><textarea id="f-materiais" placeholder="Ex: Balança calibrada&#10;Luvas, avental, touca" style="min-height:80px"></textarea></div>
-      </div>
+      <datalist id="mat-grupo-sugestoes">
+        <option value="Ingredientes"><option value="Utensílios/equipamentos">
+        <option value="Proteção"><option value="EPI e higiene">
+      </datalist>
+      <div class="br"><button class="btn bo" onclick="addMaterial()">&#43; Adicionar Item</button></div>
     </div>
 
     <div class="card">
@@ -319,22 +329,27 @@ select option{background:var(--cd)}
       <div class="sec">🚨 Pontos Críticos de Controle (PCC)</div>
       <div class="itw">
         <table class="it">
-          <thead><tr><th>Etapa</th><th>Risco</th><th>Controle</th><th style="width:26px"></th></tr></thead>
+          <thead><tr><th>Etapa</th><th>Risco / desvio</th><th>Medida de controle</th><th>Responsável</th><th style="width:26px"></th></tr></thead>
           <tbody id="pcc-body"></tbody>
         </table>
       </div>
       <div class="br"><button class="btn bo" onclick="addPcc()">&#43; Adicionar PCC</button></div>
     </div>
 
-    <div class="g2">
-      <div class="card">
-        <div class="sec">🗂 Registros Obrigatórios <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--sb)">(o que anotar a cada execução)</span></div>
-        <div class="fg"><label>Um por linha</label><textarea id="f-registros" placeholder="Ex: Data e hora&#10;Fornecedor&#10;Peso da NF&#10;Peso real aferido" style="min-height:90px"></textarea></div>
+    <div class="card">
+      <div class="sec">🗂 Registros Obrigatórios <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--sb)">(o que anotar a cada execução)</span></div>
+      <div class="fg"><label>Um por linha</label><textarea id="f-registros" placeholder="Ex: Data e hora&#10;Fornecedor&#10;Peso da NF&#10;Peso real aferido" style="min-height:90px"></textarea></div>
+    </div>
+
+    <div class="card">
+      <div class="sec">📊 Indicadores, Rendimento e Critérios de Aceitação</div>
+      <div class="itw">
+        <table class="it">
+          <thead><tr><th style="width:30%">Controle</th><th>Critério</th><th style="width:26px"></th></tr></thead>
+          <tbody id="ind-body"></tbody>
+        </table>
       </div>
-      <div class="card">
-        <div class="sec">📊 Indicadores de Gestão</div>
-        <div class="fg"><label>Um por linha</label><textarea id="f-indicadores" placeholder="Ex: Taxa de ruptura (%)&#10;Tempo médio de execução" style="min-height:90px"></textarea></div>
-      </div>
+      <div class="br"><button class="btn bo" onclick="addIndicador()">&#43; Adicionar Indicador</button></div>
     </div>
 
     <div class="card">
@@ -508,15 +523,39 @@ function updateFlowPreview(){
 }
 
 // ── PCC ──────────────────────────────────────────────────────────────────
-function addPcc(etapa='', risco='', controle=''){
+function addPcc(etapa='', risco='', controle='', responsavel=''){
   const id = 'pc'+Date.now()+Math.random().toString(36).slice(2,6);
   const row = `<tr id="${id}">
     <td><input class="pc-etapa" value="${esc(etapa)}" placeholder="Ex: Pesagem"></td>
     <td><input class="pc-risco" value="${esc(risco)}" placeholder="Ex: Perda financeira"></td>
     <td><input class="pc-controle" value="${esc(controle)}" placeholder="Ex: Remoção total do gelo"></td>
+    <td><input class="pc-resp" value="${esc(responsavel)}" placeholder="Ex: Cozinha"></td>
     <td><button class="bd2" onclick="document.getElementById('${id}').remove()">✕</button></td>
   </tr>`;
   document.getElementById('pcc-body').insertAdjacentHTML('beforeend', row);
+}
+
+// ── Materiais, Utensílios e EPIs ─────────────────────────────────────────
+function addMaterial(grupo='', item='', obs=''){
+  const id = 'mt'+Date.now()+Math.random().toString(36).slice(2,6);
+  const row = `<tr id="${id}">
+    <td><input class="mt-grupo" list="mat-grupo-sugestoes" value="${esc(grupo)}" placeholder="Ex: Ingredientes"></td>
+    <td><input class="mt-item" value="${esc(item)}" placeholder="Ex: Farinha de trigo — 500 g"></td>
+    <td><input class="mt-obs" value="${esc(obs)}" placeholder="Opcional"></td>
+    <td><button class="bd2" onclick="document.getElementById('${id}').remove()">✕</button></td>
+  </tr>`;
+  document.getElementById('mat-body').insertAdjacentHTML('beforeend', row);
+}
+
+// ── Indicadores, Rendimento e Critérios de Aceitação ─────────────────────
+function addIndicador(controle='', criterio=''){
+  const id = 'in'+Date.now()+Math.random().toString(36).slice(2,6);
+  const row = `<tr id="${id}">
+    <td><input class="in-controle" value="${esc(controle)}" placeholder="Ex: Textura"></td>
+    <td><input class="in-criterio" value="${esc(criterio)}" placeholder="Ex: Lisa, sem grumos"></td>
+    <td><button class="bd2" onclick="document.getElementById('${id}').remove()">✕</button></td>
+  </tr>`;
+  document.getElementById('ind-body').insertAdjacentHTML('beforeend', row);
 }
 
 // ── Coletar / Preencher formulário ──────────────────────────────────────
@@ -538,8 +577,15 @@ function collectForm(){
     itens: el.querySelector('.et-itens').value.split('\n').map(s=>s.trim()).filter(Boolean)
   })).filter(e=>e.titulo);
   const pcc = [...document.querySelectorAll('#pcc-body tr')].map(tr=>({
-    etapa: tr.querySelector('.pc-etapa').value, risco: tr.querySelector('.pc-risco').value, controle: tr.querySelector('.pc-controle').value
-  })).filter(p=>p.etapa||p.risco||p.controle);
+    etapa: tr.querySelector('.pc-etapa').value, risco: tr.querySelector('.pc-risco').value,
+    controle: tr.querySelector('.pc-controle').value, responsavel: tr.querySelector('.pc-resp').value
+  })).filter(p=>p.etapa||p.risco||p.controle||p.responsavel);
+  const materiais = [...document.querySelectorAll('#mat-body tr')].map(tr=>({
+    grupo: tr.querySelector('.mt-grupo').value, item: tr.querySelector('.mt-item').value, obs: tr.querySelector('.mt-obs').value
+  })).filter(m=>m.grupo||m.item||m.obs);
+  const indicadores = [...document.querySelectorAll('#ind-body tr')].map(tr=>({
+    controle: tr.querySelector('.in-controle').value, criterio: tr.querySelector('.in-criterio').value
+  })).filter(i=>i.controle||i.criterio);
 
   return {
     titulo: v('f-titulo'), codigo: v('f-codigo') || nextCodigo(),
@@ -547,11 +593,22 @@ function collectForm(){
     clienteId: ACTIVE_CLIENTE ? ACTIVE_CLIENTE.id : null,
     setor: v('f-setor'), status: v('f-status'), versao: v('f-versao'),
     revisoes, objetivo: v('f-objetivo'), aplicacao: v('f-aplicacao'),
-    referencias: linesOf('f-referencias'), materiais: linesOf('f-materiais'),
+    referencias: linesOf('f-referencias'), materiais,
     definicoes, responsaveis, frequencia: v('f-frequencia'), etapas, pcc,
-    registros: linesOf('f-registros'), indicadores: linesOf('f-indicadores'),
+    registros: linesOf('f-registros'), indicadores,
     obs: v('f-obs'), atualizadoEm: new Date().toISOString()
   };
+}
+
+// Migra dados antigos (Materiais/Indicadores salvos como lista de texto simples,
+// de POPs criados antes desta versão) para o novo formato em tabela.
+function migrarMaterial(m){
+  if (m && typeof m === 'object') return m;
+  return { grupo: '', item: String(m||''), obs: '' };
+}
+function migrarIndicador(i){
+  if (i && typeof i === 'object') return i;
+  return { controle: '', criterio: String(i||'') };
 }
 
 function preencherForm(p){
@@ -559,10 +616,8 @@ function preencherForm(p){
   setv('f-setor', p.setor); setv('f-status', p.status); setv('f-versao', p.versao);
   setv('f-objetivo', p.objetivo); setv('f-aplicacao', p.aplicacao);
   setv('f-referencias', (p.referencias||[]).join('\n'));
-  setv('f-materiais', (p.materiais||[]).join('\n'));
   setv('f-frequencia', p.frequencia);
   setv('f-registros', (p.registros||[]).join('\n'));
-  setv('f-indicadores', (p.indicadores||[]).join('\n'));
   setv('f-obs', p.obs);
   document.getElementById('rev-body').innerHTML = '';
   (p.revisoes||[]).forEach(r=>addRevisao(r.descricao,r.revisadoPor,r.aprovadoPor,r.data));
@@ -573,7 +628,11 @@ function preencherForm(p){
   document.getElementById('etapas-body').innerHTML = '';
   (p.etapas||[]).forEach(e=>addEtapa(e.titulo,e.destaque,e.itens));
   document.getElementById('pcc-body').innerHTML = '';
-  (p.pcc||[]).forEach(pc=>addPcc(pc.etapa,pc.risco,pc.controle));
+  (p.pcc||[]).forEach(pc=>addPcc(pc.etapa,pc.risco,pc.controle,pc.responsavel));
+  document.getElementById('mat-body').innerHTML = '';
+  (p.materiais||[]).map(migrarMaterial).forEach(m=>addMaterial(m.grupo,m.item,m.obs));
+  document.getElementById('ind-body').innerHTML = '';
+  (p.indicadores||[]).map(migrarIndicador).forEach(i=>addIndicador(i.controle,i.criterio));
   document.getElementById('ia-parecer-wrap').innerHTML = '';
   if (p.parecerIA) renderParecerInline(p.parecerIA);
   updateFlowPreview();
@@ -582,10 +641,10 @@ function preencherForm(p){
 function limparForm(){
   confirmAction('Limpar formulário?', 'Todos os campos não salvos serão perdidos.', ()=>{
     editingId = null;
-    ['f-titulo','f-codigo','f-objetivo','f-aplicacao','f-referencias','f-materiais','f-frequencia','f-registros','f-indicadores','f-obs'].forEach(id=>setv(id,''));
+    ['f-titulo','f-codigo','f-objetivo','f-aplicacao','f-referencias','f-frequencia','f-registros','f-obs'].forEach(id=>setv(id,''));
     setv('f-status','rascunho'); setv('f-versao','1.0'); setv('f-setor','Cozinha');
     setv('f-cliente', ACTIVE_CLIENTE ? ACTIVE_CLIENTE.nome : '');
-    ['rev-body','def-body','resp-body','etapas-body','pcc-body'].forEach(id=>document.getElementById(id).innerHTML='');
+    ['rev-body','def-body','resp-body','etapas-body','pcc-body','mat-body','ind-body'].forEach(id=>document.getElementById(id).innerHTML='');
     document.getElementById('ia-parecer-wrap').innerHTML = '';
     addRevisao('Revisão Inicial','','',today());
     updateFlowPreview();
@@ -680,9 +739,10 @@ function buildPopSummary(f){
   if (f.aplicacao) lines.push(`CAMPO DE APLICAÇÃO: ${f.aplicacao}`);
   if (f.responsaveis?.length) lines.push('RESPONSÁVEIS: ' + f.responsaveis.map(r=>`${r.papel} (${r.tarefas.join('; ')})`).join(' | '));
   if (f.etapas?.length) lines.push('ETAPAS:\n' + f.etapas.map((e,i)=>`${i+1}. ${e.titulo}${e.destaque?' ['+e.destaque.toUpperCase()+']':''}: ${e.itens.join('; ')}`).join('\n'));
-  if (f.pcc?.length) lines.push('PCC:\n' + f.pcc.map(p=>`${p.etapa} — risco: ${p.risco} — controle: ${p.controle}`).join('\n'));
+  if (f.materiais?.length) lines.push('MATERIAIS: ' + f.materiais.map(m=>`${m.grupo?m.grupo+': ':''}${m.item}${m.obs?' ('+m.obs+')':''}`).join('; '));
+  if (f.pcc?.length) lines.push('PCC:\n' + f.pcc.map(p=>`${p.etapa} — risco: ${p.risco} — controle: ${p.controle}${p.responsavel?' — responsável: '+p.responsavel:''}`).join('\n'));
   if (f.registros?.length) lines.push('REGISTROS OBRIGATÓRIOS: ' + f.registros.join(', '));
-  if (f.indicadores?.length) lines.push('INDICADORES: ' + f.indicadores.join(', '));
+  if (f.indicadores?.length) lines.push('INDICADORES: ' + f.indicadores.map(i=>`${i.controle?i.controle+': ':''}${i.criterio}`).join('; '));
   return lines.join('\n');
 }
 
@@ -761,7 +821,9 @@ function renderPrintArea(p){
       <ul>${e.itens.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>
     </div>`;
   }).join('');
-  const pcc = (p.pcc||[]).map(x=>`<tr><td>${esc(x.etapa)}</td><td>${esc(x.risco)}</td><td>${esc(x.controle)}</td></tr>`).join('');
+  const pcc = (p.pcc||[]).map(x=>`<tr><td>${esc(x.etapa)}</td><td>${esc(x.risco)}</td><td>${esc(x.controle)}</td><td>${esc(x.responsavel||'')}</td></tr>`).join('');
+  const materiaisRows = (p.materiais||[]).map(migrarMaterial).map(m=>`<tr><td>${esc(m.grupo)}</td><td>${esc(m.item)}</td><td>${esc(m.obs)}</td></tr>`).join('');
+  const indicadoresRows = (p.indicadores||[]).map(migrarIndicador).map(i=>`<tr><td>${esc(i.controle)}</td><td>${esc(i.criterio)}</td></tr>`).join('');
   const flow = (p.etapas||[]).map((e,i)=>{
     const color = FLOW_COLORS[i % FLOW_COLORS.length];
     const arrow = i < (p.etapas.length-1) ? '<div class="pflow-arrow">↓</div>' : '';
@@ -799,15 +861,17 @@ function renderPrintArea(p){
     ${p.referencias?.length?`<h2>Referências</h2><ul>${p.referencias.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}
     ${p.definicoes?.length?`<h2>Definições</h2><ul>${p.definicoes.map(d=>`<li><b>${esc(d.termo)}:</b> ${esc(d.definicao)}</li>`).join('')}</ul>`:''}
     <h2>Responsáveis</h2><ul>${resp||'<li style="color:#999">—</li>'}</ul>
-    ${p.materiais?.length?`<h2>Materiais, Utensílios e EPIs</h2><ul>${p.materiais.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}
+    ${p.materiais?.length?`<h2>Materiais, Utensílios, Equipamentos e EPIs</h2>
+    <table class="pt"><tr><th>Grupo</th><th>Item / quantidade</th><th>Observação</th></tr>${materiaisRows||'<tr><td colspan="3" style="color:#999">—</td></tr>'}</table>`:''}
     ${p.frequencia?`<h2>Frequência e Horário</h2><p>${esc(p.frequencia)}</p>`:''}
     <h2>Descrição do Processo</h2>${etapas||'<p style="color:#999">—</p>'}
     ${p.etapas?.length?`<h2>Fluxo</h2><div class="pflow">${flow}</div>`:''}
     <h2>Pontos Críticos de Controle (PCC)</h2>
-    <table class="pt"><tr><th>Etapa</th><th>Risco</th><th>Controle</th></tr>${pcc||'<tr><td colspan="3" style="color:#999">—</td></tr>'}</table>
+    <table class="pt"><tr><th>Etapa</th><th>Risco</th><th>Controle</th><th>Responsável</th></tr>${pcc||'<tr><td colspan="4" style="color:#999">—</td></tr>'}</table>
     <div class="ptcap">Tabela de PCC</div>
     ${p.registros?.length?`<h2>Registros Obrigatórios</h2><ul>${p.registros.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}
-    ${p.indicadores?.length?`<h2>Indicadores de Gestão</h2><ul>${p.indicadores.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}
+    ${p.indicadores?.length?`<h2>Indicadores, Rendimento e Critérios de Aceitação</h2>
+    <table class="pt"><tr><th>Controle</th><th>Critério</th></tr>${indicadoresRows||'<tr><td colspan="2" style="color:#999">—</td></tr>'}</table>`:''}
     ${p.obs?`<h2>Observações</h2><p>${esc(p.obs)}</p>`:''}
 
     <div class="psign">
@@ -881,22 +945,32 @@ function saveBranding(){
   closeMo('mo-branding');
 }
 
+// ── Configurações do sistema (logo/cor padrão — módulo dedicado) ────────
+function getSistemaConfig(){
+  try{ return JSON.parse(localStorage.getItem('rios_config_sistema')||'null'); }catch(e){ return null; }
+}
+
 // ── Gerar Word (.docx) — padrão definido no Prompt Mestre ───────────────
 async function gerarWordDe(pop){
   if (!pop.titulo || !pop.titulo.trim()){ toast('Preencha ao menos o título antes de gerar o Word.','err'); return; }
   const branding = ACTIVE_CLIENTE ? getBranding(ACTIVE_CLIENTE.id) : null;
-  if (!branding || !branding.logoBase64){
-    toast('Gerando sem logotipo do cliente — configure em 🎨 Papel Timbrado para um resultado mais profissional.','warn');
+  const sistema = getSistemaConfig();
+  const logoBase64 = (branding && branding.logoBase64) || (sistema && sistema.logoBase64) || null;
+  const corHex = (branding && branding.corHex) || (sistema && sistema.corHex) || null;
+  if (!logoBase64){
+    toast('Gerando sem logotipo — configure em ⚙️ Configurações (padrão do sistema) ou em 🎨 Papel Timbrado (só para este cliente).','warn');
+  } else if (!branding || !branding.logoBase64){
+    toast('Usando a logo padrão do sistema (⚙️ Configurações). Configure 🎨 Papel Timbrado se este cliente precisar de uma marca diferente.','ok');
   }
   const cliente = {
     nome: (ACTIVE_CLIENTE && ACTIVE_CLIENTE.nome) || pop.cliente || 'Cliente',
-    corHex: branding ? branding.corHex : null
+    corHex
   };
-  showLoad('📝 Gerando arquivo Word...', 'Montando capa, cabeçalho, fluxograma e seções do POP');
+  showLoad('📝 Gerando arquivo Word...', 'Montando cabeçalho, tabelas, fluxograma e seções do POP');
   try{
     const resp = await fetch('/api/pop/docx', {
       method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ pop, cliente, logoBase64: branding ? branding.logoBase64 : null })
+      body: JSON.stringify({ pop, cliente, logoBase64 })
     });
     if (!resp.ok){
       const err = await resp.json().catch(()=>({}));
@@ -933,6 +1007,8 @@ window.addEventListener('DOMContentLoaded', ()=>{
   addRevisao('Revisão Inicial','','',today());
   addResponsavel();
   addEtapa();
+  addMaterial();
+  addIndicador();
   updateFlowPreview();
   renderGrid();
 });

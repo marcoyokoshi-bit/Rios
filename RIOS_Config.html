@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RIOS — Configurações</title>
+<style>
+:root{--bg:#0a0a14;--sf:#111120;--cd:#161628;--bd:#222240;--bl:#2b8fff;--bld:#1a5fcc;
+--or:#ff8c00;--ord:#cc6a00;--tx:#e8eaf0;--sb:#7a7d9a;--gn:#27d97e;--rd:#ff4d6a;
+--yl:#ffd93d;--pu:#a855f7}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font-family:"Segoe UI",system-ui,sans-serif;min-height:100vh}
+.topbar{background:var(--sf);border-bottom:1px solid var(--bd);padding:11px 20px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:100}
+.back-home-ft{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.2s;color:rgba(255,255,255,.25);font-size:18px;flex-shrink:0;border:1px solid transparent;text-decoration:none;margin-right:4px}
+.back-home-ft:hover{color:var(--bl);background:rgba(43,143,255,.1);border-color:rgba(43,143,255,.2)}
+.back-home-ft svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.logo{display:flex;align-items:center;gap:10px}
+.lbadge{background:linear-gradient(135deg,var(--bl),var(--or));width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:10px;color:#fff;text-align:center;line-height:1.15}
+.lname{font-size:18px;font-weight:800;letter-spacing:1px}.lname span{color:var(--bl)}
+.lsub{font-size:9px;color:var(--sb);letter-spacing:2px;text-transform:uppercase}
+.tr{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.tag{border:1px solid var(--bd);padding:4px 11px;border-radius:14px;font-size:11px;font-weight:600;background:var(--cd)}
+.bic{background:var(--cd);border:1px solid var(--bd);color:var(--sb);border-radius:7px;padding:6px 12px;cursor:pointer;font-size:11px;display:flex;align-items:center;gap:5px;transition:all .2s;font-weight:600}
+.bic:hover{border-color:var(--bl);color:var(--bl)}
+.main{max-width:760px;margin:0 auto;padding:22px 16px}
+.sec{font-size:10px;font-weight:700;color:var(--bl);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.sec::after{content:"";flex:1;height:1px;background:var(--bd)}
+.card{background:var(--cd);border:1px solid var(--bd);border-radius:13px;padding:18px;margin-bottom:14px}
+.fg{display:flex;flex-direction:column;gap:4px}
+label{font-size:9px;font-weight:700;color:var(--sb);letter-spacing:1px;text-transform:uppercase}
+input,select,textarea{background:var(--sf);border:1px solid var(--bd);border-radius:7px;color:var(--tx);font-size:13px;padding:8px 10px;outline:none;transition:border-color .2s;width:100%;font-family:inherit}
+input:focus,select:focus,textarea:focus{border-color:var(--bl)}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:9px 16px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;border:none;transition:all .2s;letter-spacing:.3px}
+.bp{background:var(--bl);color:#fff}.bp:hover{background:var(--bld)}
+.bg_{background:var(--sf);color:var(--tx);border:1px solid var(--bd)}.bg_:hover{border-color:var(--bl)}
+.brd{background:rgba(255,77,106,.15);color:var(--rd);border:1px solid rgba(255,77,106,.3)}.brd:hover{background:rgba(255,77,106,.25)}
+.br{display:flex;align-items:center;gap:8px;margin-top:14px;flex-wrap:wrap}
+.toast{position:fixed;bottom:22px;right:22px;background:var(--cd);border:1px solid var(--bd);border-radius:10px;padding:11px 16px;font-size:12px;font-weight:600;z-index:9999;display:none;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(0,0,0,.5);max-width:320px}
+.toast.open{display:flex}
+.info{font-size:12px;color:var(--sb);line-height:1.7}
+.logo-preview{display:flex;align-items:center;gap:14px;margin:12px 0;padding:14px;background:var(--sf);border:1px solid var(--bd);border-radius:10px}
+.logo-preview img{max-width:150px;max-height:90px;background:#fff;border-radius:8px;padding:6px}
+.logo-preview .ph{font-size:11px;color:var(--sb)}
+.usolist{font-size:11px;color:var(--sb);line-height:1.9;margin-top:6px}
+.usolist b{color:var(--tx)}
+#neuralBg{position:fixed;inset:0;z-index:0;pointer-events:none}
+</style>
+</head>
+<body>
+<canvas id="neuralBg"></canvas>
+<div class="toast" id="toast"><span id="toast-ic"></span><span id="toast-msg"></span></div>
+
+<div class="topbar">
+  <a class="back-home-ft" href="/" title="Voltar à tela inicial"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></a>
+  <div class="logo">
+    <div class="lbadge">RI<br>OS</div>
+    <div><div class="lname"><span>R</span>IOS</div><div class="lsub">Configurações do Sistema</div></div>
+  </div>
+  <div class="tr">
+    <span class="tag" id="cliente-tag" style="color:var(--pu);border-color:var(--pu)" title="Empresa/cliente ativo — troque na Home">&#127970; &mdash;</span>
+  </div>
+</div>
+
+<div class="main">
+  <div class="card">
+    <div class="sec">⚙️ O que é isto</div>
+    <p class="info">Logotipo e cor institucional <strong>padrão do sistema</strong> — usados em todos os relatórios do RIOS que geram Word/PDF (hoje: o módulo de POP). Configure aqui uma vez e o resultado sai pronto em qualquer relatório, sem precisar repetir o logo módulo por módulo. Se um cliente específico de consultoria precisar de uma marca diferente da sua, use o "🎨 Papel Timbrado" dentro do módulo de POP — ele sobrepõe este padrão só para aquele cliente.</p>
+  </div>
+
+  <div class="card">
+    <div class="sec">🖼️ Logotipo Padrão</div>
+    <div class="fg">
+      <label>Arquivo (PNG, fundo transparente de preferência)</label>
+      <input type="file" id="cfg-logo-file" accept="image/png,image/jpeg" onchange="onLogoChange(event)">
+    </div>
+    <div class="logo-preview" id="logo-preview"></div>
+
+    <div class="fg" style="margin-bottom:6px">
+      <label>Cor institucional</label>
+      <input type="color" id="cfg-color" value="#5e4778" style="height:40px;padding:4px;cursor:pointer">
+    </div>
+
+    <div class="br">
+      <button class="btn brd" onclick="removerLogo()">Remover Logo</button>
+      <button class="btn bp" onclick="salvarConfig()">&#128190; Salvar</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sec">📄 Onde isto é usado</div>
+    <div class="usolist">
+      <div>✓ <b>POP</b> — capa e cabeçalho do Word gerado (quando o cliente ativo não tem um "Papel Timbrado" próprio configurado)</div>
+      <div style="color:var(--sb);opacity:.7">— Futuros relatórios em Word/PDF de outros módulos usarão automaticamente este mesmo padrão.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function getActiveUser(){ try{ return JSON.parse(localStorage.getItem('rios_user')||'null'); }catch(e){ return null; } }
+const ACTIVE_USER = getActiveUser();
+const ACTIVE_CLIENTE = ACTIVE_USER && ACTIVE_USER.cliente ? ACTIVE_USER.cliente : null;
+if (!ACTIVE_CLIENTE){
+  window.location.href = '/';
+}
+
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function toast(msg, type='ok'){
+  const el=document.getElementById('toast');
+  const icons={ok:'✓',err:'✗',warn:'⚠'}; const colors={ok:'var(--gn)',err:'var(--rd)',warn:'var(--yl)'};
+  document.getElementById('toast-ic').textContent = icons[type]||'●';
+  document.getElementById('toast-ic').style.color = colors[type]||'var(--bl)';
+  document.getElementById('toast-msg').textContent = msg;
+  el.classList.add('open'); clearTimeout(window._tt); window._tt=setTimeout(()=>el.classList.remove('open'),3500);
+}
+
+function getConfig(){
+  try{ return JSON.parse(localStorage.getItem('rios_config_sistema')||'null'); }catch(e){ return null; }
+}
+function saveConfigMap(cfg){ localStorage.setItem('rios_config_sistema', JSON.stringify(cfg)); }
+
+let _logoB64 = null;
+
+function renderPreview(){
+  const el = document.getElementById('logo-preview');
+  if (_logoB64){
+    el.innerHTML = `<img src="${_logoB64}"><span class="ph">Logo configurado — usado como padrão em todos os relatórios.</span>`;
+  } else {
+    el.innerHTML = `<span class="ph">Nenhum logo configurado ainda — os relatórios usarão um espaço reservado "LOGOTIPO DO CLIENTE" até você definir um aqui.</span>`;
+  }
+}
+
+function onLogoChange(ev){
+  const file = ev.target.files && ev.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => { _logoB64 = reader.result; renderPreview(); };
+  reader.readAsDataURL(file);
+}
+
+function removerLogo(){
+  _logoB64 = null;
+  renderPreview();
+  toast('Logo removido deste rascunho — clique em Salvar para confirmar.','warn');
+}
+
+function salvarConfig(){
+  const corHex = (document.getElementById('cfg-color').value||'#5e4778').replace('#','');
+  saveConfigMap({ logoBase64: _logoB64 || null, corHex, atualizadoEm: new Date().toISOString() });
+  toast('Configurações salvas — já valem para todos os relatórios do sistema.','ok');
+}
+
+window.onload = function(){
+  const ct = document.getElementById('cliente-tag');
+  if (ct && ACTIVE_CLIENTE) ct.innerHTML = '&#127970; ' + esc(ACTIVE_CLIENTE.nome);
+  const cfg = getConfig();
+  _logoB64 = cfg ? cfg.logoBase64 : null;
+  document.getElementById('cfg-color').value = (cfg && cfg.corHex) ? ('#'+cfg.corHex.replace('#','')) : '#5e4778';
+  renderPreview();
+};
+
+// ── Ambient Neural Background (mesmo padrão dos outros módulos) ─────────────
+(function(){
+  const cv=document.getElementById('neuralBg'); if(!cv) return;
+  const cx=cv.getContext('2d');
+  let W,H,nd=[],cn=[],tm=0;
+  function resize(){
+    W=cv.width=window.innerWidth; H=cv.height=window.innerHeight;
+    nd=Array.from({length:40},()=>({x:Math.random()*W, y:Math.random()*H, vx:(Math.random()-.5)*.18, vy:(Math.random()-.5)*.14}));
+  }
+  window.addEventListener('resize', resize); resize();
+  function spawn(){
+    if(nd.length<2) return;
+    const a=nd[Math.floor(Math.random()*nd.length)];
+    const b=nd[Math.floor(Math.random()*nd.length)];
+    if(a===b) return;
+    cn.push({a,b,p:0,s:0.01+Math.random()*0.02,w:Math.random()<0.5});
+  }
+  function tick(){
+    cx.clearRect(0,0,W,H);
+    nd.forEach(n=>{
+      n.x+=n.vx; n.y+=n.vy;
+      if(n.x<0||n.x>W) n.vx*=-1;
+      if(n.y<0||n.y>H) n.vy*=-1;
+      cx.beginPath(); cx.arc(n.x,n.y,.8,0,Math.PI*2);
+      cx.fillStyle=`rgba(160,185,255,0.04)`; cx.fill();
+    });
+    if(++tm>=30){spawn();tm=0;}
+    const dead=[];
+    cn.forEach((c,i)=>{
+      const na=c.a, nb=c.b;
+      const px=na.x+(nb.x-na.x)*c.p, py=na.y+(nb.y-na.y)*c.p;
+      const col=c.w?`rgba(255,140,0,${c.al||.4})`:`rgba(43,143,255,${c.al||.4})`;
+      cx.beginPath(); cx.moveTo(na.x,na.y); cx.lineTo(px,py);
+      cx.strokeStyle=col; cx.lineWidth=.6; cx.stroke();
+      c.p+=c.s; if(c.p>=1) dead.push(i);
+    });
+    for(let i=dead.length-1;i>=0;i--) cn.splice(dead[i],1);
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+</script>
+</body></html>
