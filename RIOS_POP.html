@@ -393,6 +393,7 @@ select option{background:var(--cd)}
       <button class="btn bg_" onclick="imprimirFormAtual()">🖨️ Imprimir</button>
       <button class="btn bor" onclick="gerarWordFormAtual()">📝 Gerar Word (.docx)</button>
       <button class="btn bg_" onclick="limparForm()">Limpar Formulário</button>
+      <button class="btn brd" id="btn-excluir-atual" style="display:none" onclick="excluirPopAtual()">🗑 Excluir POP</button>
     </div>
   </div>
 
@@ -673,6 +674,23 @@ function clearFormFields(){
   setv('f-cliente', ACTIVE_CLIENTE ? ACTIVE_CLIENTE.nome : '');
   ['rev-body','def-body','resp-body','etapas-body','pcc-body','mat-body','ind-body'].forEach(id=>document.getElementById(id).innerHTML='');
   document.getElementById('ia-parecer-wrap').innerHTML = '';
+  updateBtnExcluirAtual();
+}
+
+function updateBtnExcluirAtual(){
+  const btn = document.getElementById('btn-excluir-atual');
+  if (btn) btn.style.display = editingId ? '' : 'none';
+}
+
+function excluirPopAtual(){
+  const p = pops.find(x=>x.id===editingId); if (!p) return;
+  confirmAction('Excluir POP?', `"${p.titulo}" será removido permanentemente.`, ()=>{
+    pops = pops.filter(x=>x.id!==editingId);
+    localStorage.setItem('rios_pops', JSON.stringify(pops));
+    clearFormFields();
+    toast('POP excluído.','ok');
+    showTab('salvos');
+  });
 }
 
 function limparForm(){
@@ -700,6 +718,7 @@ function salvarPop(){
   localStorage.setItem('rios_pops', JSON.stringify(pops));
   toast('POP salvo: '+f.titulo, 'ok');
   autoBackupServidor();
+  updateBtnExcluirAtual();
   showTab('salvos');
 }
 
@@ -725,7 +744,7 @@ function renderGrid(){
         <button class="btn bg_" style="padding:6px 8px;font-size:10px" onclick="imprimirPop('${p.id}')">🖨️ Imprimir</button>
         <button class="btn bor" style="padding:6px 8px;font-size:10px" onclick="gerarWordPop('${p.id}')">📝 Word</button>
         <button class="btn bg_" style="padding:6px 8px;font-size:10px" onclick="duplicarPop('${p.id}')">⧉ Duplicar</button>
-        <button class="btn brd" style="padding:6px 8px;font-size:10px" onclick="excluirPop('${p.id}')">🗑</button>
+        <button class="btn brd" style="padding:6px 8px;font-size:10px" onclick="excluirPop('${p.id}')">🗑 Excluir</button>
       </div>
     </div>`;
   }).join('');
@@ -735,6 +754,7 @@ function editarPop(id){
   const p = pops.find(x=>x.id===id); if (!p) return;
   editingId = id;
   preencherForm(p);
+  updateBtnExcluirAtual();
   showTab('novo');
 }
 function duplicarPop(id){
@@ -750,6 +770,7 @@ function excluirPop(id){
   confirmAction('Excluir POP?', `"${p.titulo}" será removido permanentemente.`, ()=>{
     pops = pops.filter(x=>x.id!==id);
     localStorage.setItem('rios_pops', JSON.stringify(pops));
+    if (editingId === id) clearFormFields();
     toast('POP excluído.','ok'); renderGrid();
   });
 }
